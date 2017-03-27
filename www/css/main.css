@@ -1,0 +1,457 @@
+#workarea{
+	position: 		absolute;
+	top: 			0px;
+	bottom: 		0px;
+	left: 			0px;
+	right: 			0px;
+	
+	background: 	white;
+}
+
+
+#header{
+	margin: 		0px;
+	width: 			100%;
+	height: 		60px;
+	background: 	#0177D7;
+	line-height: 	60px;
+	color: 			white;
+}	
+
+#header_menu_btn{
+	font-size: 		30px;
+    width: 			30px;
+    margin-left: 	10px;
+    color: 			white;
+    float: 			left;	
+}
+
+#header_user_btn{
+	float: 			right;
+    width: 			30px;
+    font-size: 		30px;
+    margin-right: 	10px;
+}
+
+#header_section_description{
+	float: 			left;
+    text-align: 	center;
+    width: 			calc(100% - 85px);
+}
+
+.section_page{
+	display: none;
+	position: absolute;
+    top: 60px;
+    bottom: 0px;
+    overflow: auto;
+	width: 100%;
+	background: #F7F7F7;
+}
+
+.section_active{
+	display: block;
+}
+
+
+.tablist{
+	list-style: none;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+	background: #FFFFFF;
+}
+
+.tablist>li {
+    padding: 16px;
+    text-align: center;
+    display: inline-block;
+}
+
+
+.tablist>li.active{
+	border-bottom: 2px solid #0177D7;
+    color: #0177D7;
+}
+
+.add_btn {
+    height: 58px;
+    width: 58px;
+    background-color: #0177D7;
+    border-radius: 360px;
+    line-height: 58px;
+    text-align: center;
+    font-size: 38px;
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    -webkit-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    -moz-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    box-shadow: 0px 1px 9px 5px rgba(200,200,220,0.8);
+}
+
+.card {
+    width: calc(100% - 20px);
+    height: 120px;
+    background: #FFFFFF;
+    margin: 10px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.card_day{
+    width: calc(100% - 20px);
+    min-height: 120px;
+    background: #FFFFFF;
+    margin: 10px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
+    transition: 0.3s;	
+	overflow: overlay;
+}
+
+#typeOfSignInHome,#bookinNav {
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
+}
+
+#resource_select_day{
+	background: white;
+    padding: 20px;
+    font-size: 32px;
+    color: gray;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
+}
+
+.tab-listtab {
+    position: absolute;
+    top: 60px;
+    left: 0px;
+    bottom: 10px;
+    right: 0px;
+    overflow: auto;
+}
+
+.post-cursel{
+	position: absolute;
+    top: 146px;
+    left: 0px;
+    bottom: 10px;
+    right: 0px;
+    overflow: auto;
+}
+
+
+.card_guess_id {
+    border: 1px solid gray;
+    width: 80px;
+    height: 80px;
+    margin-left: 10px;
+    border-radius: 360px;
+    line-height: 80px;
+    content: "1";
+    position: relative;
+    top: 20px;
+    font-size: 60px;
+    text-align: center;
+    color: gray;
+}
+
+.card_day_resource_id {
+    
+    width: 50px;
+    height: 100%;
+    margin-left: 10px;
+    line-height: 80px;
+    position: relative;
+    top: 10px;
+    font-size: 60px;
+    text-align: center;
+    color: gray;
+	background-size: 100px;
+	
+}
+
+.card_day_table{
+	margin-top: 10px;
+    margin-bottom: 12px;
+}
+
+.card_resource_info th{
+	text-align: left;
+}
+
+.card_resource_id {
+    border: 1px solid gray;
+    width: 100px;
+    height: 100px;
+    margin-left: 10px;
+    line-height: 80px;
+    position: relative;
+    top: 10px;
+    font-size: 60px;
+    text-align: center;
+    color: gray;
+	background-size: 100px;
+}
+
+.card_resource_info {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    margin-top: -72px;
+    color: gray;
+    font-size: 14px;
+    width: calc(100% - 136px);
+}
+
+
+
+.card_guess_info {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    margin-top: -50px;
+    color: gray;
+    font-size: 14px;
+    width: calc(100% - 122px);
+}
+
+.main_color {
+	color: #0177D7;
+}
+
+.tab-listtab:not(:first-of-type){
+	display: none;
+}
+
+
+.addPerson_select_type_container{
+	margin-left: 20px;
+	
+}
+.form{
+	padding-right: 20px;
+	width: 100%;
+}
+.form td{
+	padding-top:10px;
+}
+
+.form_input_full{
+	width: calc(100% - 12px);
+    padding: 6px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.form_input_half {
+    width: calc(45% - 12px);
+    padding: 7px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.form_td_toggle{
+	line-height: 44px;
+}
+
+
+
+.checkbox {
+    border: 2px solid lightgray;
+    width: 25px;
+    height: 25px;
+}
+
+.chekbox_table{
+	width: 100%;
+    padding-top: 10px;
+    padding-right: 3px;
+}
+
+.checkbox.check,.selected_cur_day,.selected_sch_day{
+	background: #0177D7;
+	color: white;
+}
+.picker__holder{
+	max-width: calc(100% - 50px) !important;
+	top: -250px!important;
+}
+
+.button {
+    width: calc(50% - 50px);
+    padding: 14px;
+    background: darkgrey;
+    text-align: center;
+    color: white;
+    float: left;
+    margin-right: 10px;
+    margin-top: 25px;
+	
+	margin-bottom: 25px;
+}
+
+.button.mc{
+	background-color: #0177D7;
+}
+
+#logout_btn{
+	position: absolute;
+    top: 296px;
+    left: 10px;
+    right: 10px;
+    width: 250px;
+    padding: 14px;
+    background: #0177D7;
+    text-align: center;
+    color: white;
+    float: left;
+    margin-right: 10px;
+    margin-top: 25px;
+	margin-bottom: 25px;
+}
+#cars_table{
+	border-collapse: collapse;
+    width: calc(100% - 20px);
+    margin-top: 9px;
+}
+
+#cars_table thead tr{
+	background-color: #0177D7;
+	color: white;
+}
+#cars_table  th{
+	padding: 10px;
+}
+
+#cars_table  td{
+	padding: 10px;
+	text-align: center;
+	background: white;
+}
+
+.select_car_type{
+	padding: 7px;
+    border-radius: 6px;
+    width: 82px;
+}
+
+.boxModal {
+    max-width: 320px;
+    width: 100%;
+    background: white;
+    padding: 0 0 3% 0;
+
+    height: 225px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -160px;
+    margin-top: -100px;
+    opacity: 1 !important;
+
+}
+
+.boxModal h2 {
+    color: white;
+    font-size: 1.3em;
+    text-align: center;
+    background: #636466;
+    height: 60px;
+    line-height: 60px;
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+.boxModal p {
+    color: #636466;
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+    padding: 3% 0 11% 0;
+}
+
+.boxModal ul {
+    overflow: hidden;
+    width: 75%;
+    padding: 8% 0 11% 0;
+    margin: 0 auto;
+    padding: 2% 0 2% 0;
+	list-style: none;
+}
+
+.boxModal ul li {
+    float: left;
+    margin: 0 20px 0 0;
+}
+
+.boxModal button {
+    color: #FFFFFF;
+    border: none;
+    text-align: center;
+    display: block;
+    width: 100px;
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.boxModal .okBtn {
+    background: #0177D7;
+    margin: 0 auto;
+}
+
+.boxModal .yesBtn {
+    background: #0177D7;
+    margin: 0 auto;
+}
+
+.boxModal .noBtn {
+    background: #636466;
+}
+
+.modalEfika{
+    position: fixed;
+    width: 100%;
+    z-index: 10000;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: none;
+}
+
+.bgModal {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.6;
+}
+
+.pick_cursel_day tr:nth-child(1) td {
+	font-size: 16px;
+	text-align: center;
+	
+	
+}
+.pick_cursel_day tr:nth-child(2) td {
+    border-radius: 360px;
+    border: 1px solid gray;
+    font-size: 16px;
+    height: 32px;
+    width: 32px;
+    text-align: center;
+}
+
+#resource_day_cursel {
+    overflow-x: auto;
+}
+
+
+
+
