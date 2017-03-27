@@ -1,49 +1,606 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu.css" />
+		<link rel="stylesheet" type="text/css" href="css/switch.css" />
+		<link rel="stylesheet" type="text/css" href="css/user.css" />
+		<link rel="stylesheet" type="text/css" href="css/jasjcalendar.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.date.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.time.css" />
+		<link rel="stylesheet" type="text/css" href="lib/select2/css/select2.min.css" />
+		
+		<link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+        <title>Condominus</title>
     </head>
     <body>
         <div class="app">
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <fieldset>
-                <legend>Pushwoosh status:</legend>
-                Push token: <br>
-                <div class="statustext" id="pushToken"></div>
-                Push message: <br>
-                <div class="statustext" id="pushMessage"></div>
-                Push data: <br>
-                <div class="statustext" id="pushData"></div>
-            </fieldset>
+			 <div id="modal"></div>
+			  <nav id="main_menu">
+					<div id="condo_logo">
+						Condominus &nbsp;
+					</div>
+					<ul>
+						<li class="menu_nav nav_li_selected" section-target="home"><a>Inicio</a></li>
+						<li class="menu_nav" section-target="signInHome"><a>Ingresos</a></li>
+						<li class="menu_nav" section-target="bookin"><a>Reservas</a></li>
+						<li class="menu_nav" section-target="bills"><a>Facturas</a></li>
+						<li class="menu_nav" section-target="admin"><a>Administración</a></li>
+					</ul>
+			   </nav>
+			   <section id="workarea">
+					<header id="header">
+					
+						<div id="header_menu_btn">
+							<i class="fa fa-bars" aria-hidden="true"></i>
+						</div>
+						
+						<div id="header_section_description">
+							Inicio
+						</div>
+						
+						<div id="header_user_btn">
+							<i class="fa fa-user" aria-hidden="true"></i>
+						</div>
+					</header>
+					
+					<div section-name="home" class="section_page section_active">
+					pagina de home
+					</div>
+					
+					<div section-name="signInHome" class="section_page">
+						<nav id="typeOfSignInHome">
+							<ul class="tablist" tab-group="typeOfSignInHome">
+								<li class="active" tab-target="guess">Visitas</li>
+								<li tab-target="guess_service">Servicios</li>
+								<li tab-target="residence">Residentes</li>
+							</ul>
+						</nav>
+						<div class="tab-listtab" tab-name="guess">
+							<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th class="main_color">Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th class="main_color">Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th class="main_color">Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+								<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+                                 </div>
+							</div>
+							<div class="card">
+								<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						
+						
+						</div>
+						
+						<div  class="tab-listtab" tab-name="guess_service">
+							<div class="card">
+								<div class="card_guess_id"><i class="fa fa-car" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Luis Alfonso Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						</div>
+						
+						<div  class="tab-listtab" tab-name="residence">
+							<div class="card">
+								<div class="card_guess_id"><i class="fa fa-car" aria-hidden="true"></i></div>
+								<div class="card_guess_info">
+									<table>
+										<tbody>
+											<tr><th>Alejandra Soleira</th></tr>
+											<tr><td>1-1213-1343</td></tr>
+											<tr><td>Propietario</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						</div>
+						<div class="add_btn" section-target="addPerson" section-title="Agregar Ingreso">+</div>
+					</div>
+					
+					<div section-name="bookin" class="section_page">
+						<nav id="bookinNav">
+							<ul class="tablist" tab-group="bookin">
+								<li class="active" tab-target="resource">Amenidades</li>
+								<li tab-target="history">Historial</li>
+							
+							</ul>
+						</nav>
+						
+						<div  class="tab-listtab" tab-name="resource">
+							<div class="card" section-target="resource" section-title="Sala de Juegos" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-3.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Sala de Juegos</th></tr>
+											<tr><td>Todos los días</td></tr>
+											<tr><td>de 8:00  a 22:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						
+							<div class="card" section-target="resource" section-title="Sala de Cine" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-2.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Sala de Cine</th></tr>
+											<tr><td>Todos los días</td></tr>
+											<tr><td>de 8:00  a 22:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						
+							<div class="card" section-target="resource" section-title="Cancha Multideportes" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-4.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Cancha Multideportes</th></tr>
+											<tr><td>Todos los días</td></tr>
+											<tr><td>de 8:00  a 22:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						
+							<div class="card" section-target="resource" section-title="Sala de Negocios" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-7.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Sala de Negocios</th></tr>
+											<tr><td>Todos los días</td></tr>
+											<tr><td>de 8:00  a 21:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+							
+							<div class="card" section-target="resource" section-title="Picina Azotea" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-11.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Picina Azotea</th></tr>
+											<tr><td>Todos los días</td></tr>
+											<tr><td>de 8:00  a 21:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						</div>
+						
+						
+						<div  class="tab-listtab" tab-name="history">
+							<div class="card" section-target="resource" section-title="Picina Azotea" section-fx="">
+								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-11.jpg);"></div>
+								<div class="card_resource_info">
+									<table>
+										<tbody>
+											<tr><th>Picina Azotea</th></tr>
+											<tr><td>16 de abril 2017</td></tr>
+											<tr><td>de 8:00  a 21:00</td>
+											</tr>
+										</tbody>
+									</table>
+								 </div>
+							</div>
+						</div>
+					</div>
+					
+					<div section-name="bills" class="section_page">
+					pagina de bills
+					</div>
+					
+					<div section-name="admin" class="section_page">
+					pagina de admin
+					</div>
+					
+					
+					<div section-name="addPerson" class="section_page">
+						<div class="addPerson_select_type_container">
+						<table class="form">
+							<tr><td>
+								<label>Tipo de persona:</label>
+								<select style="width:100%;">
+									<optgroup label="Visitas">
+										<option>Puntual</option>
+										<option>Tiempo indefinido</option>
+									</optgroup>
+									<optgroup label="Servicios">
+										<option>Limpieza</option>
+										<option>Mantenimiento</option>
+										<option>Cocina</option>
+										<option>Jardinería</option>
+										<option>Jurídica</option>
+										<option>Otros</option>
+										
+									</optgroup>
+									<optgroup label="Residentes">
+										<option>Inquilino</option>
+										<option>Recidente</option>
+										<option>Huesped</option>
+									</optgroup>
+									
+									
+								</select>
+							</td></tr>
+							<tr><td>
+								<label>Nombre:</label>
+								<input class="form_input_full"/>
+							</tr></td>
+							<tr><td>
+								<label>Identificacion:</label>
+								<input class="form_input_full"/>
+							</td></tr>
+							<tr>
+							<td class="form_td_toggle">
+								<label>Notificar llegada:</label>	
+								<label class="switch">
+								  <input type="checkbox">
+								  <div class="slider round"></div>
+								</label>
+							</td>
+							<tr><td class="form_td_toggle">
+								<label>Autorizado Permanente:<label>	
+								<label class="switch">
+								  <input type="checkbox">
+								  <div class="slider round"></div>
+								</label>
+							</td></tr>
+							
+							<tr><td>
+								<label>Fecha:</label><br>
+								<input class="form_input_half datepicker"/> a <input class="form_input_half datepicker"/>
+							</td></tr>
+							
+							<tr><td>
+								<label>Hora:</label><br>
+								<input class="form_input_half timepicker"/> a <input class="form_input_half timepicker"/>
+							</td></tr>
+							
+							
+							</table>
+							
+							<table class="chekbox_table">
+								<tr>
+									<td>L</td><td><div class="checkbox"/></div></td>
+									<td>K</td><td><div class="checkbox check"/></div></td>
+									<td>M</td><td><div class="checkbox"/></div></td>
+									<td>J</td><td><div class="checkbox check"/></div></td>
+								</tr>
+								<tr>
+									
+									<td>V</td><td><div class="checkbox"/></div></td>
+									<td>S</td><td><div class="checkbox"/></div></td>
+									<td>D</td><td><div class="checkbox"/></div></td>
+								</tr>
+							</table>
+							
+							<div id="people_cars">
+								<label>Vehiculos</label>
+								<table id="cars_table" class="form">
+									<thead>
+										<tr>
+											<th>Matricula</th>
+											<th>tipo</th>
+											<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
+										
+										</tr>
+									</thead>
+									<tbody>
+										
+										<tr>
+											<td>JSJ001</td>
+											<td>sedan</td>
+											<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+										</tr>
+										<tr>
+											<td>JSJ001</td>
+											<td>sedan</td>
+											<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
+										</tr>
+									</tbody>
+									</table>
+							</div>
+							
+							<div class="button" id="cancel_people_btn">Cancelar</div>
+							<div class="button mc">Guardar</div>
+						</div>
+						
+						
+						
+					</div>
+					 <div section-name="resource" class="section_page">
+						<div id="resource_select_day">
+							<label>Abril</label> <label>2017</label>
+							<div id="resource_day_cursel">
+								<table class="pick_cursel_day">
+								</table>
+							</div>
+							
+							
+						</div>
+						<div  class="post-cursel" >
+							<div class="card_day" >
+									<div class="card_day_resource_id">12</div>
+									<div class="card_resource_info">
+										<table class="card_day_table">
+											<tbody>
+												<tr><th>Apartamento 103</th></tr>
+												<tr><td>Reservado</td></tr>
+												<tr><td>de 10:00  a 13:00</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="card_day_table">
+											<tbody>
+												<tr><th>Apartamento 103</th></tr>
+												<tr><td>Reservado</td></tr>
+												<tr><td>de 13:00  a 17:00</td>
+												</tr>
+											</tbody>
+										</table>
+									 </div>
+								</div>
+							
+							<div class="card_day" >
+									<div class="card_day_resource_id">28</div>
+									<div class="card_resource_info">
+										<table class="card_day_table">
+											<tbody>
+												<tr><th>Apartamento 201</th></tr>
+												<tr><td>Reservado</td></tr>
+												<tr><td>de 9:00  a 13:00</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="card_day_table">
+											<tbody>
+												<tr><th>Administrativo</th></tr>
+												<tr><td>Reunion condominos</td></tr>
+												<tr><td>de 16:00  a 17:00</td>
+												</tr>
+											</tbody>
+										</table>
+										<table class="card_day_table">
+											<tbody>
+												<tr><th>Administativo</th></tr>
+												<tr><td>Mantenimiento</td></tr>
+												<tr><td>de 17:00  a 21:00</td>
+												</tr>
+											</tbody>
+										</table>
+									 </div>
+								</div>
+							</div>
+						
+						
+						<div class="add_btn" section-target="add_book" section-title="Reservar">+</div>
+					</div>
+					<div section-name="add_book" class="section_page">
+						<div class="addPerson_select_type_container">
+						<table class="form">
+							<tr><td>
+								<label>Amenidad:</label>
+								<select style="width:100%;">
+									<option>Sala de Cine</option>
+									<option>Sala de Negocios</option>
+									<option>Sala de Juegos</option>
+									<option>Multideportes</option>
+									<option>Picina Azotea</option>
+								</select>
+							</td></tr>
+							<tr><td>
+								<label>Fecha:</label><br>
+								<input class="form_input_full datepicker"/> 
+							</td></tr>
+							
+							<tr><td>
+								<label>Hora:</label><br>
+								<input class="form_input_half timepicker"/> a <input class="form_input_half timepicker"/>
+							</td></tr>
+						</table>
+						
+						<div class="button" id="cancel_people_btn">Cancelar</div>
+						<div class="button mc">Guardar</div>
+
+					</div>
+			   </section>
+			   
+			  
+			   
+			   <section id="user_config">
+					<div id="logout_btn">Salir</div>
+			   </section>
+			   
+			   <section class="modalEfika" id="modal2Btn">
+				   <div class="bgModal"></div>
+					<div class="boxModal">
+						<h2></h2>
+						<p></p>
+						<ul>
+							<li>
+								<button class="yesBtn" i18Trans="Yes">Si</button>
+							</li>
+							<li>
+								<button class="noBtn" i18Trans="No">No</button>
+							</li>
+						</ul>
+					</div>
+				</section><!--close modal-->
+		
+				<section class="modalEfika" id="modal1Btn">
+					<div class="bgModal"></div>
+					  <div class="boxModal">
+						<h2></h2>
+						<p></p>
+						<button class="okBtn" i18Trans="OK">OK</button>
+					</div><!--close modal-->
+				</section>
+				
+				<div class="jasj_calendar">
+				
+				</div>
+			   
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+		<script type="text/javascript" src="js/mobile-events.js"></script>
+		<script type="text/javascript" src="js/TouchSwipe.js"></script>
+		<script type="text/javascript" src="lib/select2/js/select2.min.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.date.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.time.js"></script>
+		<script type="text/javascript" src="js/date.js"></script>
+		<script type="text/javascript" src="js/datecou.js"></script>
+		<script type="text/javascript" src="js/generics.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/menu.js"></script>
+		<script type="text/javascript" src="js/user.js"></script>
+		<script type="text/javascript" src="js/people.js"></script>
         
         <script type="text/javascript">
             app.initialize();
