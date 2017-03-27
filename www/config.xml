@@ -3,17 +3,17 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.phonegap.hello-world"
+        id        = "com.efika.condominus"
         version   = "1.0.0">
 
-    <name>Hello World</name>
+    <name>Condominus</name>
 
     <description>
-        Hello World sample application with Pushwoosh Phonegap push notifications plugin integrated
+        Programa de administracion de condominios
     </description>
 
     <author href="http://pushwoosh.com" email="support@pushwoosh.com">
-        Pushwoosh
+        Efika Solutions
     </author>
 
     <!-- Customize your app and platform with the preference element. -->
