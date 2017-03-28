@@ -26,7 +26,15 @@ function calendarMonth(tbl,year,month){
 		if(pointerDate%7 == 6) dayNumbers += "</tr><tr>"
 		pointerDate++;
 	}
-	$(tbl).html(dayNumbers +"</tr></table><table class='navCalendar'><tr><td>LIMPIAR</td><td>CANCELAR</td><td>ACEPTAR</td></tr></table>")
+	$(tbl).html(dayNumbers +"</tr></table><table class='navCalendar'><tr><td class='sch_clean'>LIMPIAR</td><td d class='sch_cancel'>CANCELAR</td><td d class='sch_acept'>ACEPTAR</td></tr></table>")
+}
+
+function getSch(){
+	if($(".selected_sch_day").length > 0){
+		return  $(".selected_sch_day").text()+"/"+(jasjMonth+1)+"/"+jasjYear
+	}else{
+		return "";
+	}
 }
 
 createDateCoursel(".pick_cursel_day",2017,3)
@@ -67,9 +75,28 @@ $(document).on("tapend","#prev_year",function(){
 })
 
 $(document).on("tapend",".jasj_sch_day td",function(){
-	$(".selected_sch_day").removeClass("selected_sch_day");
-	$(this).addClass("selected_sch_day");
+	if($(this).text()!=""){
+		$(".selected_sch_day").removeClass("selected_sch_day");
+		$(this).addClass("selected_sch_day");
+	}
 })
+
+$(document).on("tapend",".sch_acept",function(){
+	$("#"+$('.jasj_calendar').attr("sch-target")).val(getSch());
+	$('.jasj_calendar').hide();
+})
+
+$(document).on("tapend",".sch_cancel",function(){
+	$('.jasj_calendar').hide();
+})
+
+$(document).on("tapend",".sch_clean",function(){
+	$('.jasj_calendar').hide();
+	$(".selected_sch_day").removeClass(".selected_sch_day");
+})
+
+
+
 
 
 

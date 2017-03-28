@@ -331,11 +331,49 @@
 					</div>
 					
 					<div section-name="bills" class="section_page">
-					pagina de bills
+						<nav id="billsNav">
+							<ul class="tablist" tab-group="billsNav">
+								<li class="active" tab-target="Chat">Pendientes</li>
+								<li tab-target="residence">Canceladas</li>
+							</ul>
+						</nav>
+						<div class="tab-listtab" tab-name="Chat">
+						chat
+						</div>
 					</div>
 					
 					<div section-name="admin" class="section_page">
-					pagina de admin
+						<nav id="AdminNav">
+							<ul class="tablist" tab-group="AdminNav">
+								<li class="active" tab-target="Chat">Chat</li>
+								<li tab-target="services">Servicios</li>
+								<li tab-target="request">Solicitudes</li>
+							</ul>
+						</nav>
+						<div class="tab-listtab" tab-name="Chat">
+						<div id="chat_lst_box">
+						<div class="i_said">Hola, tengo una duda<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="he_said">en que te puedo ayudar?<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="i_said">no me ha llegado el cobro de agua de este mes<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="he_said">pero si te llego el de la mensualidad?<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="he_said">o tampoco...<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="i_said">no tampoco, que día pueden enviarmelo<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="i_said">es que es para cancelar eso de una vez<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="he_said">ya te lo envio<div class="said_date">20/01/2010 15:20</div></div>
+						<div class="i_said">gracias :D<div class="said_date">20/01/2010 15:20</div></div>
+						</div>
+						<div id="chat_sender_box">
+							<div id="chat_sender_txt" contenteditable=true>
+							</div>
+							
+							<div id="chat_sender_btn">
+								<i class="fa fa-paper-plane" aria-hidden="true"></i>
+							</div>
+							<div id="chat_sender_ath">
+								<i class="fa fa-paperclip fa-flip-vertical" aria-hidden="true"></i>
+							</div>
+						</div>
+					</div>
 					</div>
 					
 					
@@ -393,7 +431,7 @@
 							
 							<tr><td>
 								<label>Fecha:</label><br>
-								<input class="form_input_half datepicker"/> a <input class="form_input_half datepicker"/>
+								<input class="form_input_half datepicker" id="st_ng_d"/> a <input id="ed_ng_d" class="form_input_half datepicker"/>
 							</td></tr>
 							
 							<tr><td>
@@ -535,7 +573,7 @@
 							</td></tr>
 							<tr><td>
 								<label>Fecha:</label><br>
-								<input class="form_input_full datepicker"/> 
+								<input class="form_input_full datepicker" id="rsv_day"/> 
 							</td></tr>
 							
 							<tr><td>

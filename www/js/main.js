@@ -9,8 +9,12 @@ $(document).on("tapend",".checkbox",function(){
 });
 
 
-$('.datepicker').pickadate()
-$('.timepicker').pickatime()
+$('.datepicker').focus(function(){
+	$('.jasj_calendar').show().attr("sch-target",$(this).attr("id"));
+})
+
+
+//$('.timepicker').pickatime()
 
 
 function uuid() {

@@ -114,7 +114,7 @@
 	overflow: overlay;
 }
 
-#typeOfSignInHome,#bookinNav {
+#typeOfSignInHome,#bookinNav,#AdminNav,#billsNav {
     box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
 }
 
@@ -452,6 +452,120 @@
     overflow-x: auto;
 }
 
+#chat_sender_box {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    max-height: 80%;
+    min-height: 100px;
+    background-color: white;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
+}
 
+#chat_sender_txt {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 75px;
+    bottom: 10px;
+    border: 1px solid lightgrey;
+    background: white;
+    -webkit-box-shadow: inset 4px 4px 5px 3px rgba(0,0,0,0.09);
+    -moz-box-shadow: inset 4px 4px 5px 3px rgba(0,0,0,0.09);
+    box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.09);
+    border-radius: 14px;
+}
+
+#chat_sender_btn {
+    position: absolute;
+    right: 14px;
+    top: 13px;
+    font-size: 25px;
+    width: 48px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    color: #0177D7;
+}
+
+#chat_sender_ath {
+    position: absolute;
+    right: 14px;
+    top: 49px;
+    font-size: 25px;
+    width: 48px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    color: darkgrey;
+}
+
+#chat_lst_box {
+    position: absolute;
+    top: 11px;
+    bottom: 100px;
+    left: 0px;
+    right: 0px;
+    overflow-y: auto;
+}
+
+.arrow_box {
+	position: relative;
+	background: #88b7d5;
+	border: 1px solid #caeaff;
+}
+.arrow_box:after, .arrow_box:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.arrow_box:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #88b7d5;
+	border-width: 20px;
+	margin-top: -20px;
+}
+.arrow_box:before {
+	border-color: rgba(202, 234, 255, 0);
+	border-left-color: #caeaff;
+	border-width: 21px;
+	margin-top: -21px;
+}
+
+.said_date{
+	text-align: right;
+    font-size: 8px;
+    margin-top: 5px;
+}
+
+.i_said {
+    background: white;
+    width: auto;
+    border-radius: 20px;
+    max-width: 60%;
+    margin: 10px;
+    border: 1px solid lightgray;
+    float: right;
+    padding: 12px;
+}
+
+.he_said {
+    padding: 12px;
+    max-width: 60%;
+    float: left;
+    background: #0177D7;
+    width: auto;
+    border-radius: 15px;
+    margin-left: 10px;
+    border: 1px solid lightgray;
+    color: white;
+}
 
 
