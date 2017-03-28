@@ -475,6 +475,7 @@
     -moz-box-shadow: inset 4px 4px 5px 3px rgba(0,0,0,0.09);
     box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.09);
     border-radius: 14px;
+	overflow-x: auto;
 }
 
 #chat_sender_btn {
@@ -545,10 +546,15 @@
     margin-top: 5px;
 }
 
+.chat_message{
+	width: 100%;
+	float: left;
+	margin-top: -12px;
+}
 .i_said {
     background: white;
     width: auto;
-    border-radius: 15px;
+    border-radius: 6px;
     max-width: 60%;
     margin: 10px;
     border: 1px solid lightgray;
@@ -562,10 +568,12 @@
     float: left;
     background: #0177D7;
     width: auto;
-    border-radius: 15px;
+    border-radius: 8px;
     margin-left: 10px;
     border: 1px solid lightgray;
     color: white;
 }
+
+
 
 
