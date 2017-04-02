@@ -37,6 +37,24 @@ function getSch(){
 	}
 }
 
+function getItem(b){
+	var senpos= b.scrollTop()/44;
+	var integer = parseInt(senpos)
+	var decimal = Math.round(senpos-integer);
+	
+	return decimal+integer;
+}
+
+function getTmr(){
+	var h = $(".jasj_td_scroll").eq(0);
+	var m = $(".jasj_td_scroll").eq(1);
+	var t = $(".jasj_td_scroll").eq(2);
+	
+	
+	
+	return h.find("p:eq("+getItem(h)+")").text()+":"+m.find("p:eq("+getItem(m)+")").text()+" "+t.find("p:eq("+getItem(t)+")").text();
+}
+
 createDateCoursel(".pick_cursel_day",2017,3)
 calendarMonth(".jasj_calendar",2017,3)
 
@@ -106,6 +124,18 @@ $(document).on("tapend",".sch_cancel",function(){
 $(document).on("tapend",".sch_clean",function(){
 	$('.jasj_calendar').hide();
 	$(".selected_sch_day").removeClass(".selected_sch_day");
+})
+
+$(document).on("tapend",".tmr_acept",function(){
+	$("#"+$('.jasj_time').attr("tmr-target")).val(getTmr());
+	$('.jasj_time').hide();
+})
+$(document).on("tapend",".tmr_cancel",function(){
+	$('.jasj_time').hide();
+})
+$(document).on("tapend",".tmr_clean",function(){
+	
+	$('.jasj_time').hide();
 })
 
 $.fn.scrollEnd = function(callback, timeout) {          
