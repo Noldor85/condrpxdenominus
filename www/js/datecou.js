@@ -95,6 +95,25 @@ $(document).on("tapend",".sch_clean",function(){
 	$(".selected_sch_day").removeClass(".selected_sch_day");
 })
 
+$.fn.scrollEnd = function(callback, timeout) {          
+  $(this).scroll(function(){
+    var $this = $(this);
+    if ($this.data('scrollTimeout')) {
+      clearTimeout($this.data('scrollTimeout'));
+    }
+    $this.data('scrollTimeout', setTimeout(callback,timeout,$(this)));
+  });
+};
+
+
+$(".jasj_td_scroll").scrollEnd(function(b){
+	var senpos= b.scrollTop()/20;
+	var integer = parseInt(senpos)
+	var decimal = Math.round(senpos-integer);
+	b.scrollTop((integer+decimal)*20);
+	console.log(senpos,integer,decimal)
+},300)
+
 
 
 
