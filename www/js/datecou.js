@@ -47,6 +47,19 @@ $(document).on("tapend",".pick_cursel_day tr:nth-child(2) td",function(ev){
 	}
 })
 
+$(document).on("tapend",".tmr_up td",function(){
+	var target = $(".jasj_td_scroll").eq($(this).index());
+	target.scrollTop(target.scrollTop()+40);
+
+});
+
+
+$(document).on("tapend",".tmr_down td",function(){
+	var target = $(".jasj_td_scroll").eq($(this).index());
+	target.scrollTop(target.scrollTop()-40);
+
+});
+
 var jasjMonth = 3;
 var jasjYear = 2017;
 
@@ -107,17 +120,12 @@ $.fn.scrollEnd = function(callback, timeout) {
 
 
 $(".jasj_td_scroll").scrollEnd(function(b){
-	var senpos= b.scrollTop()/20;
+	var senpos= b.scrollTop()/44;
 	var integer = parseInt(senpos)
 	var decimal = Math.round(senpos-integer);
-	b.scrollTop((integer+decimal)*20);
+	b.scrollTop((integer+decimal)*44);
 	console.log(senpos,integer,decimal)
 },300)
-
-
-
-
-
 
 
 

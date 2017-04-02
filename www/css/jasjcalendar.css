@@ -88,3 +88,10 @@
     top: 100px;
     opacity: 0.6
 }
+
+
+table.navTimer {
+    width: 100%;
+    margin-top: 65px;
+    text-align: center;
+}
