@@ -49,14 +49,14 @@ $(document).on("tapend",".pick_cursel_day tr:nth-child(2) td",function(ev){
 
 $(document).on("tapend",".tmr_up td",function(){
 	var target = $(".jasj_td_scroll").eq($(this).index());
-	target.scrollTop(target.scrollTop()+40);
+	target.scrollTop(target.scrollTop()-40);
 
 });
 
 
 $(document).on("tapend",".tmr_down td",function(){
 	var target = $(".jasj_td_scroll").eq($(this).index());
-	target.scrollTop(target.scrollTop()-40);
+	target.scrollTop(target.scrollTop()+40);
 
 });
 
