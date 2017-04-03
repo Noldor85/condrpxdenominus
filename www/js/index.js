@@ -124,7 +124,7 @@ var app = {
 	pouchTest: function(){
 		db = new PouchDB('condominus');
 		alert(0)
-		db.sync('condominus', 'http://192.168.1.3:5984/condominus', {
+		PouchDB.sync('condominus', 'http://192.168.1.3:5984/condominus', {
 			  live: true,
 			  retry: true
 			}).on('change', function (info) {
