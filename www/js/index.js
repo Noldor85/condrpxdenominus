@@ -122,7 +122,7 @@ var app = {
     },
 	
 	pouchTest: function(){
-		db = new PouchDB('my_database');
+		db = new PouchDB('http://192.168.1.3:5984/condominus');
 		db.put({
 		  _id: 'mydoc',
 		  title: 'Heroes'
