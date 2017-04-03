@@ -129,7 +129,7 @@ var app = {
 		}).then(function (response) {
 		  // handle response
 		}).catch(function (err) {
-		  alert(err);
+		  alert(JSON.stringify(err));
 		});
 		
 		db.get('mydoc').then(function(doc) {
@@ -141,7 +141,7 @@ var app = {
 		}).then(function(response) {
 		  alert(JSON.stringify(response))
 		}).catch(function (err) {
-		  alert(err);
+		  alert(JSON.stringify(err));
 		});
 		
 		
