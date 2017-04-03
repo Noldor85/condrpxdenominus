@@ -119,6 +119,32 @@ var app = {
         initPushwoosh();
         app.receivedEvent('deviceready');
     },
+	
+	pouchTest: function(){
+		db = new PouchDB('my_database');
+		db.put({
+		  _id: 'mydoc',
+		  title: 'Heroes'
+		}).then(function (response) {
+		  // handle response
+		}).catch(function (err) {
+		  alert(err);
+		});
+		
+		db.get('mydoc').then(function(doc) {
+		  return db.put({
+			_id: 'mydoc',
+			_rev: doc._rev,
+			title: "Let's Dance"
+		  });
+		}).then(function(response) {
+		  alert(JSON.stringify(response))
+		}).catch(function (err) {
+		  alert(err);
+		});
+		
+		
+	},
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
