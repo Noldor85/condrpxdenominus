@@ -123,20 +123,26 @@ var app = {
 	
 	pouchTest: function(){
 		db = new PouchDB('condominus');
+		alert(0)
 		db.sync('condominus', 'http://192.168.1.3:5984/condominus', {
 			  live: true,
 			  retry: true
 			}).on('change', function (info) {
-			  alert("cambio")
+			  alert(1)
 			}).on('paused', function (err) {
 			  // replication paused (e.g. replication up to date, user went offline)
+			  alert(2)
 			}).on('active', function () {
 			  // replicate resumed (e.g. new changes replicating, user went back online)
+			  alert(3)
 			}).on('denied', function (err) {
 			  // a document failed to replicate (e.g. due to permissions)
+			  alert(4)
 			}).on('complete', function (info) {
+				alert(5)
 			  // handle complete
 			}).on('error', function (err) {
+				alert(6)
 			  // handle error
 			});
 
@@ -145,6 +151,7 @@ var app = {
 		  title: 'Heroes'
 		}).then(function (response) {
 		  // handle response
+		   alert(JSON.stringify(response))
 		}).catch(function (err) {
 		  alert(JSON.stringify(err));
 		});
