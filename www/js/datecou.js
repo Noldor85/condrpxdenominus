@@ -15,14 +15,14 @@ function createDateCoursel(tbl,year,month){
 }
 
 
-function calendarMonth(tbl,year,month){
+function calendarMonth(tbl,year,month,day){
 	var pointerDate   = new Date(year,month,1,0,0,0,0).getDay();
 	var dayNumbers = "<table><tr><td id='prev_month'><i class='fa fa-chevron-left' aria-hidden='true'></i></td><td style='width:110px'>"+mt[month]+"</td><td id='next_month'><i class='fa fa-chevron-right' aria-hidden='true'></i></td><td id='prev_year'><i class='fa fa-chevron-left' aria-hidden='true'></i></td><td>"+year+"</td><td id='next_year'><i class='fa fa-chevron-right' aria-hidden='true'></i></td></tr></table><table class='jasj_sch_day'><tr><th>D</th><th>L</th><th>K</th><th>M</th><th>J</th><th>V</th><th>S</th></tr><tr>"
 	for(var e=0 ; e< pointerDate; e++){
 		dayNumbers += "<td></td>"
 	}
 	for (var i = 1; i <= Date.getDaysInMonth(year, month); i++){
-		dayNumbers += "<td>"+i+"</td>";
+		dayNumbers += "<td "+(i==day? "class='selected_sch_day'":"")+">"+i+"</td>";
 		if(pointerDate%7 == 6) dayNumbers += "</tr><tr>"
 		pointerDate++;
 	}
@@ -56,7 +56,7 @@ function getTmr(){
 }
 
 createDateCoursel(".pick_cursel_day",2017,3)
-calendarMonth(".jasj_calendar",2017,3)
+calendarMonth(".jasj_calendar",2000,3)
 
 
 $(document).on("tapend",".pick_cursel_day tr:nth-child(2) td",function(ev){
@@ -78,8 +78,7 @@ $(document).on("tapend",".tmr_down td",function(){
 
 });
 
-var jasjMonth = 3;
-var jasjYear = 2017;
+
 
 
 
@@ -113,8 +112,9 @@ $(document).on("tapend",".jasj_sch_day td",function(){
 })
 
 $(document).on("tapend",".sch_acept",function(){
-	$("#"+$('.jasj_calendar').attr("sch-target")).val(getSch());
+	$("#"+$('.jasj_calendar').attr("sch-target")).text(getSch());
 	$('.jasj_calendar').hide();
+	
 })
 
 $(document).on("tapend",".sch_cancel",function(){
@@ -124,17 +124,18 @@ $(document).on("tapend",".sch_cancel",function(){
 $(document).on("tapend",".sch_clean",function(){
 	$('.jasj_calendar').hide();
 	$(".selected_sch_day").removeClass(".selected_sch_day");
+	$("#"+$('.jasj_calendar').attr("sch-target")).text("");
 })
 
 $(document).on("tapend",".tmr_acept",function(){
-	$("#"+$('.jasj_time').attr("tmr-target")).val(getTmr());
+	$("#"+$('.jasj_time').attr("tmr-target")).text(getTmr());
 	$('.jasj_time').hide();
 })
 $(document).on("tapend",".tmr_cancel",function(){
 	$('.jasj_time').hide();
 })
 $(document).on("tapend",".tmr_clean",function(){
-	
+	$("#"+$('.jasj_time').attr("tmr-target")).text("");
 	$('.jasj_time').hide();
 })
 
@@ -156,6 +157,26 @@ $(".jasj_td_scroll").scrollEnd(function(b){
 	b.scrollTop((integer+decimal)*44);
 	console.log(senpos,integer,decimal)
 },300)
+
+
+$('.datepicker').tapend(function(e){
+	e.preventDefault(); 
+	$('.jasj_calendar').show().attr("sch-target",$(this).attr("id"));
+	var d;
+	if($(this).text()!=""){
+		 d = $(this).text().split("/");
+		jasjYear 	= d[2];
+		jasjMonth 	= d[1]-1;
+		jasjDay 	= d[0];
+	}else{
+		 d= new Date();
+		 jasjYear 	= d.getFullYear()
+		 jasjMonth 	= d.getMonth()
+		 jasjDay 	= d.getDate();
+		 console.log(jasjMonth)
+	}
+	calendarMonth(".jasj_calendar",jasjYear,jasjMonth,jasjDay)
+})
 
 
 

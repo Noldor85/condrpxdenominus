@@ -9,12 +9,9 @@ $(document).on("tapend",".checkbox",function(){
 });
 
 
-$('.datepicker').focus(function(e){
-	e.preventDefault(); 
-	$('.jasj_calendar').show().attr("sch-target",$(this).attr("id"));
-})
 
-$('.timepicker').focus(function(e){
+
+$('.timepicker').tapend(function(e){
 	e.preventDefault(); 
 	$('.jasj_time').show().attr("tmr-target",$(this).attr("id"));
 })

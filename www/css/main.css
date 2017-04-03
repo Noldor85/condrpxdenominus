@@ -246,6 +246,8 @@
     padding: 6px;
     border: 1px solid lightgray;
     border-radius: 6px;
+	background: white;
+    height: 15px;
 }
 
 .form_input_half {
@@ -253,6 +255,8 @@
     padding: 7px;
     border: 1px solid lightgray;
     border-radius: 6px;
+	background: white;
+    height: 15px;
 }
 
 .form_td_toggle{
@@ -289,7 +293,7 @@
     text-align: center;
     color: white;
     float: left;
-    margin-right: 10px;
+    margin-right: 20px;
     margin-top: 25px;
 	
 	margin-bottom: 25px;
@@ -574,6 +578,18 @@
     color: white;
 }
 
+.left{
+	float: left;
+}
+
+.right{
+	float: right;
+}
+.to_txt{
+	float: left;
+    line-height: 30px;
+    margin-left: 10px;
+}
 
 
 
