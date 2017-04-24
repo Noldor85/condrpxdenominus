@@ -98,6 +98,27 @@
     margin: 10px;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,0.1);
     transition: 0.3s;
+	overflow:hidden;
+}
+
+.card.for_swipe{
+	margin-top: -120px;
+}
+
+.delete_swipe {
+	height: 120px;
+    background-color: indianred;
+    overflow: hidden;
+    line-height: 114px;
+    text-align: center;
+    color: white;
+    width: 100px;
+    font-size: 35px;
+}
+
+.swipe_area{
+	margin-left: 0px;
+    display: inline-flex;
 }
 
 .card:hover {
@@ -147,17 +168,16 @@
 
 .card_guess_id {
     border: 1px solid gray;
-    width: 80px;
-    height: 80px;
+    width: 82px;
+    height: 82px;
     margin-left: 10px;
     border-radius: 360px;
     line-height: 80px;
     content: "1";
-    position: relative;
-    top: 20px;
     font-size: 60px;
     text-align: center;
     color: gray;
+    margin-top: 21px;
 }
 
 .card_day_resource_id {
@@ -199,7 +219,7 @@
 }
 
 .card_resource_info {
-    display: inline-block;
+         display: inline-block;
     float: right;
     margin-right: 10px;
     margin-top: -72px;
@@ -211,13 +231,11 @@
 
 
 .card_guess_info {
-    display: inline-block;
-    float: right;
-    margin-right: 10px;
-    margin-top: -50px;
-    color: gray;
+     color: gray;
     font-size: 14px;
-    width: calc(100% - 122px);
+    width: 241px;
+    margin-left: 20px;
+    margin-top: 27px;
 }
 
 .main_color {
