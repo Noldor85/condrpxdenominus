@@ -20,10 +20,11 @@ $(document).on("tapend","[car-id]",function(){
 
 
 function addPeople(tab,obj){
-	var newCard =	'<div class="card " id="people_'+obj.guestId+'">\
+	var cardWidth = $(document).innerWidth()-20;
+	var newCard =	'<div class="card " id="people_'+obj.guestId+'"  style="width: '+(cardWidth)+'px">\
 			<div class="swipe_area">\
 				<div class="card_guess_id"><i class="fa fa-user" aria-hidden="true"></i></div>\
-				<div class="card_guess_info">\
+				<div class="card_guess_info" style="width: '+(cardWidth-114)+'px">\
 					<table>\
 						<tbody>\
 							<tr><th>'+obj.name+'</th></tr>\

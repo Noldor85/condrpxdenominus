@@ -238,6 +238,10 @@
     margin-top: 27px;
 }
 
+.card_guess_info th{
+	text-align: left;
+}
+
 .main_color {
 	color: #0177D7;
 }
