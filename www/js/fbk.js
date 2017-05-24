@@ -1,4 +1,4 @@
-  window.fbAsyncInit = function() {
+  /*window.fbAsyncInit = function() {
     FB.init({
       appId      : '298960577183466',
       xfbml      : true,
@@ -15,7 +15,7 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
-
+*/
 
 
 $(".loginBtn--facebook").tapend(function(){
@@ -26,7 +26,7 @@ $(".loginBtn--facebook").tapend(function(){
       if(result.declined.length > 0) {
          alert("The User declined something!");
       }
-      /* ... */
+      
    },
    onFailure: function(result) {
       if(result.cancelled) {
