@@ -15,7 +15,7 @@
 
 
 
-
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
 		<link rel="stylesheet" type="text/css" href="css/main.css" />
 		<link rel="stylesheet" type="text/css" href="css/menu.css" />
 		<link rel="stylesheet" type="text/css" href="css/switch.css" />
@@ -30,6 +30,40 @@
         <title>Condominus</title>
     </head>
     <body>
+    	<div id="login">
+    		<div id="login_box">
+    			<div id="login_logo">
+    			</div>
+    			 <div class="login_input">      
+    			  <input  required>
+			      <span class="highlight"></span>
+			      <span class="bar"></span>
+			      <label>Email</label>
+			    </div>
+			    <div class="login_input">      
+    			  <input type="password" required>
+			      <span class="highlight"></span>
+			      <span class="bar"></span>
+			      <label>Password</label>
+			    </div>
+			    	<button class="loginBtn login--Credentials">
+				  Login 
+				</button>
+    			<button class="loginBtn loginBtn--facebook">
+				  Login with Facebook
+				</button>
+
+				<button class="loginBtn loginBtn--google">
+				  Login with Google
+				</button>
+    			<a href="">No puedo accseder a mi cuenta</a>
+    			<a href="">Registrar cuenta</a>
+
+    			
+    		</div>
+
+    		
+    	</div>
         <div class="app">
 			 <div id="modal"></div>
 			  <nav id="main_menu">
@@ -546,6 +580,7 @@
 		<script type="text/javascript" src="js/people.js"></script>
 		<script type="text/javascript" src="js/chat.js"></script>
 		<script type="text/javascript" src="js/sim.js"></script>
+		<script type="text/javascript" src="js/fbk.js"></script>
         
         <script type="text/javascript">
             app.initialize();

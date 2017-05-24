@@ -628,6 +628,9 @@
   -webkit-animation: ripple .5s ease-out;
   animation: ripple .5s ease-out;
 }
+
+
+
 @-webkit-keyframes 
 ripple { to {
  -webkit-transform: scale(1.5);
