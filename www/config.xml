@@ -42,10 +42,10 @@
     <gap:plugin name="org.apache.cordova.camera" source="npm"/>
     <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
 	 <!--<plugin spec="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git" />-->
-    <plugin spec="https://github.com/Wizcorp/phonegap-facebook-plugin.git">
+<gap:plugin name="com.phonegap.plugins.facebookconnect" source="npm">
             <param name="APP_ID" value="298960577183466" />
             <param name="APP_NAME" value="CondoSoft" />
-    </plugin>
+    </gap:plugin>
 	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-evcore-extbuild-free.git" />
     <gap:plugin name="org.apache.cordova.console" source="npm"/>
     <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
