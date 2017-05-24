@@ -42,7 +42,7 @@
     <gap:plugin name="org.apache.cordova.camera" source="npm"/>
     <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
 	 <!--<plugin spec="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git" />-->
-<gap:plugin name="ordova-plugin-facebook" source="npm">
+<gap:plugin name="cordova-plugin-facebook" source="npm">
             <param name="APP_ID" value="298960577183466" />
             <param name="APP_NAME" value="CondoSoft" />
     </gap:plugin>
