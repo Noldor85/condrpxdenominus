@@ -19,13 +19,14 @@
 
 
 $(".loginBtn--facebook").tapend(function(){
+  alert("brn  workuun")
     FB.login(function(response) {
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      alter(JSON.stringify(response))
+      alert(JSON.stringify(response))
     } else {
       // The person is not logged into this app or we are unable to tell. 
       alert("no conecta");
     }
   });
-})
+  }) 
