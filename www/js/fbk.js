@@ -19,14 +19,22 @@
 
 
 $(".loginBtn--facebook").tapend(function(){
-  alert("brn  workuun")
-    FB.login(function(response) {
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      alert(JSON.stringify(response))
-    } else {
-      // The person is not logged into this app or we are unable to tell. 
-      alert("no conecta");
-    }
-  });
+  alert(20000)
+ CordovaFacebook.login({
+   permissions: ['email', 'user_likes'],
+   onSuccess: function(result) {
+      if(result.declined.length > 0) {
+         alert("The User declined something!");
+      }
+      /* ... */
+   },
+   onFailure: function(result) {
+      if(result.cancelled) {
+         alert("The user doesn't like my app");
+      } else if(result.error) {
+         alert("There was an error:" + result.errorLocalized);
+      }
+   }
+});
+ alert(20001)
   }) 
