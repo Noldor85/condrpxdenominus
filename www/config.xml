@@ -45,9 +45,9 @@
 
      
      <gap:plugin name="cordova-plugin-googleplus" source="npm">
-        <param name="REVERSED_CLIENT_ID" value="21542939527-k37qud3829khulhpggshl1l9gh9k8hmq.apps.googleusercontent.com" />
+        <param name="REVERSED_CLIENT_ID" value="21542939527-5e5ob9q6os4qid4mph9pc7rvp2597j6p.apps.googleusercontent.com" />
     </gap:plugin>
-    
+
 <gap:plugin name="cordova-plugin-facebook" source="npm">
             <param name="FACEBOOK_APP_ID" value="298960577183466" />
             <param name="FACEBOOK_DISPLAY_NAME" value="CondoSoft" />
