@@ -25,6 +25,8 @@ $(".loginBtn--facebook").tapend(function(){
    onSuccess: function(result) {
       if(result.declined.length > 0) {
          alert("The User declined something!");
+      }else{
+        alert(JSON.stringify(result));
       }
       
    },
