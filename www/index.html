@@ -35,13 +35,13 @@
     			<div id="login_logo">
     			</div>
     			 <div class="login_input">      
-    			  <input  required>
+    			  <input id="login_user" required>
 			      <span class="highlight"></span>
 			      <span class="bar"></span>
 			      <label>Email</label>
 			    </div>
 			    <div class="login_input">      
-    			  <input type="password" required>
+    			  <input id="login_psw" type="password" required>
 			      <span class="highlight"></span>
 			      <span class="bar"></span>
 			      <label>Password</label>
@@ -560,6 +560,7 @@
 				</div>
 			   
         </div>
+        <script type="text/javascript" src="js/globals.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="SQLitePlugin.js"></script>
 		<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
@@ -570,10 +571,23 @@
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.date.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.time.js"></script>
+		<script type="text/javascript" src="lib/rsa/prng4.js"></script>
+		<script type="text/javascript" src="lib/rsa/jsbn.js"></script>
+		<script type="text/javascript" src="lib/rsa/rng.js"></script>
+		<script type="text/javascript" src="lib/rsa/jsbn2.js"></script>
+		<script type="text/javascript" src="lib/rsa/rsa.js"></script>
+		<script type="text/javascript" src="lib/rsa/base64.js"></script>
+		<script type="text/javascript" src="js/deviceready/pushNotification.js"></script>
+		<script type="text/javascript" src="js/deviceready/db.js"></script>
+		<script type="text/javascript" src="js/deviceready/fs.js"></script>
+		<script type="text/javascript" src="js/deviceready/buttons.js"></script>
+		<script type="text/javascript" src="js/deviceready/specialEvents.js"></script>
+		<script type="text/javascript" src="js/whirpool.js"></script>
 		<script type="text/javascript" src="js/date.js"></script>
 		<script type="text/javascript" src="js/datecou.js"></script>
 		<script type="text/javascript" src="js/generics.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/menu.js"></script>
 		<script type="text/javascript" src="js/user.js"></script>
@@ -584,10 +598,5 @@
 
 		<script type="text/javascript" src="js/fbk.js"></script>
 		<script type="text/javascript" src="js/google.js"></script>
-        
-        
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
