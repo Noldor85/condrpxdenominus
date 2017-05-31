@@ -87,6 +87,21 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+function generateAESPairs(){
+	var key = []
+	var iv  = []
+	for(var k=0; k<16;k++){
+		key.push(Math.floor(Math.random() * 255 ))
+	}
+	for(var k=0; k<16;k++){
+		iv.push(Math.floor(Math.random() * 255 ))
+	}
+	
+	return {k: key , s: iv}
+}
+
+
+
 function RSAencript(text) {
 		var before = new Date();
 		var rsa = new RSAKey();
@@ -101,5 +116,12 @@ function RSAencript(text) {
 
 	
 function _post(url,obj,cb){
-	return $.post(ServerIP+url,{"rsaKey" : RSAencript(JSON.stringify(obj))},cb)
+	var pair = generateAESPairs()
+	var textBytes = aesjs.utils.utf8.toBytes(JSON.stringify(obj));
+	var aesOfb = new aesjs.ModeOfOperation.ofb(pair.k, pair.s);
+	var encryptedBytes = aesOfb.encrypt(textBytes);
+	return $.post(ServerIP+url,{
+			k : RSAencript(JSON.stringify(pair)),
+			c : aesjs.utils.hex.fromBytes(encryptedBytes)
+		},cb)
 }	
