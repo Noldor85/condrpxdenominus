@@ -31,6 +31,10 @@ function sendPassword(){
 
 //$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
 
+$("#logout_btn").tapend(function(){
+	db.destroy()
+})
+
 $(".login_input input").focus(function(){$("#login_info_txt").html("")})
 
 
