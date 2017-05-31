@@ -1,9 +1,11 @@
 var pushNotification;
 
+
 function onDeviceReady_pn(){
 	
 	push = PushNotification.init({
 		android: {
+			senderID: "125107308805"
 		},
 		browser: {
 			pushServiceURL: 'http://push.api.phonegap.com/v1/push'
