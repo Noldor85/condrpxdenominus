@@ -1,4 +1,5 @@
 function checkPreviusLogin(){
+	navigator.splashscreen.hide();
 	db.get('loginInfo').then(function(doc) {
 		tempObj = {
 			loginId : doc.loginId,
