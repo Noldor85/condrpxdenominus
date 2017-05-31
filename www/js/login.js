@@ -1,11 +1,11 @@
 function checkPreviusLogin(){
+	 navigator.splashscreen.show();
 	db.get('loginInfo').then(function(doc) {
 		tempObj = {
 			loginId : doc.loginId,
 			bookingVersion : 0,
 			billVersion : 0,
-			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
-			pushNumber : typeof device !== 'undefined' ? PN : "Browser"
+			uuid : typeof device !== 'undefined' ? device.uuid : "Browser"
 		}
 		console.log(tempObj)
 				_post("/security/1.0/checkLogin",tempObj,function(data){
