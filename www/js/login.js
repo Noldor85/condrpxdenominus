@@ -34,11 +34,12 @@ $(".login_input input").focus(function(){$("#login_info_txt").html("")})
 
 
 $(".login--Credentials").tapend(function(){
+	alert(1)
 		tempObj ={
 		user : $("#login_user").val(),
 		password : HexWhirlpool($("#login_psw").val()),
-		uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
-		pushNumber : typeof device !== 'undefined' ? PN : "Browser"
+		uuid : "a",//typeof device !== 'undefined' ? device.uuid : "Browser",
+		pushNumber : "b"// typeof device !== 'undefined' ? PN : "Browser"
 	}
 	_post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
