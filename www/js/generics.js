@@ -101,5 +101,5 @@ function RSAencript(text) {
 
 	
 function _post(url,obj,cb){
-	$.post(ServerIP+url,{"rsaKey" : RSAencript(JSON.stringify(obj))},cb)
+	return $.post(ServerIP+url,{"rsaKey" : RSAencript(JSON.stringify(obj))},cb)
 }	

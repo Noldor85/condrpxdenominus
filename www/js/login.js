@@ -11,7 +11,10 @@ function checkPreviusLogin(){
 				_post("/security/1.0/checkLogin",tempObj,function(data){
 					loginObg = data;
 					$("#login").fadeOut();
+					navigator.splashscreen.hide();
 				})			
+	}).catch(function(err){
+		  navigator.splashscreen.hide();
 	});
 }
 
@@ -26,6 +29,9 @@ function sendPassword(){
 }
 
 
+$(".login_input input").focus(function(){$("#login_info_txt").html("")})
+
+
 $(".login--Credentials").tapend(function(){
 		tempObj ={
 		user : $("#login_user").val(),
@@ -33,9 +39,15 @@ $(".login--Credentials").tapend(function(){
 		uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
 		pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 	}
-	_post("/security/1.0/login",tempObj,function(data){
+	_post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
 		db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 	
+	}).fail(function(e){
+		if(e.status == 401){
+			$("#login_info_txt").html("Bad Credentials")
+		}else{
+			$("#login_info_txt").html(JSON.parse(e.responseText).error)
+		}
 	})
 });
