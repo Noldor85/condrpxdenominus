@@ -36,6 +36,7 @@
     <preference name="android-build-tool" value="gradle" />
 	<preference name="StatusBarOverlaysWebView" value="true" />
 	<preference name="android-windowSoftInputMode" value="stateVisible|adjustResize"/>
+
     <!-- Plugins -->
 
     <!-- Core plugins -->
@@ -67,6 +68,7 @@
     <gap:plugin name="org.apache.cordova.media" source="npm"/>
     <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
     <gap:plugin name="org.apache.cordova.vibration" source="npm"/>
+	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<gap:plugin name="phonegap-plugin-push " source="npm" />
 
 
@@ -99,8 +101,7 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
 
 
-
-    <access origin="*"/>
+    <access origin="*" />
 	<allow-intent href="http://*/*" />
 <allow-intent href="https://*/*" />
 <allow-navigation href="http://*/*" />
