@@ -154,6 +154,7 @@ function tokenHandler (result) {
     // here is where you might want to send it the token for later use.
     console.log('device token = ' + result);
 	PN = result;
+	alert(PN)
 }
 /*
 if(device.platform == "Win32NT"){
