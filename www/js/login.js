@@ -29,7 +29,7 @@ function sendPassword(){
 }
 
 
-$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
+//$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
 
 $(".login_input input").focus(function(){$("#login_info_txt").html("")})
 
