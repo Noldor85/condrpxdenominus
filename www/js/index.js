@@ -1,9 +1,8 @@
 
 function onDeviceReady(){
 	onDeviceReady_db();
-	alert("login")
-	/*try{
-	//	onDeviceReady_fm();
+	try{
+		onDeviceReady_fm();
 		onDeviceReady_pn();
 		document.addEventListener("backbutton", backbutton, true);
 	    document.addEventListener("menubutton", menubutton, true);
@@ -15,7 +14,7 @@ function onDeviceReady(){
 	setTimeout(function(){ $(".wConteiner div p").show();},3000);
 	checkPreviusLogin();
 	console.log("onDeviceReady");
-	*/
+	
 }
 
 
