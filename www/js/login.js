@@ -41,6 +41,7 @@ $(".login--Credentials").tapend(function(){
 		uuid : "a",//typeof device !== 'undefined' ? device.uuid : "Browser",
 		pushNumber : "b"// typeof device !== 'undefined' ? PN : "Browser"
 	}
+	try{
 	_post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
 		db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
@@ -52,4 +53,8 @@ $(".login--Credentials").tapend(function(){
 			$("#login_info_txt").html(JSON.parse(e.responseText).error)
 		}
 	})
+	}catch(e){
+		alert("error")
+		alert(JSON.stringify(e))
+	}
 });
