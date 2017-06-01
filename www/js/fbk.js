@@ -25,6 +25,11 @@ $(".loginBtn--facebook").tapend(function(){
       if(result.declined.length > 0) {
          alert("The User declined something!");
       }else{
+		 tempObj = {
+			facebookKey : HexWhirlpool(result.accessToken),
+			uuid : '001',
+			pushNumber : '002'
+		}
        _post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
