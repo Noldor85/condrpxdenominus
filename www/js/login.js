@@ -83,7 +83,7 @@ $(".login--Credentials").tapend(function(){
 		}).fail(function(e){
 			if(e.status == 401){
 				$("#login_info_txt").html("Bad Credentials")
-			}if(e.status == 401){
+			}if(e.status == 402){
 				socialRegister(tempObj)
 				
 			}else{
