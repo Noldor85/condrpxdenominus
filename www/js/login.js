@@ -1,6 +1,7 @@
 function checkPreviusLogin(){
 	 navigator.splashscreen.show();
 	db.get('loginInfo').then(function(doc) {
+		loginId= doc.loginId;
 		tempObj = {
 			loginId : doc.loginId,
 			bookingVersion : 0,
@@ -44,6 +45,7 @@ function socialRegister(auth){
 					_post("/security/1.0/register",Object.assign(tempObj,auth),function(data,status){
 						$("#login").fadeOut();
 						showInfoD("Registrado","Bienvenido a su condominio")
+						loginId = data.loginId;
 						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 					}).fail(function(e){
 						showInfoD("Error","Ha ocurrido un error en el registro")
@@ -60,7 +62,16 @@ function socialRegister(auth){
 //$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
 
 $("#logout_btn").tapend(function(){
-	db.destroy()
+	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
+		_post("/security/1.0/logout",{loginId :loginId},function(data,status){
+			db.destroy()
+			location.reload();
+		}).fail(function(e){
+			showInfoD("Error","Algo salio mal, intente luego")
+		})
+	},function(){
+		
+	})
 })
 
 $(".login_input input").focus(function(){$("#login_info_txt").html("")})
@@ -77,7 +88,7 @@ $(".login--Credentials").tapend(function(){
 		try{
 		_post("/security/1.0/login",tempObj,function(data,status){
 			$("#login").fadeOut();
-			
+			 loginId = data.loginId;
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		
 		}).fail(function(e){
