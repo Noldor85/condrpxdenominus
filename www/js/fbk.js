@@ -27,7 +27,7 @@ $(".loginBtn--facebook").tapend(function(){
       }else{
 		  console.log(result)
 		 tempObj = {
-			facebookKey : HexWhirlpool(result.accessToken),
+			facebookKey : HexWhirlpool(result.userID),
 			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser" 
 		}
@@ -36,7 +36,7 @@ $(".loginBtn--facebook").tapend(function(){
 		console.log(data)
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		}).fail(function(e){
-			socialRegister({facebookKey : HexWhirlpool(result.accessToken)})
+			socialRegister({facebookKey : HexWhirlpool(result.userID)})
 		})
 	}
       
