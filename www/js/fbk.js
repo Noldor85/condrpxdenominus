@@ -25,6 +25,7 @@ $(".loginBtn--facebook").tapend(function(){
       if(result.declined.length > 0) {
          alert("The User declined something!");
       }else{
+		  console.log(result)
 		 tempObj = {
 			facebookKey : HexWhirlpool(result.accessToken),
 			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
