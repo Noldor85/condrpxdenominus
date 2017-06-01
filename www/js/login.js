@@ -28,6 +28,20 @@ function sendPassword(){
 
 }
 
+function socialRegister(authType,token){
+	showAlert("Usuario No Registrado","Desa registrar su usuario?",function(){
+		cordova.plugins.barcodeScanner.scan(function (result) {
+            if(!result.cancelled)
+            {
+                if(result.format == "QR_CODE")
+                {
+					alert(result.text)
+				}
+			}
+      })
+	})
+}
+
 
 //$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
 

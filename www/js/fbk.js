@@ -25,17 +25,12 @@ $(".loginBtn--facebook").tapend(function(){
       if(result.declined.length > 0) {
          alert("The User declined something!");
       }else{
-        alert(JSON.stringify(result));
-		 cordova.plugins.barcodeScanner.scan(
-        function (result) {
-            if(!result.cancelled)
-            {
-                if(result.format == "QR_CODE")
-                {
-					alert(result.text)
-				}
-			}
-      })
+       _post("/security/1.0/login",tempObj,function(data,status){
+		$("#login").fadeOut();
+			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
+		}).fail(function(e){
+			socialRegister("fbk",result.accessToken)
+		})
 	}
       
    },
