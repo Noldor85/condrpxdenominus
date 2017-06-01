@@ -34,7 +34,7 @@ $(".loginBtn--facebook").tapend(function(){
 		$("#login").fadeOut();
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		}).fail(function(e){
-			socialRegister("fbk",result.accessToken)
+			socialRegister({facebookKey : HexWhirlpool(result.accessToken)})
 		})
 	}
       
