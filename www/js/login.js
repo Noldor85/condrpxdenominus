@@ -41,7 +41,7 @@ function socialRegister(auth){
 						pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 					}
 					
-					_post("/security/1.0/login",Object.assign(tempObj,auth),function(data,status){
+					_post("/security/1.0/register",Object.assign(tempObj,auth),function(data,status){
 						$("#login").fadeOut();
 						showInfoD("Registrado","Bienvenido a su condominio")
 						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
