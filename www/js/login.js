@@ -28,13 +28,26 @@ function sendPassword(){
 
 }
 
-function socialRegister(authType,token){
+function socialRegister(auth){
 	showAlert("Usuario No Registrado","Desa registrar su usuario?",function(){
 		cordova.plugins.barcodeScanner.scan(function (result) {
             if(!result.cancelled)
             {
                 if(result.format == "QR_CODE")
                 {
+					var tempObj = {
+						uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
+						pushNumber : typeof device !== 'undefined' ? PN : "Browser"
+					}
+					
+					_post("/security/1.0/login",Object.assign(tempObj,auth),function(data,status){
+						$("#login").fadeOut();
+						showInfoD("Registrado","Bienvenido a su condominio")
+						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
+					}).fail(function(e){
+						showInfoD("Error","Ha ocurrido un error en el registro")
+						console.log(e);
+					})
 					alert(result.text)
 				}
 			}
@@ -53,7 +66,7 @@ $(".login_input input").focus(function(){$("#login_info_txt").html("")})
 
 
 $(".login--Credentials").tapend(function(){
-		tempObj ={
+	var tempObj ={
 		user : $("#login_user").val(),
 		password : HexWhirlpool($("#login_psw").val()),
 		uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
