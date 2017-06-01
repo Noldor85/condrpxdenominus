@@ -65,7 +65,7 @@ $("#logout_btn").tapend(function(){
 	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
 		_post("/security/1.0/logout",{loginId :loginId},function(data,status){
 			db.destroy()
-			location.reload();
+			$("#login").fadeIn();
 		}).fail(function(e){
 			showInfoD("Error","Algo salio mal, intente luego")
 		})

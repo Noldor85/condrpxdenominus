@@ -17,7 +17,7 @@ $(".loginBtn--google").tapend(function(){
 		}).fail(function(e){
 			socialRegister({"googleKey"  : HexWhirlpool(result.userId)})
 		})
-        consle.log(result); // do something useful instead of alerting 
+        console.log(result); // do something useful instead of alerting 
       },
       function (msg) {
         alert('error: ' + msg);
