@@ -36,6 +36,7 @@ function socialRegister(auth){
                 if(result.format == "QR_CODE")
                 {
 					var tempObj = {
+						qrCode : JSON.parse(result.text).qrValue,
 						uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
 						pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 					}
