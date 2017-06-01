@@ -67,27 +67,34 @@ $(".login_input input").focus(function(){$("#login_info_txt").html("")})
 
 
 $(".login--Credentials").tapend(function(){
-	var tempObj ={
-		user : $("#login_user").val(),
-		password : HexWhirlpool($("#login_psw").val()),
-		uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
-		pushNumber : typeof device !== 'undefined' ? PN : "Browser"
-	}
-	try{
-	_post("/security/1.0/login",tempObj,function(data,status){
-		$("#login").fadeOut();
-		
-		db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
-	
-	}).fail(function(e){
-		if(e.status == 401){
-			$("#login_info_txt").html("Bad Credentials")
-		}else{
-			$("#login_info_txt").html(JSON.parse(e.responseText).error)
+	if(emailRegEx.test($("#login_user").val())){	
+		var tempObj ={
+			user : $("#login_user").val().toLowerCase(),
+			password : HexWhirlpool($("#login_psw").val()),
+			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
+			pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 		}
-	})
-	}catch(e){
-		alert("error")
-		alert(JSON.stringify(e))
+		try{
+		_post("/security/1.0/login",tempObj,function(data,status){
+			$("#login").fadeOut();
+			
+			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
+		
+		}).fail(function(e){
+			if(e.status == 401){
+				$("#login_info_txt").html("Bad Credentials")
+			}if(e.status == 401){
+				socialRegister(tempObj)
+				
+			}else{
+				$("#login_info_txt").html(JSON.parse(e.responseText).error)
+			}
+		})
+		}catch(e){
+			alert("error")
+			alert(JSON.stringify(e))
+		}
+	}else{
+		$("#login_info_txt").html("Your user is not an email")
 	}
 });
