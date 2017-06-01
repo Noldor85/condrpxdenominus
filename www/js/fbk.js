@@ -27,11 +27,12 @@ $(".loginBtn--facebook").tapend(function(){
       }else{
 		 tempObj = {
 			facebookKey : HexWhirlpool(result.accessToken),
-			uuid : '001',
-			pushNumber : '002'
+			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
+			pushNumber : typeof device !== 'undefined' ? PN : "Browser" 
 		}
        _post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
+		console.log(data)
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		}).fail(function(e){
 			socialRegister({facebookKey : HexWhirlpool(result.accessToken)})
