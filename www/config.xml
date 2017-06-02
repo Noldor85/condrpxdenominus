@@ -40,7 +40,7 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-	<gap:plugin name="phonegap-plugin-push" source="npm" />
+	<gap:plugin name="phonegap-plugin-push" source="npm" spec="2.0.0"/>
     <gap:plugin name="cordova-plugin-statusbar" source="npm"/>
     <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
     <gap:plugin name="org.apache.cordova.camera" source="npm"/>
