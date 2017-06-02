@@ -31,7 +31,7 @@ $(".loginBtn--facebook").tapend(function(){
 			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser" 
 		}
-       _post("/security/1.0/login",tempObj,function(data,status){
+       _post("/security/login",tempObj,function(data,status){
 		   loginObj= data
 		   fillUserConfig(data)
 		$("#login").fadeOut();

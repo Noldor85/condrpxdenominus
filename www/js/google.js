@@ -9,7 +9,7 @@ $(".loginBtn--google").tapend(function(){
 			uuid : typeof device !== 'undefined' ? device.uuid : "Browser",
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser" 
 		}
-       _post("/security/1.0/login",tempObj,function(data,status){
+       _post("/security/login",tempObj,function(data,status){
 		$("#login").fadeOut();
 		console.log(data)
 		 fillUserConfig(data)

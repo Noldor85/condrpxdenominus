@@ -9,7 +9,7 @@ function checkPreviusLogin(){
 			uuid : typeof device !== 'undefined' ? device.uuid : "Browser"
 		}
 		console.log(tempObj)
-				_post("/security/1.0/checkLogin",tempObj,function(data){
+				_post("/security/checkLogin",tempObj,function(data){
 					loginObj = data;
 					 fillUserConfig(data)
 					$("#login").fadeOut();
@@ -43,7 +43,7 @@ function socialRegister(auth){
 						pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 					}
 					
-					_post("/security/1.0/register",Object.assign(tempObj,auth),function(data,status){
+					_post("/security/register",Object.assign(tempObj,auth),function(data,status){
 						$("#login").fadeOut();
 						showInfoD("Registrado","Bienvenido a su condominio")
 						loginId = data.loginId;
@@ -65,7 +65,7 @@ function socialRegister(auth){
 
 $("#logout_btn").tapend(function(){
 	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
-		_post("/security/1.0/logout",{loginId :loginId},function(data,status){
+		_post("/security/logout",{loginId :loginId},function(data,status){
 			db.destroy()
 			$("#login").fadeIn();
 		}).fail(function(e){
@@ -88,7 +88,7 @@ $(".login--Credentials").tapend(function(){
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 		}
 		try{
-		_post("/security/1.0/login",tempObj,function(data,status){
+		_post("/security/login",tempObj,function(data,status){
 			$("#login").fadeOut();
 			 loginId = data.loginId;
 			 loginObj= data

@@ -1,4 +1,4 @@
-var pushNotification;
+
 
 
 function onDeviceReady_pn(){

@@ -22,7 +22,7 @@ $(".authIntegration_google").tapend(function(){
 			googleKey  : HexWhirlpool(result.userId),
 			userId: loginObj.userId
 			}
-		_post("/security/1.0/update/credentials",tempObj,function(data,status){
+		_post("/security/update/credentials",tempObj,function(data,status){
 			showInfoD("Autenticado","Ahora esta autenticado con Google")
 			
 		}).fail(function(e){
@@ -45,7 +45,7 @@ $(".authIntegration_fbk").tapend(function(){
 			facebookKey : HexWhirlpool(result.userID),
 			userId: loginObj.userId
 		}
-		_post("/security/1.0/update/credentials",tempObj,function(data,status){
+		_post("/security/update/credentials",tempObj,function(data,status){
 			showInfoD("Autenticado","Ahora esta autenticado con Facebook")
 			
 		}).fail(function(e){
