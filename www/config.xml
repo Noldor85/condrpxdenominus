@@ -40,7 +40,7 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-	
+	<gap:plugin name="phonegap-plugin-push" source="npm" />
     <gap:plugin name="cordova-plugin-statusbar" source="npm"/>
     <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
     <gap:plugin name="org.apache.cordova.camera" source="npm"/>
@@ -70,7 +70,7 @@
     <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
     <gap:plugin name="org.apache.cordova.vibration" source="npm"/>
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-	<gap:plugin name="phonegap-plugin-push" source="npm" />
+	
 
 
     <!-- Define app icon for each platform. -->
