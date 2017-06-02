@@ -32,6 +32,7 @@ $(".loginBtn--facebook").tapend(function(){
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser" 
 		}
        _post("/security/1.0/login",tempObj,function(data,status){
+		   loginObj= data
 		   fillUserConfig(data)
 		$("#login").fadeOut();
 		console.log(data)

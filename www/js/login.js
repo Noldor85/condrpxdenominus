@@ -10,7 +10,7 @@ function checkPreviusLogin(){
 		}
 		console.log(tempObj)
 				_post("/security/1.0/checkLogin",tempObj,function(data){
-					loginObg = data;
+					loginObj = data;
 					 fillUserConfig(data)
 					$("#login").fadeOut();
 					navigator.splashscreen.hide();
@@ -47,6 +47,7 @@ function socialRegister(auth){
 						$("#login").fadeOut();
 						showInfoD("Registrado","Bienvenido a su condominio")
 						loginId = data.loginId;
+						loginObj= data
 						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 					}).fail(function(e){
 						showInfoD("Error","Ha ocurrido un error en el registro")
@@ -90,6 +91,7 @@ $(".login--Credentials").tapend(function(){
 		_post("/security/1.0/login",tempObj,function(data,status){
 			$("#login").fadeOut();
 			 loginId = data.loginId;
+			 loginObj= data
 			  fillUserConfig(data)
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		

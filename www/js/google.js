@@ -14,6 +14,7 @@ $(".loginBtn--google").tapend(function(){
 		console.log(data)
 		 fillUserConfig(data)
 		loginId = data.loginId;
+		loginObj= data
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		}).fail(function(e){
 			socialRegister({"googleKey"  : HexWhirlpool(result.userId)})
