@@ -60,6 +60,7 @@
     </gap:plugin>
 	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-evcore-extbuild-free.git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
+	<plugin spec="https://github.com/ToniKorin/PushPlugin.git" />
     <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
     <gap:plugin name="org.apache.cordova.device" source="npm"/>
     <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
