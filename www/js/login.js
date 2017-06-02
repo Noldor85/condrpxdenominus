@@ -11,6 +11,7 @@ function checkPreviusLogin(){
 		console.log(tempObj)
 				_post("/security/1.0/checkLogin",tempObj,function(data){
 					loginObg = data;
+					 fillUserConfig(data)
 					$("#login").fadeOut();
 					navigator.splashscreen.hide();
 				})			
@@ -89,6 +90,7 @@ $(".login--Credentials").tapend(function(){
 		_post("/security/1.0/login",tempObj,function(data,status){
 			$("#login").fadeOut();
 			 loginId = data.loginId;
+			  fillUserConfig(data)
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		
 		}).fail(function(e){

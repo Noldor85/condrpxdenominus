@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  $("select").select2({
+/*  $("select").select2({
 	  placeholder: "Tipo de persona",
-  });
+  });*/
 });
 
 $(document).on("tapend",".checkbox",function(){

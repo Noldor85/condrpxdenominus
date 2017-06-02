@@ -12,6 +12,7 @@ $(".loginBtn--google").tapend(function(){
        _post("/security/1.0/login",tempObj,function(data,status){
 		$("#login").fadeOut();
 		console.log(data)
+		 fillUserConfig(data)
 		loginId = data.loginId;
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		}).fail(function(e){
