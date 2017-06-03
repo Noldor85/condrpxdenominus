@@ -685,6 +685,14 @@
     margin: -1px;
 }
 
+#personalProfile span{
+	float: right;
+	margin-top: 35px;
+	width: 182px;
+	text-overflow: ellipsis;
+	color: white;
+}
+
 
 #myProperties{
 	width: calc(100% - 20px);
@@ -693,6 +701,8 @@
     margin-right: 10px;
     position: absolute;
     bottom: 240px;
+    border: 1px solid lightblue;
+    background: white;
 }
 
 .close_modal_btn{
@@ -703,6 +713,14 @@
     font-size: 25px;
 
 	
+}
+
+#profilePicture {
+    border-radius: 50%;
+    margin: 14px;
+	height: 50px;
+    width: 50px;
+
 }
 
 #add_estate_btn {
