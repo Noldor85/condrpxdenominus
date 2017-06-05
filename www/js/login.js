@@ -14,6 +14,9 @@ function checkPreviusLogin(){
 					 fillUserConfig(data)
 					$("#login").fadeOut();
 					navigator.splashscreen.hide();
+					if (cordova.platformId == 'android') {
+			StatusBar.backgroundColorByHexString("#4066b3");
+		}
 				})			
 	}).catch(function(err){
 		  navigator.splashscreen.hide();
@@ -45,6 +48,9 @@ function socialRegister(auth){
 					
 					_post("/security/register",Object.assign(tempObj,auth),function(data,status){
 						$("#login").fadeOut();
+						if (cordova.platformId == 'android') {
+							StatusBar.backgroundColorByHexString("#4066b3");
+						}
 						showInfoD("Registrado","Bienvenido a su condominio")
 						loginId = data.loginId;
 						loginObj= data
@@ -68,6 +74,7 @@ $("#logout_btn").tapend(function(){
 		_post("/security/logout",{loginId :loginId},function(data,status){
 			db.destroy()
 			$("#login").fadeIn();
+			
 		}).fail(function(e){
 			showInfoD("Error","Algo salio mal, intente luego")
 		})
@@ -90,6 +97,9 @@ $(".login--Credentials").tapend(function(){
 		try{
 		_post("/security/login",tempObj,function(data,status){
 			$("#login").fadeOut();
+			if (cordova.platformId == 'android') {
+				StatusBar.backgroundColorByHexString("#4066b3");
+			}
 			 loginId = data.loginId;
 			 loginObj= data
 			  fillUserConfig(data)

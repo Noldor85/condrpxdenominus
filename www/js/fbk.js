@@ -37,10 +37,15 @@ $(".loginBtn--facebook").tapend(function(){
 		   loginObj= data
 		   fillUserConfig(data)
 		$("#login").fadeOut();
+		if (cordova.platformId == 'android') {
+			StatusBar.backgroundColorByHexString("#4066b3");
+		}
 		console.log(data)
 			loginId = data.loginId;
-			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
-			db.upsert('fbkToken', {token: result.accessToken}).then(function(doc){console.log(doc)})
+			console.log({token: result.accessToken})
+			db.upsert('loginInfo',data).then(function(doc){console.log(doc)}).fail(function(e){console.log(e)})
+			db.upsert('fbkToken', {token: result.accessToken}).then(function(doc){console.log(doc)}).fail(function(e){console.log(e)})
+			
 		}).fail(function(e){
 			socialRegister({facebookKey : HexWhirlpool(result.userID)})
 		})
