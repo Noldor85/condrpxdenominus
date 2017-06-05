@@ -45,8 +45,11 @@ $(".loginBtn--facebook").tapend(function(){
 			
 			token = {token: result.accessToken} 
 			console.log(token)
-			db.upsert('fbkToken', token).then(function(doc){"token",console.log(doc)}).catch(function(e){"error  001:",console.log(e)})
-			db.upsert('loginInfo',data).then(function(doc){"info",console.log(doc)}).catch(function(e){"error  002:",console.log(e)})
+			
+			db.upsert('loginInfo',data).then(function(doc){
+				"info",console.log(doc)
+				db.upsert('fbkToken', token).then(function(doc){"token",console.log(doc)}).catch(function(e){"error  001:",console.log(e)})
+			}).catch(function(e){"error  002:",console.log(e)})
 		}).fail(function(e){
 			socialRegister({facebookKey : HexWhirlpool(result.userID)})
 		})
