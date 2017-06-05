@@ -40,7 +40,7 @@ $(".loginBtn--facebook").tapend(function(){
 		if (cordova.platformId == 'android') {
 			StatusBar.backgroundColorByHexString("#4066b3");
 		}
-		console.log(data)
+			console.log(data)
 			loginId = data.loginId;
 			
 			token = {token: result.accessToken} 
