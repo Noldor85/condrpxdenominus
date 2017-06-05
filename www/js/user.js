@@ -1,6 +1,7 @@
 $("#header_user_btn").tapend(function(){
 	
-	db.get('fbkTkn').then(function(doc) {
+	db.get('fbkToken').then(function(doc) {
+		console.log()
 		$("#profilePicture").prop("src","https://graph.facebook.com/me/picture?access_token="+doc.token)
 		
 	}).catch(function(e){
