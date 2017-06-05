@@ -115,7 +115,6 @@
 	<allow-navigation href="http://*/*" />
 	<allow-navigation href="https://*/*" />
 	
-	<preference name="android-manifest/application/activity/@android:theme" value="@android:style/Theme.translucent"/>
-
+	<preference name="android-manifest/application/activity/@android:theme" value="@android:style/Theme.DeviceDefault" />
 
 </widget>
