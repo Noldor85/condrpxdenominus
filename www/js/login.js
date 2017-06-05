@@ -73,6 +73,7 @@ $("#logout_btn").tapend(function(){
 	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
 		_post("/security/logout",{loginId :loginId},function(data,status){
 			db.destroy()
+			onDeviceReady_db()
 			$("#login").fadeIn();
 			
 		}).fail(function(e){
