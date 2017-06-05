@@ -35,6 +35,7 @@ $(".loginBtn--facebook").tapend(function(){
 		}
        _post("/security/login",tempObj,function(data,status){
 		   loginObj= data
+		   fillUserConfig(data)
 		$("#login").fadeOut();
 		if (cordova.platformId == 'android') {
 			StatusBar.backgroundColorByHexString("#4066b3");
