@@ -4,18 +4,18 @@
 
 
 #condo_logo {
-	width: 250px;
-	height: 250px;
-	border-bottom: 2px solid #2E3037;
-	background-image: url(../img/logo.png);
-	background-size: cover;
-	color: white;
-	text-align: right;
-	line-height: 476px;
-	background-size: 200px 200px;
-	background-repeat: no-repeat;
-	background-position-x: 25px;
-	background-position-y: 25px;
+    width: 250px;
+    height: 140px;
+    background-image: url(../img/logo.png);
+    background-size: cover;
+    color: white;
+    text-align: right;
+    background-color: #0177D7;
+    line-height: 257px;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position-x: 70px;
+    background-position-y: 25px;
 }
 
 #main_menu{
@@ -44,7 +44,7 @@
 
 #main_menu li {
 	border-bottom: 1px solid #303238;
-	color: #4A4C51;
+	color: white;
 	font-size: 16px;
 	padding-top: 20px;
 	padding-bottom: 20px;
@@ -66,7 +66,6 @@
 .nav_li_selected {
 	background-color: #0177D7;
 	color: white !important;
-	border-left: 4px solid;
 }
 
 #people_cars{
