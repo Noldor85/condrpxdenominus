@@ -107,6 +107,11 @@
     <gap:splash src="res/screen/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/screen/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
+	
+	
+	<gap:config-file platform="android" parent="/manifest">
+		 <activity android:theme="@android:style/Theme.Holo.Light.NoActionBar" />
+	</gap:config-file>
 
 
     <access origin="*" />
