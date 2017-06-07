@@ -1,0 +1,75 @@
+.chat_lst_element{
+      display: flex;
+    background: white;
+    padding: 10px;
+    margin-top: 5px;
+    width: calc(100% + 53px);
+    justify-content: space-between;
+}
+
+.chat_lst_element_picture{
+
+    flex: 0 0 60px;
+    font-size: 37px;
+    background: lightgrey;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 360px;
+    height: 60px;
+    color: white;
+
+}
+
+
+
+.chat_lst_element_info{
+	padding-left: 12px;
+	flex: 10;
+}
+
+.chat_lst_element_right{
+	display: flex;
+}
+
+.chat_lst_element_who{
+	font-weight: bolder;
+}
+
+.chat_lst_element_lastMsg{
+	color: gray;
+    height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    margin-right: 15px;
+}
+
+.chat_lst_element_lastMsgDate{
+	font-size: 10px;
+}
+
+.chat_lst_element_msgQty{
+	line-height: 18px;
+    margin-right: 6px;
+    height: 18px;
+    flex: 0 0 18px;
+    background: #0177D7;
+    border-radius: 360px;
+    color: white;
+    text-align: center;
+    font-size: 9px;
+    margin-right: 25px;
+	
+}
+
+.removeChat {
+    background: indianred;
+    margin: -10px;
+    width: 80px;
+    font-size: 32px;
+    text-align: center;
+    line-height: 80px;
+    color: white;
+}

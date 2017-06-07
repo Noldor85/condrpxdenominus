@@ -20,6 +20,7 @@
 		<link rel="stylesheet" type="text/css" href="css/menu.css" />
 		<link rel="stylesheet" type="text/css" href="css/switch.css" />
 		<link rel="stylesheet" type="text/css" href="css/user.css" />
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
 		<link rel="stylesheet" type="text/css" href="css/jasjcalendar.css" />
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.css" />
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.date.css" />
@@ -76,8 +77,8 @@
 						<li class="menu_nav" section-target="signInHome"><a>Ingresos</a></li>
 						<li class="menu_nav" section-target="bookin"><a>Reservas</a></li>
 						<li class="menu_nav" section-target="bills"><a>Facturas</a></li>
-						<li class="menu_nav" section-target="admin"><a>Servicios</a></li>
-						<li class="menu_nav" section-target="admin"><a>Chat</a></li>
+						<li class="menu_nav" section-target="service"><a>Servicios</a></li>
+						<li class="menu_nav" section-target="chat"><a>Chat</a></li>
 					</ul>
 			   </nav>
 			   <section id="workarea">
@@ -254,16 +255,96 @@
 						chat
 						</div>
 					</div>
-					
-					<div section-name="admin" class="section_page">
-						<nav id="AdminNav">
+
+					<div section-name="chat" class="section_page">
+						<nav id="ChatNav">
 							<ul class="tablist" tab-group="AdminNav">
-								<li class="active" tab-target="Chat">Chat</li>
+								<li class="active" tab-target="Chat">Chats</li>
+								<li tab-target="Employee">Personal</li>
+								<li tab-target="Department">Departamentos</li>
+							</ul>
+						</nav>
+
+						<div class="tab-listtab" tab-name="Chat">
+							<div class="chat_lst_element">
+								<div class="chat_lst_element_picture">
+									<i class="fa fa-user"></i>
+								</div>
+
+								<div class="chat_lst_element_info">
+									<div class="chat_lst_element_who">
+										Pedro Artavia
+									</div> 
+
+									<div class="chat_lst_element_lastMsg">
+										El ultimo mensaje no llego bien
+									</div> 
+
+									<div class="chat_lst_element_lastMsgDate">
+										12 de abril 2017
+									</div> 
+								</div>
+								<div class="chat_lst_element_right">
+									<div class="chat_lst_element_msgQty">
+										4
+									</div> 
+
+									<div class="removeChat">
+									    <i class="fa fa-trash-o" aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+						
+
+
+							<div class="chat_lst_element">
+								<div class="chat_lst_element_picture">
+									<i class="fa fa-users"></i>
+								</div>
+
+								<div class="chat_lst_element_info">
+									<div class="chat_lst_element_who">
+										Pedro Artavia
+									</div> 
+
+									<div class="chat_lst_element_lastMsg">
+										El ultimo mensaje no llego bien
+									</div> 
+
+									<div class="chat_lst_element_lastMsgDate">
+										12 de abril 2017
+									</div> 
+								</div>
+
+								<div class="chat_lst_element_right">
+									<div class="chat_lst_element_msgQty">
+										4
+									</div> 
+
+									<div class="removeChat">
+									    <i class="fa fa-trash-o" aria-hidden="true"></i>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="tab-listtab" tab-name="Employee">
+						</div>
+
+						<div class="tab-listtab" tab-name="Department">
+						</div>
+
+
+					
+					<div section-name="service" class="section_page">
+						<nav id="ServiceNav">
+							<ul class="tablist" tab-group="AdminNav">
 								<li tab-target="services">Servicios</li>
 								<li tab-target="request">Solicitudes</li>
 							</ul>
 						</nav>
-						<div class="tab-listtab" tab-name="Chat">
+						<div class="tab-listtab" tab-name="Chat2">
 						<div id="chat_lst_box">
 						<div class="i_said">Hola, tengo una duda<div class="said_date">20/01/2010 15:20</div></div>
 						<div class="he_said">en que te puedo ayudar?<div class="said_date">20/01/2010 15:20</div></div>

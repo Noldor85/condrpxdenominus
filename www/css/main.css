@@ -154,6 +154,7 @@
     bottom: 10px;
     right: 0px;
     overflow: auto;
+    overflow-x: hidden; 
 }
 
 .post-cursel{
