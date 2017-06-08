@@ -18,4 +18,12 @@ function onDeviceReady_db(){
 			});
 		
 	}
+
+	db.get4Guest = function(id,guest,callback){
+		return db.get(id+guest)
+	}
+
+	db.upsert4Guest = function(id,guest,data,callback){ 
+		return db.upsert(id+guest,data,callback);
+	}
 }

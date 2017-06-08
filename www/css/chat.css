@@ -64,6 +64,28 @@
 	
 }
 
+.chat_contact {
+    background: white;
+    padding: 15px;
+    margin-top: 1px;
+}
+
+.chat_contact span{
+	float: right;
+}
+
+.chat_contact i{
+	border: 1px solid lightgray;
+    color: gray;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+
+
 .removeChat {
     background: indianred;
     margin: -10px;

@@ -128,3 +128,7 @@ function _post(url,obj,cb){
 			c : aesjs.utils.hex.fromBytes(encryptedBytes)
 		},cb)
 }	
+
+loginInfo = function(callback){
+	return db.get("loginInfo").then(callback)
+}

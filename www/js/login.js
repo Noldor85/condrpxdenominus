@@ -15,8 +15,14 @@ function checkPreviusLogin(){
 					$("#login").fadeOut();
 					navigator.splashscreen.hide();
 					if (cordova.platformId == 'android') {
-			StatusBar.backgroundColorByHexString("#4066b3");
-		}
+						StatusBar.backgroundColorByHexString("#4066b3");
+					}
+				}).fail(function(e){
+					$("#login").fadeOut();
+					navigator.splashscreen.hide();
+					if (cordova.platformId == 'android') {
+						StatusBar.backgroundColorByHexString("#4066b3");
+					}
 				})			
 	}).catch(function(err){
 		  navigator.splashscreen.hide();
