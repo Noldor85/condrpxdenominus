@@ -165,15 +165,23 @@ $(document).on("tapend",".fa-download",function(){
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
-			downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+			try{
+					downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+					console.log("en teoria bajo")
+			}catch(e){
+				console.log(e)
+			}
+		
 			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
 		}).fail(function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
 	})
 })
 
 $(document).on("tapend",".prevImage",function(ev){
-	$("#imgPreview").css({"background-image" :"url("+ $(this).attr("src")+")"}).fadeIn()
+	if(checkPress(ev)){
+		$("#imgPreview").css({"background-image" :"url("+ $(this).attr("src")+")"}).fadeIn()
 	$("#imgPreview_actionBar").slideDown()
+	}
 })
 
 $(document).on("tapend","#imgPreview",function(ev){
