@@ -166,6 +166,7 @@ $(document).on("tapend",".fa-download",function(){
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
 			try{
+				
 					downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
 					console.log("en teoria bajo")
 			}catch(e){
@@ -189,6 +190,7 @@ $(document).on("tapend","#imgPreview",function(ev){
 })
 
 $(document).on("tapend","#imgPreview_actionBar .fa-times",function(ev){
+	ev.stopPropagation();
 	$("#imgPreview").fadeOut();
 })
 
