@@ -90,6 +90,18 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+function giveJson(string){
+	try
+	{
+	  return JSON.parse(string);
+	 
+	}
+	catch(e)
+	{
+	  return false
+	}
+}
+
 function generateAESPairs(){
 	var key = []
 	var iv  = []

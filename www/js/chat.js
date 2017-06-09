@@ -1,3 +1,6 @@
+const regex = /^(data:.*\/.*?;base64,)(.*)$/
+chatBar ="";
+
 document.getElementById("chat_sender_txt").addEventListener("input", function() {
     if($("#chat_sender_txt").text() != ""){
 		$("#chat_sender_btn .fa-microphone").removeClass("fa-microphone").addClass("fa-paper-plane");
@@ -13,6 +16,8 @@ $("#chat_sender_btn").tapend(function(){
 		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").text()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
 	}
 });
+
+
 
 
 function makeChatSwipe (selector){
@@ -42,8 +47,61 @@ function makeChatSwipe (selector){
 	})
 }
 
+
+
+
+function insertMsg(from,msg){
+	var dom;
+	var obj
+	let m;
+	if ((m = regex.exec(msg.message)) !== null) {
+		msg.message='<a href="'+msg.message+'"><img src="'+msg.message+'"/><a>'
+	}else if(( obj = giveJson(msg.message)) !=false){
+		console.log(obj)
+		if(obj.attachment == false){
+			msg.message = "<audio controls></audio>"
+		}else{
+			if(1){//if file not in disk
+				msg.message = `<i class="fa fa-download big" aria-hidden="true"></i><br><span>`+obj.name+`</span>`
+			}else{
+				msg.message = `<i class="fa fa-file big" aria-hidden="true"></i><br>`+obj.name
+				
+			}
+		}
+		
+	}
+	if(msg.from == from & msg.fromType == "U"){
+		 dom = $(`<div class="chat_message"><div class="i_said" id="`+msg.chatId+`">`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+	}else{		
+		 dom = $(`<div class="chat_message"><div class="he_said" id="`+msg.chatId+`">`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+		
+	}
+	
+	if($("#msg"+chat.chatId).length>0){
+			$("#"+msg.chatId).replaceWith(dom)
+	}else{
+			$("#chat_lst_box").append(dom)
+	}
+	console.log(dom)
+	
+	dom.taphold(function(){
+		$(this).toggleClass("selected")
+		if($(".chat_message.selected").length>0){
+			if($("#ChatMsgNav").find(".fa-chevron-left").length>0){
+				chatBar = $("#ChatMsgNav").html()
+			}
+			$("#ChatMsgNav").html('<i class="fa fa-times" aria-hidden="true"></i><span class="selQty">'+$(".chat_message.selected").length+'</span><div class="btn"><i class="fa fa-reply" aria-hidden="true"></i><i class="fa fa-quote-right" aria-hidden="true"></i><i class="fa fa-trash-o" aria-hidden="true"></i></div>')
+			
+		}else{
+			$("#ChatMsgNav").html(chatBar)
+		}
+	})
+	return dom
+	
+}
+
 function insertChat(chat){
-	var dom = $(`<div id="`+ chat.id+`" idChat="`+ chat.chatId+`" class="chat_lst_element">
+	var dom = $(`<div id="`+ chat.id+`"  class="chat_lst_element" section-target="msgChat" section-title="Chat" section-fx-parameters="'`+ chat.chatId+`'">
 								<div class="chat_lst_element_picture">
 									<i class="fa fa-user`+(chat.isGroup==1? "s" : "")+`"></i>
 								</div>
@@ -90,11 +148,46 @@ function insertChatContact(contact,type){
 	$('[tab-name='+(type=="user"? "Employee" : "Department")+']').append(dom)
 }
 
+$(document).on("tapend","#ChatMsgNav .fa-times",function(){
+	$("#ChatMsgNav").html(chatBar)
+	$(".chat_message.selected").removeClass("selected")
+})
+
+$(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
+	showAlert("Eliminar Mensajes","Desea eliminar "+$(".chat_message.selected").length+" mensajes",function(){
+		$("#ChatMsgNav").html(chatBar)
+		$(".chat_message.selected").remove()
+	},function(){})
+	
+})
+
+$(document).on("tapend",".fa-download",function(){
+	var this_ = $(this)
+	loginInfo(function(doc){
+			var tempObj = {
+				to : doc.userId,
+				toType : "U",
+				chatMessageId: this_.parent().attr("id"),
+				received : true
+			}
+			console.log(tempObj)
+		_post("/chat/read/message/validate",tempObj,function(data){
+			console.log(data)
+			window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+		}).fail(function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
+	})
+})
+
+
+
 
 
 
 chat = {
 	init: function(){ 	
+		
+		$('[tab-name=Employee]').html("")
+		$('[tab-name=Department]').html("")
 		this.getChats()
 		this.getContactLists()
 	},
@@ -106,10 +199,15 @@ chat = {
 				toType : "U"
 			}
 			db.get4Guest("chat",doc.userId).then(function(doc1){
-				tempObj.version = 0//doc1.version
+				tempObj.version = doc1.version
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
-					data.chats = data.chats.concat(doc1.chats)
+					if($.isEmptyObject(data)){
+						console.log(data)
+						data= doc1;
+					}else{
+						data.chats = data.chats.concat(doc1.chats)
+					}
 					db.upsert4Guest("chat",doc.userId,data)
 					data.chats.forEach(function(chat){
 						insertChat(chat)
@@ -144,6 +242,53 @@ chat = {
 			showInfoD("Error","No se pudo descargar las listas de contactos")
 		})
 	}
+}
 
 
+msgChat = {
+	init :	function(this_,chatId){
+		console.log(chatId)
+		console.log($(this_))
+		$("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
+		loginInfo(function(doc){
+			var tempObj = {
+				chatId: chatId,
+				to : doc.userId,
+				toType : "U"
+			}
+			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
+				console.log(oldMsg)
+				tempObj.version = oldMsg.messages.reduce(function(a,b){
+					return Math.max(a,b.version)
+				},0)
+				
+				_post("/chat/read/app",tempObj,function(data){
+					console.log(data)
+					var incommingId = data.map(function(o){return o.chatId})
+					data.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
+					db.upsert4Guest("chatId"+chatId,doc.userId,data)
+					data.forEach(function(chat){
+						insertMsg(doc.userId,chat)
+					})
+				}).fail(function(e){
+					oldMsg.messages.forEach(function(chat){
+						insertMsg(doc.userId,chat)
+					})
+					
+				})
+				
+				
+				
+			}).catch(function(e){
+				_post("/chat/read/app",tempObj,function(data){
+					console.log(data)
+					console.log(e)
+					db.upsert4Guest("chatId"+chatId,doc.userId,{messages : data})
+					data.forEach(function(chat){
+						insertMsg(doc.userId,chat)
+					})
+				}).fail(function(e){})
+			})
+		})
+	}
 }

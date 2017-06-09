@@ -9,8 +9,8 @@
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
-		<meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src *; img-src *; style-src * 'unsafe-inline' ; media-src *">  
-
+		<!--meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src *; img-src *; style-src * 'unsafe-inline' ; media-src *">  
+		<meta http-equiv="Content-Security-Policy" content="default-src *; img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;style-src  'self' 'unsafe-inline' *" -->
 
 
 
@@ -273,20 +273,13 @@
 					</div>
 
 					<div section-name="msgChat" class="section_page">
-							<nav id="ChatNav" class="tablist">dsdsds</nav>
+							<nav id="ChatMsgNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat" section-title="Chat"></i>
+								<div>andres@segreda.com</div>
+							</nav>
 							<div class="tab-listtab" tab-name="Chat2">
 
-							<div id="chat_lst_box">
-							<div class="i_said">Hola, tengo una duda<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="he_said">en que te puedo ayudar?<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="i_said">no me ha llegado el cobro de agua de este mes<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="he_said">pero si te llego el de la mensualidad?<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="he_said">o tampoco...<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="i_said">no tampoco, que día pueden enviarmelo<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="i_said">es que es para cancelar eso de una vez<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="he_said">ya te lo envio<div class="said_date">20/01/2010 15:20</div></div>
-							<div class="i_said">gracias :D<div class="said_date">20/01/2010 15:20</div></div>
-							</div>
+							<div id="chat_lst_box"></div>
 							<div id="chat_sender_box">
 								<div id="chat_sender_txt" contenteditable=true>
 								</div>

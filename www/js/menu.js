@@ -14,7 +14,8 @@ $("#modal").tapend(function(){
 })
 
 
-$("[section-target]").tapend(function(ev){
+$(document).on("tapend","[section-target]",function(ev){
+	console.log(eval(this))
 	if(checkPress(ev)){
 		var title = $(this).hasAttr("section-title") ? $(this).attr("section-title") : $(this).text();
 		$(".nav_li_selected").removeClass("nav_li_selected");
@@ -25,6 +26,13 @@ $("[section-target]").tapend(function(ev){
 		$(".section_active").removeClass("section_active");
 		$("[section-name="+$(this).attr("section-target")+"]").addClass("section_active");
 	}
+	
+	if($(this).hasAttr("section-fx")){
+		eval($(this).attr("section-fx")+"(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
+	}else if(eval('typeof '+$(this).attr("section-target")+'.init == "function"')){
+		eval($(this).attr("section-target")+".init(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
+	}
+	
 });
 
 //tab menu
