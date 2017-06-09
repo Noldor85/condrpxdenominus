@@ -166,7 +166,7 @@ $(document).on("tapend",".fa-download",function(){
 	loginInfo(function(doc){
 			var tempObj = {
 				to : doc.userId,
-				toType : "U",
+				toType : userType,
 				chatMessageId: this_.parent().attr("id"),
 				received : true
 			}
@@ -196,7 +196,7 @@ chat = {
 		loginInfo(function(doc){
 			var tempObj = {
 				to : doc.userId,
-				toType : "U"
+				toType : userType
 			}
 			db.get4Guest("chat",doc.userId).then(function(doc1){
 				tempObj.version = doc1.version
@@ -254,7 +254,7 @@ msgChat = {
 			var tempObj = {
 				chatId: chatId,
 				to : doc.userId,
-				toType : "U"
+				toType : userType
 			}
 			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
 				console.log(oldMsg)
