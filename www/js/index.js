@@ -2,6 +2,7 @@
 function onDeviceReady(){
 	try{
 		onDeviceReady_db();
+		onDeviceReady_dw();
 		onDeviceReady_fm();
 		onDeviceReady_pn();
 		document.addEventListener("backbutton", backbutton, true);

@@ -255,3 +255,28 @@
 audio {
  width: 193px;;
 }
+
+#imgPreview {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #353739;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: 50%;
+    background-position-y: 50%;
+	display: none;
+}
+
+#imgPreview_actionBar {
+    margin: 0px;
+    height: 20px;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 20px;
+}

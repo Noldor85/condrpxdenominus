@@ -1,24 +1,27 @@
 const regex = /^(data:.*\/.*?;base64,)(.*)$/
 chatBar ="";
+prevEvent = null;
 
-document.getElementById("chat_sender_txt").addEventListener("input", function() {
-    if($("#chat_sender_txt").text() != ""){
-		$("#chat_sender_btn .fa-microphone").removeClass("fa-microphone").addClass("fa-paper-plane");
+
+
+
+selectingMsg = function(e){
+	if((e.type == "tapend" &&  $(".chat_message.selected").length==0)||prevEvent== "taphold" || !checkPress(e)){
 	}else{
-		$("#chat_sender_btn .fa-paper-plane").removeClass("fa-paper-plane").addClass("fa-microphone");
+		e.stopPropagation()
+		$(this).toggleClass("selected")
+		if($(".chat_message.selected").length>0){
+			if($("#ChatMsgNav").find(".fa-chevron-left").length>0){
+				chatBar = $("#ChatMsgNav").html()
+			}
+			$("#ChatMsgNav").html('<i class="fa fa-times" aria-hidden="true"></i><span class="selQty">'+$(".chat_message.selected").length+'</span><div class="btn"><i class="fa fa-reply" aria-hidden="true"></i><i class="fa fa-clone" aria-hidden="true"></i><i class="fa fa-quote-right" aria-hidden="true"></i><i class="fa fa-trash-o" aria-hidden="true"></i></div>')
+			
+		}else{
+			$("#ChatMsgNav").html(chatBar)
+		}
 	}
-}, false);
-
-
-$("#chat_sender_btn").tapend(function(){
-	if($("#chat_sender_btn .fa-microphone").length >0 ){
-	}else{
-		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").text()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
-	}
-});
-
-
-
+	prevEvent  = e.type
+}
 
 function makeChatSwipe (selector){
 	return $(selector).swipe({
@@ -55,7 +58,7 @@ function insertMsg(from,msg){
 	var obj
 	let m;
 	if ((m = regex.exec(msg.message)) !== null) {
-		msg.message='<a href="'+msg.message+'"><img src="'+msg.message+'"/><a>'
+		msg.message='<img class="prevImage" src="'+msg.message+'"/>'
 	}else if(( obj = giveJson(msg.message)) !=false){
 		console.log(obj)
 		if(obj.attachment == false){
@@ -84,18 +87,7 @@ function insertMsg(from,msg){
 	}
 	console.log(dom)
 	
-	dom.taphold(function(){
-		$(this).toggleClass("selected")
-		if($(".chat_message.selected").length>0){
-			if($("#ChatMsgNav").find(".fa-chevron-left").length>0){
-				chatBar = $("#ChatMsgNav").html()
-			}
-			$("#ChatMsgNav").html('<i class="fa fa-times" aria-hidden="true"></i><span class="selQty">'+$(".chat_message.selected").length+'</span><div class="btn"><i class="fa fa-reply" aria-hidden="true"></i><i class="fa fa-quote-right" aria-hidden="true"></i><i class="fa fa-trash-o" aria-hidden="true"></i></div>')
-			
-		}else{
-			$("#ChatMsgNav").html(chatBar)
-		}
-	})
+	dom.taphold(selectingMsg).tapend(selectingMsg)
 	return dom
 	
 }
@@ -173,14 +165,45 @@ $(document).on("tapend",".fa-download",function(){
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
-			window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+			downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
 		}).fail(function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
 	})
 })
 
+$(document).on("tapend",".prevImage",function(ev){
+	$("#imgPreview").css({"background-image" :"url("+ $(this).attr("src")+")"}).fadeIn()
+	$("#imgPreview_actionBar").slideDown()
+})
+
+$(document).on("tapend","#imgPreview",function(ev){
+	$("#imgPreview_actionBar").slideToggle()
+})
+
+$(document).on("tapend","#imgPreview_actionBar .fa-times",function(ev){
+	$("#imgPreview").fadeOut();
+})
+
+$(document).on("tapend",".chat_contact",function(){
+	
+})
 
 
+document.getElementById("chat_sender_txt").addEventListener("input", function() {
+    if($("#chat_sender_txt").text() != ""){
+		$("#chat_sender_btn .fa-microphone").removeClass("fa-microphone").addClass("fa-paper-plane");
+	}else{
+		$("#chat_sender_btn .fa-paper-plane").removeClass("fa-paper-plane").addClass("fa-microphone");
+	}
+}, false);
 
+
+$("#chat_sender_btn").tapend(function(){
+	if($("#chat_sender_btn .fa-microphone").length >0 ){
+	}else{
+		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").text()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
+	}
+});
 
 
 chat = {
@@ -199,6 +222,9 @@ chat = {
 				toType : userType
 			}
 			db.get4Guest("chat",doc.userId).then(function(doc1){
+				doc1.chats.forEach(function(chat){
+					insertChat(chat)
+				})
 				tempObj.version = doc1.version
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
@@ -257,10 +283,16 @@ msgChat = {
 				toType : userType
 			}
 			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
+				$("#chat_lst_box").html("")
+				oldMsg.messages.forEach(function(chat){
+					insertMsg(doc.userId,chat)
+				})
 				console.log(oldMsg)
 				tempObj.version = oldMsg.messages.reduce(function(a,b){
 					return Math.max(a,b.version)
 				},0)
+				
+			
 				
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
