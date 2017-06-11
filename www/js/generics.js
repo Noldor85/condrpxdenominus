@@ -66,6 +66,10 @@ $.fn.hasAttr = function(name) {
 	return this.attr(name) !== undefined;
 };
 
+$.fn.hasScrollBar = function() {
+        return this.get(0).scrollHeight > this.height();
+}
+
 
 //Star in Tap
 startTap = { X : 0 , Y : 0}

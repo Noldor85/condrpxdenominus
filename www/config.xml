@@ -50,6 +50,7 @@
     <gap:plugin name="cordova-plugin-statusbar" source="npm"/>
     <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
     <gap:plugin name="cordova-plugin-file-transfer" source="npm"/>
+    <gap:plugin name="‎cordova-plugin-inappbrowser" source="npm"/>
     <gap:plugin name="org.apache.cordova.camera" source="npm"/>
     <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
 	 <!--<plugin spec="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git" />-->
@@ -73,7 +74,6 @@
     <gap:plugin name="org.apache.cordova.file" source="npm"/>
     <gap:plugin name="org.apache.cordova.geolocation" source="npm" />
     <gap:plugin name="org.apache.cordova.globalization" source="npm"/>
-    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/>
     <gap:plugin name="org.apache.cordova.media" source="npm"/>
     <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
     <gap:plugin name="org.apache.cordova.vibration" source="npm"/>

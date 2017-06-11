@@ -1,6 +1,19 @@
 const regex = /^(data:.*\/.*?;base64,)(.*)$/
 chatBar ="";
 prevEvent = null;
+currentChat = null;
+
+  w = new Worker("js/chat_worker.js");
+  w.onmessage = function(event){
+	    console.log(event.data);
+	  retData = JSON.parse(event.data)
+	  if(retData.tid != undefined){
+		  $("#"+retData.tid).attr("id","msg_"+retData.chatMessageId).find(".fa-clock-o").removeClass("fa-clock-o").addClass("fa-paper-plane-o")
+		  console.log("change")
+	  }
+   
+};
+
 
 
 
@@ -23,6 +36,9 @@ selectingMsg = function(e){
 	prevEvent  = e.type
 }
 
+function goBottom(){
+	$("#chat_lst_box").scrollTop(document.getElementById("chat_lst_box").scrollHeight)
+}
 function makeChatSwipe (selector){
 	return $(selector).swipe({
 		swipeLeft:function(event, direction, distance, duration, fingerCount) {
@@ -83,7 +99,7 @@ function insertMsg(from,msg){
 	if($("#msg"+chat.chatId).length>0){
 			$("#"+msg.chatId).replaceWith(dom)
 	}else{
-			$("#chat_lst_box").append(dom)
+			$("#chat_lst_box").prepend(dom)
 	}
 	console.log(dom)
 	
@@ -134,8 +150,8 @@ function insertChat(chat){
 }
 
 function insertChatContact(contact,type){
-	var dom = $(`<div id="`+(type=="user"? contact.userId : contact.chatGroupId)+`" class="chat_contact" type="`+type+`">
-					<i class="fa fa-`+type+`"></i> <span>`+(type=="user"?contact.userName: contact.name)+`</span> 
+	var dom = $(`<div id="`+contact.id+`" class="chat_contact" type="`+type+`" section-target="msgChat" section-fx-parameters="'`+contact.chat+`'" section-title="Chat" >
+					<i class="fa fa-`+type+`"></i> <span class="chat_lst_element_who">`+ contact.name+`</span> 
 				</div>`)
 	$('[tab-name='+(type=="user"? "Employee" : "Department")+']').append(dom)
 }
@@ -194,9 +210,7 @@ $(document).on("tapend","#imgPreview_actionBar .fa-times",function(ev){
 	$("#imgPreview").fadeOut();
 })
 
-$(document).on("tapend",".chat_contact",function(){
-	
-})
+
 
 
 document.getElementById("chat_sender_txt").addEventListener("input", function() {
@@ -211,7 +225,29 @@ document.getElementById("chat_sender_txt").addEventListener("input", function() 
 $("#chat_sender_btn").tapend(function(){
 	if($("#chat_sender_btn .fa-microphone").length >0 ){
 	}else{
-		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").text()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
+		var tid = uuid()
+		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").html()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
+		goBottom();
+		$("#chat_sender_txt").html("")
+		loginInfo(function(doc){
+			var tempObj  = {
+				from : doc.userId,
+				fromType : userType,
+				writeDate : (new Date()).getTime(),
+				tid: tid, // id temporal mientras q be devuelve el real
+				message: $("#chat_sender_txt").html(),
+				attachment : false
+			}
+			if(currentChat.chatType == "contact"){
+				tempObj.to 		=  currentChat.to
+				tempObj.toType 	=  currentChat.toType
+			}else{
+				tempObj.chatId = currentChat.chatId
+			}
+			_post("/chat/write/app",tempObj,function(data){
+				console.log(data)
+			})
+		})
 	}
 });
 
@@ -267,15 +303,50 @@ chat = {
 	},
 
 	getContactLists : function (){
-		_post("/chat/read/users/groups",{},function(data){
-			data.users.forEach(function(user){
-				insertChatContact(user,"user")
+		loginInfo(function(doc){
+			var tempObj = {
+				to : doc.userId,
+				toType : userType
+			}
+			db.get("contacts").then(function(doc){
+				tempObj.userVersion = doc.userVersion 
+				tempObj.groupVersion = doc.groupVersion 
+				doc.users.forEach(function(user){
+					insertChatContact(user,"user")
+				})
+				doc.groups.forEach(function(group){
+					insertChatContact(group,"users")
+				})
+				
+				_post("/chat/read/users/groups",tempObj,function(data){
+					
+					data.users.forEach(function(user){
+						insertChatContact(user,"user")
+					})
+					data.groups.forEach(function(group){
+						insertChatContact(group,"users")
+					})
+					
+					data.users.concat(doc.users)
+					data.groups.concat(doc.groups)
+					db.upsert("contacts",data)
+				}).fail(function(e){
+					//showInfoD("Error","No se pudo descargar las listas de contactos")
+				})
+			}).catch(function(e){
+				_post("/chat/read/users/groups",tempObj,function(data){
+					data.users.forEach(function(user){
+						insertChatContact(user,"user")
+					})
+					data.groups.forEach(function(group){
+						insertChatContact(group,"users")
+					})
+					db.upsert("contacts",data)
+				}).fail(function(e){
+					showInfoD("Error","No se pudo descargar las listas de contactos")
+				})
 			})
-			data.groups.forEach(function(group){
-				insertChatContact(group,"users")
-			})
-		}).fail(function(e){
-			showInfoD("Error","No se pudo descargar las listas de contactos")
+				
 		})
 	}
 }
@@ -283,6 +354,11 @@ chat = {
 
 msgChat = {
 	init :	function(this_,chatId){
+		if(chatId != "'null'"){
+			currentChat = {chatId : chatId,chatType : "chat"}
+		}else{
+			currentChat = {to : $(this_).attr("id"), toType : $(this_).attr("type") == "user" ? "U" : "G", chatType : "contact"}
+		}
 		console.log(chatId)
 		console.log($(this_))
 		$("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
@@ -293,7 +369,9 @@ msgChat = {
 				toType : userType
 			}
 			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
-				$("#chat_lst_box").html("")
+				try{
+					$("#chat_lst_box").html("")
+					console.log(oldMsg)
 				oldMsg.messages.forEach(function(chat){
 					insertMsg(doc.userId,chat)
 				})
@@ -301,7 +379,7 @@ msgChat = {
 				tempObj.version = oldMsg.messages.reduce(function(a,b){
 					return Math.max(a,b.version)
 				},0)
-				
+				console.log(tempObj);
 			
 				
 				_post("/chat/read/app",tempObj,function(data){
@@ -312,12 +390,16 @@ msgChat = {
 					data.forEach(function(chat){
 						insertMsg(doc.userId,chat)
 					})
+					goBottom();
 				}).fail(function(e){
 					oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.userId,chat)
 					})
+					goBottom();
 					
 				})
+				}catch(e){console.log(e)}
+				
 				
 				
 				
@@ -329,6 +411,7 @@ msgChat = {
 					data.forEach(function(chat){
 						insertMsg(doc.userId,chat)
 					})
+					goBottom();
 				}).fail(function(e){})
 			})
 		})
