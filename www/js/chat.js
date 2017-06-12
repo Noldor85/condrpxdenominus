@@ -378,12 +378,12 @@ msgChat = {
 				to : doc.estates[estateSelected].guestId,
 				toType : userType
 			}
-			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
+			db.get4Guest("chatId"+chatId,doc.estates[estateSelected].guestId).then(function(oldMsg){
 				try{
 					$("#chat_lst_box").html("")
 					console.log(oldMsg)
 				oldMsg.messages.forEach(function(chat){
-					insertMsg(doc.userId,chat)
+					insertMsg(doc.estates[estateSelected].guestId,chat)
 				})
 				console.log(oldMsg)
 				tempObj.version = oldMsg.messages.reduce(function(a,b){
@@ -396,14 +396,14 @@ msgChat = {
 					console.log(data)
 					var incommingId = data.map(function(o){return o.chatId})
 					data.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
-					db.upsert4Guest("chatId"+chatId,doc.userId,data)
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
 					data.forEach(function(chat){
-						insertMsg(doc.userId,chat)
+						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
 				},function(e){
 					oldMsg.messages.forEach(function(chat){
-						insertMsg(doc.userId,chat)
+						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
 					
