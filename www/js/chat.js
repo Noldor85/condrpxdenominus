@@ -389,10 +389,10 @@ msgChat = {
 				
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
-					var incommingId = data.map(function(o){return o.chatId})
-					data.concat(oldMsg.chats.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
+					var incommingId = data.messages.map(function(o){return o.chatId})
+					data.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
-					data.forEach(function(chat){
+					data.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
@@ -413,7 +413,7 @@ msgChat = {
 					console.log(data)
 					console.log(e)
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
-					data.chats.forEach(function(chat){
+					data.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
