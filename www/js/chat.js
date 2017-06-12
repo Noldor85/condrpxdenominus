@@ -183,8 +183,18 @@ $(document).on("tapend",".fa-download",function(){
 			console.log(data)
 			try{
 				
-					downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
-					console.log("en teoria bajo")
+					//downloader.get("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
+					cordovaHTTP.downloadFile("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html(), {}, { }, "file:///"+this_.next().next().html(), function(entry) {
+						// prints the filename
+						console.log(entry.name);
+						
+						// prints the filePath
+						console.log(entry.fullPath);
+						console.log("en teoria bajo")
+					}, function(response) {
+						console.error(response.error);
+					});
+					
 			}catch(e){
 				console.log(e)
 			}
@@ -417,3 +427,7 @@ msgChat = {
 		})
 	}
 }
+
+
+
+
