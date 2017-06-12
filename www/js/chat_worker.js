@@ -1,3 +1,17 @@
+window = {
+	crypto : {
+		getRandomValues : function(array){
+			for(var i = 0; i < array.length; i++){
+				array[1] = parseInt(Math.random() * 999999999)
+			}
+		}
+	}
+}
+
+
+
+
+
 importScripts('globals.js');
 importScripts('../lib/rsa/rsa.js');
 importScripts('../lib/rsa/BigInt.js');

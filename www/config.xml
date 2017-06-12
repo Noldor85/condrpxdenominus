@@ -66,6 +66,7 @@
 	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-evcore-extbuild-free.git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
 	<plugin spec="https://github.com/fastrde/cordova-plugin-fastrde-downloader.git" />
+	<plugin spec="https://github.com/phonegap/phonegap-plugin-multiview.git" />
 	
     <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
     <gap:plugin name="org.apache.cordova.device" source="npm"/>
