@@ -134,15 +134,15 @@ function RSAencript(text) {
 	
 
 	
-function _post(url,obj,cb){
+function _post(url,obj,cb,fail){
 	var pair = generateAESPairs()
 	var textBytes = aesjs.utils.utf8.toBytes(JSON.stringify(obj));
 	var aesOfb = new aesjs.ModeOfOperation.ofb(pair.k, pair.s);
 	var encryptedBytes = aesOfb.encrypt(textBytes);
-	return $.post(ServerIP+url,{
+	return cordovaHTTP.post(ServerIP+url,{
 			k : RSAencript(JSON.stringify(pair)),
 			c : aesjs.utils.hex.fromBytes(encryptedBytes)
-		},cb)
+		},{},function(rs){cb(rs.data)},fail)
 }	
 
 loginInfo = function(callback){

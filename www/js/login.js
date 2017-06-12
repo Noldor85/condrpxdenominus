@@ -17,7 +17,7 @@ function checkPreviusLogin(){
 					if (cordova.platformId == 'android') {
 						StatusBar.backgroundColorByHexString("#4066b3");
 					}
-				}).fail(function(e){
+				},function(e){
 					$("#login").fadeOut();
 					navigator.splashscreen.hide();
 					if (cordova.platformId == 'android') {
@@ -61,7 +61,7 @@ function socialRegister(auth){
 						loginId = data.loginId;
 						loginObj= data
 						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
-					}).fail(function(e){
+					},function(e){
 						showInfoD("Error","Ha ocurrido un error en el registro")
 						console.log(e);
 					})
@@ -82,7 +82,7 @@ $("#logout_btn").tapend(function(){
 		
 			$("#login").fadeIn();
 			
-		}).fail(function(e){
+		},function(e){
 			showInfoD("Error","Algo salio mal, intente luego")
 		})
 	},function(){
@@ -112,7 +112,7 @@ $(".login--Credentials").tapend(function(){
 			  fillUserConfig(data)
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		
-		}).fail(function(e){
+		},function(e){
 			if(e.status == 401){
 				$("#login_info_txt").html("Bad Credentials")
 			}if(e.status == 402){
