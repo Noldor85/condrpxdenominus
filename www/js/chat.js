@@ -173,7 +173,7 @@ $(document).on("tapend",".fa-download",function(){
 	var this_ = $(this)
 	loginInfo(function(doc){
 			var tempObj = {
-				to : doc.userId,
+				to : doc.estates[estateSelected].guestId,
 				toType : userType,
 				chatMessageId: this_.parent().attr("id"),
 				received : true
@@ -241,7 +241,7 @@ $("#chat_sender_btn").tapend(function(){
 		$("#chat_sender_txt").html("")
 		loginInfo(function(doc){
 			var tempObj  = {
-				from : doc.userId,
+				from : doc.estates[estateSelected].guestId,
 				fromType : userType,
 				writeDate : (new Date()).getTime(),
 				tid: tid, // id temporal mientras q be devuelve el real
@@ -274,7 +274,7 @@ chat = {
 	getChats : function(){
 		loginInfo(function(doc){
 			var tempObj = {
-				to : doc.userId,
+				to : doc.estates[estateSelected].guestId,
 				toType : userType
 			}
 			db.get4Guest("chat",doc.userId).then(function(doc1){
@@ -315,7 +315,7 @@ chat = {
 	getContactLists : function (){
 		loginInfo(function(doc){
 			var tempObj = {
-				to : doc.userId,
+				to : doc.estates[estateSelected].guestId,
 				toType : userType
 			}
 			db.get("contacts").then(function(doc){
@@ -375,7 +375,7 @@ msgChat = {
 		loginInfo(function(doc){
 			var tempObj = {
 				chatId: chatId,
-				to : doc.userId,
+				to : doc.estates[estateSelected].guestId,
 				toType : userType
 			}
 			db.get4Guest("chatId"+chatId,doc.userId).then(function(oldMsg){
