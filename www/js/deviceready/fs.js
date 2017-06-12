@@ -3,56 +3,96 @@
     // device APIs are available
     //
 	
-fSys = null;
+dirc = null;
+
+
+
+onFileSystemSuccess = function(dir){
+	dirc = dir;
+}
+
 
 function onDeviceReady_fm() {
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
-}
-
-function gotFS(fileSystem) {
-	fSys = fileSystem;
-}
-
-function getFileLocalURL(file, object, target,url){
-	if(fSys != null){
-		 fSys.root.getFile(cordova.file.dataDirectory + file, {create: true, exclusive: false}, 
-		 function(fileEntry){
-			 object.attr(target,fileEntry.toURL());
-		 }
-		 , function(e){object.attr(target,url)});
-	}else{
-		 object.attr(target,url);
+	if (sessionStorage.platform.toLowerCase() == "android") {
+		window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, fail);
+	}
+	else {
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,onFileSystemSuccess, fail);
 	}
 }
 
-function downloadContent(file,url,version){
-	
-	if(fSys != null){
-		fSys.root.getFile(cordova.file.dataDirectory + file, {create: true, exclusive: false}, 
-		 function(fileEntry){
-			fileEntry.remove(function(){}, function(){});
-		 },function(e){});
-		var fileTransfer = new FileTransfer();
-		var uri = encodeURI(url);
 
-		fileTransfer.download(
-			uri,
-			cordova.file.dataDirectory + file,
-			function(entry) {
-			  	$.jStorage.set(file,version);
-			},
-			function(error) {
-				
-				fail(error);
-			},
-			true
-		);
-	}
+function readBinaryFile(fileEntry) {
+    fileEntry.file(function (file) {
+        var reader = new FileReader();
+
+        reader.onloadend = function() {
+
+            console.log("Successful file read: " + this.result);
+            // displayFileData(fileEntry.fullPath + ": " + this.result);
+
+            var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
+           // displayImage(blob);
+        };
+
+        reader.readAsArrayBuffer(file);
+
+    }, error);
 }
+
+
+
+
+function download(fileEntry, uri) {
+
+    var fileTransfer = new FileTransfer();
+    var fileURL = fileEntry.toURL();
+
+    fileTransfer.download(
+        uri,
+        fileURL,
+        function (entry) {
+            console.log("Successful download...");
+            console.log("download complete: " + entry.toURL());
+            //readBinaryFile(entry);
+        },
+        function (error) {
+            console.log("download error source " + error.source);
+            console.log("download error target " + error.target);
+            console.log("upload error code" + error.code);
+        },
+        null, // or, pass false
+        {
+            //headers: {
+            //    "Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+            //}
+        }
+    );
+}
+
+
+
+
+
+
+
+function saveDoc(url) {
+	var fn = getNameFromUrl(url)
+	if(dirc == null){ onDeviceReady_fm()}
+    dirc.getDirectory(directory, { create: true }, function (dirEntry) {
+        dirEntry.getDirectory(fn.ext, { create: true }, function (subDirEntry) {
+           subDirEntry.getFile(fn.fullName, { create: true, exclusive: false }, function (fileEntry) {
+			   console.log("here 001")
+				download(fileEntry, url);
+			}, fail);
+        }, fail);
+    }, fail);
+}				
 
 
     
 function fail(e) {
+	console.log(e)
 	var msg = '';
 
   switch (e.code) {
