@@ -382,21 +382,16 @@ msgChat = {
 				try{
 					$("#chat_lst_box").html("")
 					console.log(oldMsg)
-				oldMsg.messages.forEach(function(chat){
-					insertMsg(doc.estates[estateSelected].guestId,chat)
-				})
-				console.log(oldMsg)
-				tempObj.version = oldMsg.messages.reduce(function(a,b){
-					return Math.max(a,b.version)
-				},0)
-				console.log(tempObj);
+				console.log("oldMsg ",oldMsg)
+				tempObj.version = oldMsg.version
+				console.log("tempObj",tempObj);
 			
 				
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
 					var incommingId = data.map(function(o){return o.chatId})
-					data.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
-					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
+					data.concat(oldMsg.chats.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
 					data.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
@@ -417,8 +412,8 @@ msgChat = {
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
 					console.log(e)
-					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,{messages : data})
-					data.forEach(function(chat){
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
+					data.chats.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
