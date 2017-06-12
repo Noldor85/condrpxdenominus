@@ -277,7 +277,7 @@ chat = {
 				to : doc.estates[estateSelected].guestId,
 				toType : userType
 			}
-			db.get4Guest("chat",doc.userId).then(function(doc1){
+			db.get4Guest("chat",doc.estates[estateSelected].guestId).then(function(doc1){
 				doc1.chats.forEach(function(chat){
 					insertChat(chat)
 				})
@@ -290,7 +290,7 @@ chat = {
 					}else{
 						data.chats = data.chats.concat(doc1.chats)
 					}
-					db.upsert4Guest("chat",doc.userId,data)
+					db.upsert4Guest("chat",doc.estates[estateSelected].guestId,data)
 					data.chats.forEach(function(chat){
 						insertChat(chat)
 					})
@@ -302,7 +302,7 @@ chat = {
 			}).catch(function(e){
 					_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
-					db.upsert4Guest("chat",doc.userId,data)
+					db.upsert4Guest("chat",doc.estates[estateSelected].guestId,data)
 					data.chats.forEach(function(chat){
 						insertChat(chat)
 					})
@@ -417,9 +417,9 @@ msgChat = {
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
 					console.log(e)
-					db.upsert4Guest("chatId"+chatId,doc.userId,{messages : data})
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,{messages : data})
 					data.forEach(function(chat){
-						insertMsg(doc.userId,chat)
+						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
 				},function(e){})
