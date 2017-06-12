@@ -385,12 +385,14 @@ msgChat = {
 				console.log("oldMsg ",oldMsg)
 				tempObj.version = oldMsg.version
 				console.log("tempObj",tempObj);
-			
+				oldMsg.messages.forEach(function(chat){
+						insertMsg(doc.estates[estateSelected].guestId,chat)
+				})
 				
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
 					var incommingId = data.messages.map(function(o){return o.chatId})
-					data.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
+					data.messages.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
 					data.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
