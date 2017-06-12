@@ -139,10 +139,10 @@ function _post(url,obj,cb){
 	var textBytes = aesjs.utils.utf8.toBytes(JSON.stringify(obj));
 	var aesOfb = new aesjs.ModeOfOperation.ofb(pair.k, pair.s);
 	var encryptedBytes = aesOfb.encrypt(textBytes);
-	return cordovaHTTP.post(ServerIP+url,{
+	return $.post(ServerIP+url,{
 			k : RSAencript(JSON.stringify(pair)),
 			c : aesjs.utils.hex.fromBytes(encryptedBytes)
-		},{},function(res){cb(res.data)})
+		},cb)
 }	
 
 loginInfo = function(callback){
