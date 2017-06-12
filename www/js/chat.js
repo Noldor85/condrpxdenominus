@@ -200,7 +200,7 @@ $(document).on("tapend",".fa-download",function(){
 			}
 		
 			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
-		}).fail(function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
+		},function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
 	})
 })
 
@@ -294,7 +294,7 @@ chat = {
 					data.chats.forEach(function(chat){
 						insertChat(chat)
 					})
-				}).fail(function(e){
+				},function(e){
 					doc1.chats.forEach(function(chat){
 						insertChat(chat)
 					})
@@ -306,7 +306,7 @@ chat = {
 					data.chats.forEach(function(chat){
 						insertChat(chat)
 					})
-				}).fail(function(e){})
+				},function(e){})
 			})
 			
 		})
@@ -340,7 +340,7 @@ chat = {
 					data.users.concat(doc.users)
 					data.groups.concat(doc.groups)
 					db.upsert("contacts",data)
-				}).fail(function(e){
+				},function(e){
 					//showInfoD("Error","No se pudo descargar las listas de contactos")
 				})
 			}).catch(function(e){
@@ -352,7 +352,7 @@ chat = {
 						insertChatContact(group,"users")
 					})
 					db.upsert("contacts",data)
-				}).fail(function(e){
+				},function(e){
 					showInfoD("Error","No se pudo descargar las listas de contactos")
 				})
 			})
@@ -401,7 +401,7 @@ msgChat = {
 						insertMsg(doc.userId,chat)
 					})
 					goBottom();
-				}).fail(function(e){
+				},function(e){
 					oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.userId,chat)
 					})
@@ -422,7 +422,7 @@ msgChat = {
 						insertMsg(doc.userId,chat)
 					})
 					goBottom();
-				}).fail(function(e){})
+				},function(e){})
 			})
 		})
 	}

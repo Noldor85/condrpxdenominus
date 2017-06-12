@@ -16,7 +16,7 @@ $(".loginBtn--google").tapend(function(){
 		loginId = data.loginId;
 		loginObj= data
 			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
-		}).fail(function(e){
+		},function(e){
 			socialRegister({"googleKey"  : HexWhirlpool(result.userId)})
 		})
         console.log(result); // do something useful instead of alerting 

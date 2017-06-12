@@ -49,7 +49,7 @@ $(".loginBtn--facebook").tapend(function(){
 				Object.assign({"_id" : "fbkToken"},token),
 				Object.assign({"_id" : "loginInfo"},data)
 			])
-		}).fail(function(e){
+		},function(e){
 			socialRegister({facebookKey : HexWhirlpool(result.userID)})
 		})
 	}
