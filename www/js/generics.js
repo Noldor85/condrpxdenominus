@@ -142,7 +142,7 @@ function _post(url,obj,cb,fail){
 	return cordovaHTTP.post(ServerIP+url,{
 			k : RSAencript(JSON.stringify(pair)),
 			c : aesjs.utils.hex.fromBytes(encryptedBytes)
-		},{},function(rs){cb(rs.data)},fail)
+		},{},function(rs){cb(JSON.parse(rs.data))},fail)
 }	
 
 loginInfo = function(callback){
