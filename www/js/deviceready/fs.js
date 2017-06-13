@@ -14,10 +14,10 @@ onFileSystemSuccess = function(dir){
 
 function onDeviceReady_fm() {
 	if (device.platform.toLowerCase() == "android") {
-		window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, fail);
+		window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, failFS);
 	}
 	else {
-		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,onFileSystemSuccess, fail);
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,onFileSystemSuccess, failFS);
 	}
 }
 
@@ -43,7 +43,7 @@ function readBinaryFile(fileEntry) {
 
 
 
-function download(fileEntry, uri) {
+function download(fileEntry, uri,dcb) {
 
     var fileTransfer = new FileTransfer();
     var fileURL = fileEntry.toURL();
@@ -54,12 +54,13 @@ function download(fileEntry, uri) {
         function (entry) {
             console.log("Successful download...");
             console.log("download complete: " + entry.toURL());
-            //readBinaryFile(entry);
+			dcb(entry)
         },
         function (error) {
             console.log("download error source " + error.source);
             console.log("download error target " + error.target);
             console.log("upload error code" + error.code);
+			window.plugins.toast.showLongCenter("Error downloading file")
         },
         null, // or, pass false
         {
@@ -76,14 +77,14 @@ function download(fileEntry, uri) {
 
 
 
-function saveDoc(url,fail) {
+function saveDoc(url,dcb,fail) {
 	var fn = getNameFromUrl(url)
 	if(dirc == null){ onDeviceReady_fm()}
     dirc.getDirectory(directory, { create: true }, function (dirEntry) {
         dirEntry.getDirectory(fn.ext, { create: true }, function (subDirEntry) {
            subDirEntry.getFile(fn.fullName, { create: true, exclusive: false }, function (fileEntry) {
 			   console.log("here 001")
-				download(fileEntry, url);
+				download(fileEntry, url,dcb);
 			}, fail);
         }, fail);
     }, fail);

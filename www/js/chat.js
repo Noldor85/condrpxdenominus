@@ -183,6 +183,9 @@ $(document).on("tapend",".fa-download",function(){
 			console.log(data)
 			try{
 				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html(),
+					function(entity){
+						
+					},
 					function(e){
 						window.plugins.toast.showLongCenter("Error downloading file")
 						failFS(e)
