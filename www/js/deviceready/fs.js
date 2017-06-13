@@ -22,7 +22,7 @@ function onDeviceReady_fm() {
 }
 
 
-function readBinaryFile(fileEntry) {
+function readBinaryFile(fileEntry,type) {
     fileEntry.file(function (file) {
         var reader = new FileReader();
 
@@ -31,14 +31,20 @@ function readBinaryFile(fileEntry) {
             console.log("Successful file read: " + this.result);
             // displayFileData(fileEntry.fullPath + ": " + this.result);
 
-            var blob = new Blob([new Uint8Array(this.result)], { type: "image/png" });
-           // displayImage(blob);
+            var blob = new Blob([new Uint8Array(this.result)], { type: type });
+            //displayImage(blob);
         };
 
         reader.readAsArrayBuffer(file);
 
     }, error);
 }
+
+jQuery.fn.extend({
+	displayImageByFileURL : function(fileEntry) {
+		this.prop("src", fileEntry.toURL());
+	}
+})
 
 
 

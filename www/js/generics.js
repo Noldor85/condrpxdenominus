@@ -95,13 +95,14 @@ function guid() {
 }
 
 function giveJson(string){
-	try
-	{
+	if (typeof string == "object"){
+		return string
+	}
+	try{
 	  return JSON.parse(string);
 	 
 	}
-	catch(e)
-	{
+	catch(e){
 	  return false
 	}
 }
@@ -148,7 +149,7 @@ function _post(url,obj,cb,fail){
 		return $.post(ServerIP+url,{
 			k : RSAencript(JSON.stringify(pair)),
 			c : aesjs.utils.hex.fromBytes(encryptedBytes)
-		},cb,).fail(fail)
+		},cb).fail(fail)
 	}
 	
 }	

@@ -69,34 +69,64 @@ function makeChatSwipe (selector){
 
 
 
-function insertMsg(from,msg){
+function insertMsg(from,msg_){
+	msg =  Object.assign({}, msg_); 
 	var dom;
 	var obj
 	let m;
-	if ((m = regex.exec(msg.message)) !== null) {
-		msg.message='<img class="prevImage" src="'+msg.message+'"/>'
-	}else if(( obj = giveJson(msg.message)) !=false){
+	console.log("andres")
+	if(( obj = giveJson(msg.message)) !=false){
 		console.log(obj)
-		if(obj.attachment == false){
-			msg.message = "<audio controls></audio>"
-		}else{
-			if(1){//if file not in disk
-				msg.message = `<i class="fa fa-download big" aria-hidden="true"></i><br><span>`+obj.name+`</span>`
-			}else{
-				msg.message = `<i class="fa fa-file big" aria-hidden="true"></i><br>`+obj.name
-				
-			}
-		}
 		
+		switch(obj.type){
+			case "text" :
+				msg.message = obj.data
+			break;
+			
+			case "audio":
+			break;
+			
+			case "image":
+				if(0){// is at disk
+					
+				}else{
+					msg.message = '<div class="thumbnail_img" download-name="'+obj.name+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'
+				} 
+			break;
+			
+			
+			case "attachment":
+				if("thumbnail" in obj){
+					if(0){
+						msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+					}else{
+						msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+					}
+					
+				}else{
+					if(0){ //no tiene prevista y esta en el disco
+					var mimetype_icon = "file.png"
+						msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+					}else{
+						var mimetype_icon = "file.png"
+						msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+					}
+				}
+			
+			break;
+			default:
+			break;
+			
+		}	
 	}
-	if(msg.from == from & msg.fromType == "U"){
-		 dom = $(`<div class="chat_message"><div class="i_said" id="`+msg.chatId+`">`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+	if(msg.from == from & msg.fromType == userType){
+		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" >`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
 	}else{		
-		 dom = $(`<div class="chat_message"><div class="he_said" id="`+msg.chatId+`">`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"><div class="he_said">`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
 		
 	}
 	
-	if($("#msg"+chat.chatId).length>0){
+	if($("#msg"+msg.chatId).length>0){
 			$("#"+msg.chatId).replaceWith(dom)
 	}else{
 			$("#chat_lst_box").prepend(dom)
@@ -169,22 +199,21 @@ $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
 	
 })
 
-$(document).on("tapend",".fa-download",function(){
-	var this_ = $(this)
+downloadMsg = function(this_,callback){
 	loginInfo(function(doc){
 			var tempObj = {
 				to : doc.estates[estateSelected].guestId,
 				toType : userType,
-				chatMessageId: this_.parent().attr("id"),
+				chatMessageId: this_.parent().parent().attr("id").substring(3),
 				received : true
 			}
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
 			try{
-				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html(),
+				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.attr("download-name"),
 					function(entity){
-						
+						callback(entity);
 					},
 					function(e){
 						window.plugins.toast.showLongCenter("Error downloading file")
@@ -198,7 +227,7 @@ $(document).on("tapend",".fa-download",function(){
 			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
 		},function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
 	})
-})
+}
 
 $(document).on("tapend",".prevImage",function(ev){
 	if(checkPress(ev)){
@@ -214,6 +243,28 @@ $(document).on("tapend","#imgPreview",function(ev){
 $(document).on("tapend","#imgPreview_actionBar .fa-times",function(ev){
 	ev.stopPropagation();
 	$("#imgPreview").fadeOut();
+})
+
+$(document).on("tapend",".thumbnail_atta",function(ev){
+	if(checkPress(ev)){
+		$(this).find(".downloadIcon").addClass("downloading")
+		downloadMsg($(this),function(){
+			$(this).find(".downloadIcon").remove()
+			$(this).removeClass("thumbnail_atta").addClass("attachment")
+		})
+	}
+})
+
+
+$(document).on("tapend",".thumbnail_img",function(ev){
+	if(checkPress(ev)){
+		$(this).find(".downloadIcon").addClass("downloading")
+		downloadMsg($(this),function(entity){
+			$(this).find(".downloadIcon").remove()
+			$(this).removeClass("thumbnail_img").addClass("prevImage")
+			$(this).find("img").displayImageByFileURL(entity)
+		})
+	}
 })
 
 
@@ -384,9 +435,9 @@ msgChat = {
 				oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 				})
-				window.plugins.toast.showLongCenter("Sincronizando mensajes")
+//				window.plugins.toast.showLongCenter("Sincronizando mensajes")
 				_post("/chat/read/app",tempObj,function(data){
-					console.log(data)
+					console.log("downloadData:",data)
 					var incommingId = data.messages.map(function(o){return o.chatId})
 					data.messages.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
@@ -394,13 +445,13 @@ msgChat = {
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
-					window.plugins.toast.showLongCenter("Mensajes Sincronizados")
+					//window.plugins.toast.showLongCenter("Mensajes Sincronizados")
 				},function(e){
 					oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
-						window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
+						//window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
 					
 				})
 				}catch(e){console.log(e)}
