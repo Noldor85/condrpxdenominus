@@ -182,7 +182,12 @@ $(document).on("tapend",".fa-download",function(){
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
 			try{
-				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html())
+				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html(),
+					function(e){
+						window.plugins.toast.showLongCenter("Error downloading file")
+						failFS(e)
+					}
+				)
 			}catch(e){
 				console.log(e)
 			}
@@ -376,7 +381,7 @@ msgChat = {
 				oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 				})
-				
+				window.plugins.toast.showLongCenter("Sincronizando mensajes")
 				_post("/chat/read/app",tempObj,function(data){
 					console.log(data)
 					var incommingId = data.messages.map(function(o){return o.chatId})
@@ -386,11 +391,13 @@ msgChat = {
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
+					window.plugins.toast.showLongCenter("Mensajes Sincronizados")
 				},function(e){
 					oldMsg.messages.forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
+						window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
 					
 				})
 				}catch(e){console.log(e)}

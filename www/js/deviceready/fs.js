@@ -76,7 +76,7 @@ function download(fileEntry, uri) {
 
 
 
-function saveDoc(url) {
+function saveDoc(url,fail) {
 	var fn = getNameFromUrl(url)
 	if(dirc == null){ onDeviceReady_fm()}
     dirc.getDirectory(directory, { create: true }, function (dirEntry) {
@@ -91,7 +91,7 @@ function saveDoc(url) {
 
 
     
-function fail(e) {
+function failFS(e) {
 	console.log(e)
 	var msg = '';
 
