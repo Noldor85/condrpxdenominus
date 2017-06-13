@@ -199,7 +199,7 @@ $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
 	
 })
 
-downloadMsg = function(this_,callback){
+downloadMsg = function(this_, callback){
 	loginInfo(function(doc){
 			var tempObj = {
 				to : doc.estates[estateSelected].guestId,
@@ -213,6 +213,7 @@ downloadMsg = function(this_,callback){
 			try{
 				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.attr("download-name"),
 					function(entity){
+						console.log("aka003",callback)
 						callback(entity);
 					},
 					function(e){
@@ -249,6 +250,7 @@ $(document).on("tapend",".thumbnail_atta",function(ev){
 	if(checkPress(ev)){
 		$(this).find(".downloadIcon").addClass("downloading")
 		downloadMsg($(this),function(){
+			console.log("aka004")
 			$(this).find(".downloadIcon").remove()
 			$(this).removeClass("thumbnail_atta").addClass("attachment")
 		})
@@ -260,6 +262,7 @@ $(document).on("tapend",".thumbnail_img",function(ev){
 	if(checkPress(ev)){
 		$(this).find(".downloadIcon").addClass("downloading")
 		downloadMsg($(this),function(entity){
+			console.log("aka004")
 			$(this).find(".downloadIcon").remove()
 			$(this).removeClass("thumbnail_img").addClass("prevImage")
 			$(this).find("img").displayImageByFileURL(entity)

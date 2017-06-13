@@ -60,6 +60,7 @@ function download(fileEntry, uri,dcb) {
         function (entry) {
             console.log("Successful download...");
             console.log("download complete: " + entry.toURL());
+			console.log("aka001")
 			dcb(entry)
         },
         function (error) {
