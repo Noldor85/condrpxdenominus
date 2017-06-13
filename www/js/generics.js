@@ -6,7 +6,7 @@
 */
 
 emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-filenameExtract = /\/(([a-zA-Z1-9~]*)\.(.*))$/g;
+filenameExtract = /(([a-zA-Z0-9~]*?)\.([a-zA-Z0-9~]*?))$/;
 
 function FormatInteger(num, length) {
 			return (num / Math.pow(10, length)).toFixed(length).substr(2);
@@ -159,12 +159,16 @@ loginInfo = function(callback){
 
 function getNameFromUrl(url){
 	var m
-	if ((m = filenameExtract.exec(str)) !== null) {
+	if ((m = filenameExtract.exec(url)) !== null) {
 		return {
 			fullName : m[1],
 			name	 : m[2],
 			ext		 : m[3]
 		}
 	}
-	return {}
+	return {
+			fullName : "some",
+			name	 : "some.txt",
+			ext		 : "txt"
+	}
 }

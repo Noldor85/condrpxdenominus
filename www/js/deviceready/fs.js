@@ -13,7 +13,7 @@ onFileSystemSuccess = function(dir){
 
 
 function onDeviceReady_fm() {
-	if (sessionStorage.platform.toLowerCase() == "android") {
+	if (device.platform.toLowerCase() == "android") {
 		window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, fail);
 	}
 	else {
