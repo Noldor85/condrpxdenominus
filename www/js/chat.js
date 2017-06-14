@@ -70,29 +70,37 @@ function makeChatSwipe (selector){
 
 
 function insertMsg(from,msg_){
-	msg =  Object.assign({}, msg_); 
+	var msg =  Object.assign({}, msg_); 
 	var dom;
 	var obj
 	let m;
 	console.log("andres")
-	if(( obj = giveJson(msg.message)) !=false){
+	obj = msg.message
+	if(true){
 		console.log(obj)
 		
 		switch(obj.type){
 			case "text" :
 				msg.message = obj.data
+				console.log("dsds")
+				return insertMsg2(from,msg)
 			break;
 			
 			case "audio":
 			break;
 			
 			case "image":
-				fileExist(
+			console.log("es imagen")
+				docExist(obj.name,
 					function(entry){
+						console.log("img en disko")
 						msg.message = '<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div>'
+						insertMsg2(from,msg)
 					},
-					function(){
+					function(err){
+						console.log(err)
 						msg.message = '<div class="thumbnail_img" download-name="'+obj.name+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'
+						insertMsg2(from,msg)
 					}
 				)
 				 
@@ -101,24 +109,28 @@ function insertMsg(from,msg_){
 			
 			case "attachment":
 				if("thumbnail" in obj){
-					fileExist(
+					docExist(obj.name,
 						function(entry){
 							msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+							insertMsg2(from,msg)
 						},
 						function(){
 							msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+							insertMsg2(from,msg)
 						}
 					)
 					
 				}else{
-					fileExist(
+					docExist(obj.name,
 						function(entry){ //no tiene prevista y esta en el disco
 							var mimetype_icon = "file.png"
 							msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+							insertMsg2(from,msg)
 						},
 						function(){
 							var mimetype_icon = "file.png"
 							msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+							insertMsg2(from,msg)
 						}
 					)
 				}
@@ -129,6 +141,12 @@ function insertMsg(from,msg_){
 			
 		}	
 	}
+}
+
+function insertMsg2(from,msg){
+		var dom;
+	var obj
+	let m;
 	if(msg.from == from & msg.fromType == userType){
 		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" >`+msg.message+`<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
 	}else{		
@@ -242,7 +260,7 @@ downloadMsg = function(this_, callback){
 
 $(document).on("tapend",".prevImage",function(ev){
 	if(checkPress(ev)){
-		$("#imgPreview").css({"background-image" :"url("+ $(this).attr("src")+")"}).fadeIn()
+		$("#imgPreview").css({"background-image" :"url("+ $(this).find("img").attr("src")+")"}).fadeIn()
 	$("#imgPreview_actionBar").slideDown()
 	}
 })

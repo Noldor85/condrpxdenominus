@@ -112,9 +112,16 @@ function openDoc(file, mime){
 }			
 
 
-function fileExist(file,yesFx,noFx){
+function docExist(file,yesFx,noFx){
 	var fn = getNameFromUrl(file)
-	dirc.getFile(dirc.nativeURL + directory + "/" + fn.ext + "/" + file, { create: false },yesFx , noFx);
+	if(dirc == null){ onDeviceReady_fm()}
+    dirc.getDirectory(directory, { create: false }, function (dirEntry) {
+        dirEntry.getDirectory(fn.ext, { create: false }, function (subDirEntry) {
+           subDirEntry.getFile(fn.fullName, { create: false, exclusive: false }, function (fileEntry) {
+				yesFx(fileEntry)
+			}, noFx);
+        }, noFx);
+    }, noFx);
 }
 
     
