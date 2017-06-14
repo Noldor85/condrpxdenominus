@@ -80,7 +80,7 @@ function insertMsg(from,msg_){
 	if(msg.from == from & msg.fromType == userType){
 		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" ></div></div>`)
 	}else{		
-		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"></div></div>`)
+		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"><div class="he_said" ></div></div>`)
 		
 	}
 	
