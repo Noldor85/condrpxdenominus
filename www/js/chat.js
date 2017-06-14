@@ -346,7 +346,7 @@ $("#phone_rec").swipe( {
 			   audioinput.stop();
         }else{
                console.log("enviar")
-			   var dom = $('<div class="chat_message"><div class="i_said"><audio control></audio><div class="said_date">'+(new Date().toLocaleString())+'</div></div></div>')
+			   var dom = $('<div class="chat_message"><div class="i_said"><audio controls></audio><div class="said_date">'+(new Date().toLocaleString())+'</div></div></div>')
 			   $("#chat_lst_box").append(dom);
 			   stopRecoarding(dom.find("audio"))
         }
