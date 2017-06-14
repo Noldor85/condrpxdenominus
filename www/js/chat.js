@@ -248,11 +248,12 @@ $(document).on("tapend","#imgPreview_actionBar .fa-times",function(ev){
 
 $(document).on("tapend",".thumbnail_atta",function(ev){
 	if(checkPress(ev)){
-		$(this).find(".downloadIcon").addClass("downloading")
-		downloadMsg($(this),function(){
+		var this_ = $(this);
+		this_.find(".downloadIcon").addClass("downloading")
+		downloadMsg(this_,function(){
 			console.log("aka004")
-			$(this).find(".downloadIcon").remove()
-			$(this).removeClass("thumbnail_atta").addClass("attachment")
+			this_.find(".downloadIcon").remove()
+			this_.removeClass("thumbnail_atta").addClass("attachment")
 		})
 	}
 })
@@ -260,12 +261,13 @@ $(document).on("tapend",".thumbnail_atta",function(ev){
 
 $(document).on("tapend",".thumbnail_img",function(ev){
 	if(checkPress(ev)){
-		$(this).find(".downloadIcon").addClass("downloading")
-		downloadMsg($(this),function(entity){
+		var this_ = $(this);
+		this_.find(".downloadIcon").addClass("downloading")
+		downloadMsg(this_,function(entity){
 			console.log("aka004")
-			$(this).find(".downloadIcon").remove()
-			$(this).removeClass("thumbnail_img").addClass("prevImage")
-			$(this).find("img").displayImageByFileURL(entity)
+			this_.find(".downloadIcon").remove()
+			this_.removeClass("thumbnail_img").addClass("prevImage")
+			this_.find("img").displayImageByFileURL(entity)
 		})
 	}
 })
