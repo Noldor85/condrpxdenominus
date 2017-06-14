@@ -51,6 +51,7 @@
     <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
     <gap:plugin name="cordova-plugin-file-transfer" source="npm"/>
     <gap:plugin name="cordova-plugin-file-opener2" source="npm"/>
+    <gap:plugin name="cordova-plugin-audioinput" source="npm"/>
 
 	 <!--<plugin spec="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git" />-->
 
