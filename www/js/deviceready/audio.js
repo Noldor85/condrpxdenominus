@@ -102,7 +102,7 @@ function stopRecoarding(audio_control){
 							fileWriter.write(blob);
 							console.log(file.toURL())
 							console.log("File created!");
-							audio_control.append('<audio controls><source src="'+file.toURL()+'"></audio>)
+							audio_control.append('<audio controls><source src="'+file.toURL()+'"></audio>')
 						}, function () {
 							alert("FileWriter error!");
 						});
