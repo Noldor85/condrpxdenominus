@@ -218,7 +218,7 @@ downloadMsg = function(this_, recived, callback){
 				to : doc.estates[estateSelected].guestId,
 				toType : userType,
 				chatMessageId: this_.parent().parent().attr("id").substring(3),
-				received : recived
+				received : recived == "true"
 			}
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
