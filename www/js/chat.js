@@ -109,7 +109,7 @@ function insertMsg(from,msg_){
 					},
 					function(err){
 						var mimetype_icon = "audio.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>')
 					}
 				)
 			break;
