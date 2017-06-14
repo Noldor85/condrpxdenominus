@@ -60,7 +60,6 @@ function download(fileEntry, uri,dcb) {
         function (entry) {
             console.log("Successful download...");
             console.log("download complete: " + entry.toURL());
-			console.log("aka001")
 			dcb(entry)
         },
         function (error) {
@@ -90,13 +89,33 @@ function saveDoc(url,dcb,fail) {
     dirc.getDirectory(directory, { create: true }, function (dirEntry) {
         dirEntry.getDirectory(fn.ext, { create: true }, function (subDirEntry) {
            subDirEntry.getFile(fn.fullName, { create: true, exclusive: false }, function (fileEntry) {
-			   console.log("here 001")
 				download(fileEntry, url,dcb);
 			}, fail);
         }, fail);
     }, fail);
-}				
+}	
 
+function openDoc(file, mime){
+	var fn = getNameFromUrl(file)
+	cordova.plugins.fileOpener2.open(
+		dirc.nativeURL + directory + "/" + fn.ext + "/" + file,
+		mime, 
+		{ 
+			error : function(e) { 
+				console.log('Error status: ' + e.status + ' - Error message: ' + e.message);
+			},
+			success : function () {
+				console.log('file opened successfully'); 				
+			}
+		}
+	);
+}			
+
+
+function fileExist(file,yesFx,noFx){
+	var fn = getNameFromUrl(file)
+	dirc.getFile(dirc.nativeURL + directory + "/" + fn.ext + "/" + file, { create: false },yesFx , noFx);
+}
 
     
 function failFS(e) {

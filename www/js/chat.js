@@ -87,30 +87,40 @@ function insertMsg(from,msg_){
 			break;
 			
 			case "image":
-				if(0){// is at disk
-					
-				}else{
-					msg.message = '<div class="thumbnail_img" download-name="'+obj.name+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'
-				} 
+				fileExist(
+					function(entry){
+						msg.message = '<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div>'
+					},
+					function(){
+						msg.message = '<div class="thumbnail_img" download-name="'+obj.name+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'
+					}
+				)
+				 
 			break;
 			
 			
 			case "attachment":
 				if("thumbnail" in obj){
-					if(0){
-						msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>'
-					}else{
-						msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
-					}
+					fileExist(
+						function(entry){
+							msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+						},
+						function(){
+							msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+						}
+					)
 					
 				}else{
-					if(0){ //no tiene prevista y esta en el disco
-					var mimetype_icon = "file.png"
-						msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>'
-					}else{
-						var mimetype_icon = "file.png"
-						msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
-					}
+					fileExist(
+						function(entry){ //no tiene prevista y esta en el disco
+							var mimetype_icon = "file.png"
+							msg.message = '<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>'
+						},
+						function(){
+							var mimetype_icon = "file.png"
+							msg.message = '<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'
+						}
+					)
 				}
 			
 			break;
@@ -273,6 +283,12 @@ $(document).on("tapend",".thumbnail_img",function(ev){
 })
 
 
+$(document).on("tapend",".attachment",function(ev){
+	if(checkPress(ev)){
+		var this_ = $(this);
+		openDoc(this_.attr("download-name"),this_.attr("mime"))
+	}
+})
 
 
 document.getElementById("chat_sender_txt").addEventListener("input", function() {
