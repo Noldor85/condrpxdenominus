@@ -339,7 +339,7 @@ audio {
     border-radius: 360px;
     right: -30px;
     opacity: 0.3;
-	animation-duration: 2s;
+	animation-duration: 1s;
     animation-name: recording;
     animation-iteration-count: infinite;
     animation-direction: alternate;

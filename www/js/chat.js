@@ -78,9 +78,9 @@ function insertMsg(from,msg_){
 	obj = msg.message
 	
 	if(msg.from == from & msg.fromType == userType){
-		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" ><div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" ></div></div>`)
 	}else{		
-		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"><div class="he_said"><div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div></div></div>`)
+		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"></div></div>`)
 		
 	}
 	
@@ -105,11 +105,11 @@ function insertMsg(from,msg_){
 			case "audio":
 			docExist(obj.name,
 					function(entry){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<audio controls> <source src="'+entry.toURL()+'" ></audio>')
+						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<audio controls> <source src="'+entry.toURL()+'" ></audio><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 					},
 					function(err){
 						var mimetype_icon = "audio.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 					}
 				)
 			break;
@@ -118,10 +118,10 @@ function insertMsg(from,msg_){
 			console.log("es imagen")
 				docExist(obj.name,
 					function(entry){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div>')
+						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 					},
 					function(err){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_img" download-name="'+obj.name+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>')
+						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_img" download-name="'+obj.name+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 					}
 				)
 				 
@@ -132,10 +132,10 @@ function insertMsg(from,msg_){
 				if("thumbnail" in obj){
 					docExist(obj.name,
 						function(entry){
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 						},
 						function(){
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 						}
 					)
 					
@@ -143,11 +143,11 @@ function insertMsg(from,msg_){
 					docExist(obj.name,
 						function(entry){ //no tiene prevista y esta en el disco
 							var mimetype_icon = "file.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 						},
 						function(){
 							var mimetype_icon = "file.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
 						}
 					)
 				}
@@ -347,6 +347,9 @@ $("#phone_rec").swipe( {
     },
    	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
          $("#canceling").css({width : distance+"px" , height: distance+"px", margin:  (72-distance/2)+"px"})  
+		  if($(this).hasClass("hide_rec")){
+				console.log("init capture")
+		  }
 		  $(this).removeClass("hide_rec")
     },
 	threshold: 0
