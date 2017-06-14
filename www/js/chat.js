@@ -112,7 +112,7 @@ function insertMsg(from,msg_){
 						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div>')
 					},
 					function(err){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_img" download-name="'+obj.name+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>')
+						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_img" download-name="'+obj.name+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>')
 					}
 				)
 				 
@@ -126,7 +126,7 @@ function insertMsg(from,msg_){
 							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>')
 						},
 						function(){
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
 						}
 					)
 					
@@ -138,7 +138,7 @@ function insertMsg(from,msg_){
 						},
 						function(){
 							var mimetype_icon = "file.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
 						}
 					)
 				}
@@ -212,13 +212,13 @@ $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
 	
 })
 
-downloadMsg = function(this_, callback){
+downloadMsg = function(this_, recived, callback){
 	loginInfo(function(doc){
 			var tempObj = {
 				to : doc.estates[estateSelected].guestId,
 				toType : userType,
 				chatMessageId: this_.parent().parent().attr("id").substring(3),
-				received : true
+				received : recived
 			}
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
