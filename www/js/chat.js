@@ -328,8 +328,10 @@ $(document).on("tapend",".attachment",function(ev){
 document.getElementById("chat_sender_txt").addEventListener("input", function() {
     if($("#chat_sender_txt").text() != ""){
 		$("#chat_sender_btn .fa-microphone").removeClass("fa-microphone").addClass("fa-paper-plane");
+		$("#phone_rec").hide();
 	}else{
 		$("#chat_sender_btn .fa-paper-plane").removeClass("fa-paper-plane").addClass("fa-microphone");
+		$("#phone_rec").show();
 	}
 }, false);
 
@@ -341,14 +343,18 @@ $("#phone_rec").swipe( {
           $("#canceling").css({width : 0+"px" , height: 0+"px", margin:  (72-0/2)+"px"})  
         if(distance>145){
                console.log("cancelar")
+			   audioinput.stop();
         }else{
                console.log("enviar")
+			   var dom = $('<div class="chat_message"><div class="i_said"><audio control></audio><div class="said_date">'+(new Date().toLocaleString())+'</div></div></div>')
+			   $("#chat_lst_box").append(dom);
+			   stopRecoarding(dom.find("audio"))
         }
     },
    	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
          $("#canceling").css({width : distance+"px" , height: distance+"px", margin:  (72-distance/2)+"px"})  
 		  if($(this).hasClass("hide_rec")){
-				console.log("init capture")
+				startRecoarding()
 		  }
 		  $(this).removeClass("hide_rec")
     },

@@ -5,6 +5,7 @@ function onDeviceReady(){
 		onDeviceReady_dw();
 		onDeviceReady_fm();
 		onDeviceReady_pn();
+		onDeviceReady_au();
 		document.addEventListener("backbutton", backbutton, true);
 	    document.addEventListener("menubutton", menubutton, true);
 		document.addEventListener("resume", onResume, false);
