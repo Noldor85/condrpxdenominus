@@ -103,6 +103,15 @@ function insertMsg(from,msg_){
 			break;
 			
 			case "audio":
+			docExist(obj.name,
+					function(entry){
+						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<audio controls> <source src="'+entry.toURL()+'" ></audio>')
+					},
+					function(err){
+						var mimetype_icon = "audio.png"
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+					}
+				)
 			break;
 			
 			case "image":
