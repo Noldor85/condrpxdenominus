@@ -266,7 +266,9 @@ $(document).on("tapend",".thumbnail_atta",function(ev){
 	if(checkPress(ev)){
 		var this_ = $(this);
 		this_.find(".downloadIcon").addClass("downloading")
-		downloadMsg(this_,function(){
+		downloadMsg(this_,
+			this_.attr("recived"),
+			function(){
 			console.log("aka004")
 			this_.find(".downloadIcon").remove()
 			this_.removeClass("thumbnail_atta").addClass("attachment")
@@ -279,7 +281,9 @@ $(document).on("tapend",".thumbnail_img",function(ev){
 	if(checkPress(ev)){
 		var this_ = $(this);
 		this_.find(".downloadIcon").addClass("downloading")
-		downloadMsg(this_,function(entity){
+		downloadMsg(this_,
+			this_.attr("recived"),
+			function(entity){
 			console.log("aka004")
 			this_.find(".downloadIcon").remove()
 			this_.removeClass("thumbnail_img").addClass("prevImage")
@@ -304,6 +308,25 @@ document.getElementById("chat_sender_txt").addEventListener("input", function() 
 		$("#chat_sender_btn .fa-paper-plane").removeClass("fa-paper-plane").addClass("fa-microphone");
 	}
 }, false);
+
+
+$("#phone_rec").swipe( {
+    //Generic swipe handler for all directions
+    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+        $(this).addClass("hide_rec")
+          $("#canceling").css({width : 0+"px" , height: 0+"px", margin:  (72-0/2)+"px"})  
+        if(distance>145){
+               console.log("cancelar")
+        }else{
+               console.log("enviar")
+        }
+    },
+   	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
+         $("#canceling").css({width : distance+"px" , height: distance+"px", margin:  (72-distance/2)+"px"})  
+		  $(this).removeClass("hide_rec")
+    },
+	threshold: 0
+  });
 
 
 $("#chat_sender_btn").tapend(function(){

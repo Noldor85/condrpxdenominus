@@ -330,6 +330,41 @@ audio {
     animation-timing-function: ease-in;	
  }
  
+#phone_rec{
+	position: absolute;
+    bottom: 0px;
+    height: 140px;
+    width: 140px;
+    background-color: #0177d7;
+    border-radius: 360px;
+    right: -30px;
+    opacity: 0.3;
+	animation-duration: 2s;
+    animation-name: recording;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;	
+	
+}
+
+.hide_rec{
+    bottom: 37px !important;
+    height: 48px !important;
+    width: 40px !important;
+    background-color: #fff !important;
+    right: 18px !important;
+    opacity: 0 !important;
+    animation-name: inherit !important;
+}
+
+#canceling {
+    background: indianred;
+    height: 0px;
+    width: 0px;
+    border-radius: 50%;
+    margin: 66px;
+}
+ 
  
 @keyframes downloading {
   from {
@@ -339,6 +374,18 @@ audio {
 
   to {
     color: #0177d7;
+	
+  }
+}
+
+@keyframes recording {
+  from {
+    opacity: 0.3;
+	
+  }
+
+  to {
+    opacity: 0.7;
 	
   }
 }
