@@ -66,6 +66,7 @@
 	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-evcore-extbuild-free.git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
 	<plugin spec="https://github.com/fastrde/cordova-plugin-fastrde-downloader.git" />
+	<plugin spec="http://github.com/don/cordova-filechooser.git" />
 	<plugin spec="https://github.com/wymsee/cordova-HTTP.git" />
 	<gap:plugin name="org.apache.cordova.camera" source="npm"/>
     <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
