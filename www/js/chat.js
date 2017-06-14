@@ -239,7 +239,10 @@ downloadMsg = function(this_, recived, callback){
 			}
 		
 			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
-		},function(e){console.log(e); showInfoD("Error","Imposible obtener ruta segura")})
+		},function(e){
+			console.log(e); 
+		showInfoD("Error","Imposible obtener ruta segura")})
+		
 	})
 }
 
