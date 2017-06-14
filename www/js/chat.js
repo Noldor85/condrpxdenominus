@@ -109,7 +109,7 @@ function insertMsg(from,msg_){
 					},
 					function(err){
 						var mimetype_icon = "audio.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
+							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>')
 					}
 				)
 			break;
@@ -297,6 +297,21 @@ $(document).on("tapend",".thumbnail_img",function(ev){
 			this_.find(".downloadIcon").remove()
 			this_.removeClass("thumbnail_img").addClass("prevImage")
 			this_.find("img").displayImageByFileURL(entity)
+		})
+	}
+})
+
+$(document).on("tapend",".thumbnail_aud",function(ev){
+	if(checkPress(ev)){
+		var this_ = $(this);
+		this_.find(".downloadIcon").addClass("downloading")
+		downloadMsg(this_,
+			this_.attr("recived"),
+			function(entity){
+			console.log("aka004")
+			this_.find(".downloadIcon").remove()
+			this_.removeClass("thumbnail_aud")
+			this_.find("img").replaceWith('<audio controls><source src="'+entity.toURL()+'"></audio>')
 		})
 	}
 })
