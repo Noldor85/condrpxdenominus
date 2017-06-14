@@ -327,6 +327,8 @@ audio {
     animation-direction: alternate;
     animation-timing-function: ease-in;	
  }
+ 
+ 
 @keyframes downloading {
   from {
     color: gray;
