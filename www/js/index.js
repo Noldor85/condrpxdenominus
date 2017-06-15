@@ -1,15 +1,6 @@
 
 function onDeviceReady(){
 	try{
-		if (typeof FCMPlugin !== "undefined") {
-			FCMPlugin.getToken(function (token) {
-				console.log("FCMPlugin: ", token)
-			}, function (err) {
-				console.log("FCMPlugin: ", err)
-			})
-		}
-
-
 		onDeviceReady_db();
 		onDeviceReady_dw();
 		onDeviceReady_fm();
