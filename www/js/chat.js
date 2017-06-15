@@ -232,6 +232,9 @@ downloadMsg = function(this_, recived, callback){
 			console.log(tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
+			FCMPlugin.onTokenRefresh(function(token){
+				alert( token )
+			})
 			try{
 				saveDoc("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.attr("download-name"),
 					function(entity){
