@@ -15,7 +15,7 @@ function RegisterPN(){
     successHandler,
     errorHandler,
     {
-        "senderID":"125107308805",
+        "senderID":"74150433827",
         "ecb":"onNotification"
     });
 	} else if ( device.platform == 'blackberry10'){
