@@ -6,10 +6,18 @@
 */
 
 emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-filenameExtract = /(([a-zA-Z0-9~]*?)\.([a-zA-Z0-9~]*?))$/;
-
+filenameExtract = /(([^\/]*)\.([a-zA-Z0-9~]*?))$/;
+data64RegEx = /^(data:.*\/.*?;base64,)(.*)$/
 function FormatInteger(num, length) {
 			return (num / Math.pow(10, length)).toFixed(length).substr(2);
+}
+
+function concurentWait(testFx,cb,parameters){
+	if(testFx()){
+		cb(parameters)
+	}else{
+		setTimeout(function(){concurentWait(testFx,cb,parameters)},10)
+	}
 }
 
 function getBase64Image(img) {
@@ -62,21 +70,7 @@ function showAlert(title,text,yesFn,noFn){
 	});
 }
 
-$.fn.hasAttr = function(name) {  
-	return this.attr(name) !== undefined;
-};
 
-$.fn.hasScrollBar = function() {
-        return this.get(0).scrollHeight > this.height();
-}
-
-
-//Star in Tap
-startTap = { X : 0 , Y : 0}
-$("*").tapstart(function(ev){
-	startTap.X = ev.pageX || ev.originalEvent.touches[0].pageX;
-	startTap.Y = ev.pageY || ev.originalEvent.touches[0].pageY;
-});
 
 function checkPress(ev){
 	var endX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;
@@ -172,4 +166,68 @@ function getNameFromUrl(url){
 			name	 : "some.txt",
 			ext		 : "txt"
 	}
+}
+
+function simDevice(){
+	
+	window.device  =  {platform :"chrome"}
+	window.cordovaHTTP = null
+	dirc = {
+		getDirectory : function(a,b,c,f){
+			f()
+		}
+	}
+	
+	window.plugins = {
+		toast : {
+			showLongCenter : function(m){console.log("showLongCenter",m)}
+		}
+	}
+	window.requestFileSystem = function(a,b,c,f){
+		c(dir)
+	}
+	onDeviceReady_db()
+	$("#login").hide()
+	
+	
+}
+
+var observeDOM = (function(){
+    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
+        eventListenerSupported = window.addEventListener;
+
+    return function(obj, callback){
+        if( MutationObserver ){
+            // define a new observer
+            var obs = new MutationObserver(function(mutations, observer){
+                if( mutations[0].addedNodes.length || mutations[0].removedNodes.length )
+                    callback();
+            });
+            // have the observer observe foo for changes in children
+            obs.observe( obj, { childList:true, subtree:true });
+        }
+        else if( eventListenerSupported ){
+            obj.addEventListener('DOMNodeInserted', callback, false);
+            obj.addEventListener('DOMNodeRemoved', callback, false);
+        }
+    };
+})();
+
+
+if($ != undefined){
+	$.fn.hasAttr = function(name) {  
+		return this.attr(name) !== undefined;
+	};
+
+	$.fn.hasScrollBar = function() {
+			return this.get(0).scrollHeight > this.height();
+	}
+
+
+	//Star in Tap
+	startTap = { X : 0 , Y : 0}
+	$("*").tapstart(function(ev){
+		startTap.X = ev.pageX || ev.originalEvent.touches[0].pageX;
+		startTap.Y = ev.pageY || ev.originalEvent.touches[0].pageY;
+	});
 }

@@ -31,6 +31,7 @@
         <title>Condominus</title>
     </head>
     <body>
+		<canvas id="canvas"></canvas>
     	<div id="login">
     		<div id="login_box">
     			<div id="login_logo">
@@ -279,7 +280,10 @@
 							</nav>
 							<div class="tab-listtab" tab-name="Chat2">
 
-							<div id="chat_lst_box"></div>
+							<div id="chat_lst_box" class="get-nicer">
+								<div class="nice-wrapper">
+								</div>
+							</div>
 							<div id="chat_sender_box">
 								<div id="chat_sender_txt" contenteditable=true>
 								</div>
@@ -294,6 +298,12 @@
 							</div>
 							<div id="phone_rec" class="hide_rec">
 							  <div id="canceling"></div>
+							</div>
+							
+							<div id="select_attachment_type" class="">
+								  <div class="fa fa-camera" aria-hidden="true"></div>
+								  <div class="fa fa-picture-o" aria-hidden="true"></div>
+								  <div class="fa fa-file-o" aria-hidden="true" style="font-size: 30px;"></div>
 							</div>
 						</div>		
 					</div>
@@ -609,6 +619,7 @@
 			   
         </div>
 		
+		
 		<div id="imgPreview">
 			<div id="imgPreview_actionBar">
 				  <div class="fa fa-times close_top_btn">
@@ -618,11 +629,13 @@
 				  </div>
 			</div>
 		</div>
-		<img alt="hola" id ="condo_logo_img"/>
+		
+		<div id="slide_menu"></div>
+		<div id="invisibleTap"></div>
 
 		
 		<!-- Scripts-->
-		<script src="http://192.168.0.10:8080/target/target-script-min.js#anonymous"></script>
+		<script src="http://192.168.0.10:8080/target/target-script-min.js#anonymous"></script>        
         <script type="text/javascript" src="js/globals.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="push.js"></script>
@@ -636,12 +649,14 @@
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.date.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.time.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.0/jquery.nicescroll.min.js"></script>
 		<script type="text/javascript" src="lib/rsa/prng4.js"></script>
 		<script type="text/javascript" src="lib/rsa/jsbn.js"></script>
 		<script type="text/javascript" src="lib/rsa/rng.js"></script>
 		<script type="text/javascript" src="lib/rsa/jsbn2.js"></script>
 		<script type="text/javascript" src="lib/rsa/rsa.js"></script>
 		<script type="text/javascript" src="lib/rsa/base64.js"></script>
+		<script type="text/javascript" src="js/ResizeSensor.js"></script>
 		<script type="text/javascript" src="js/deviceready/pushNotification.js"></script>
 		<script type="text/javascript" src="js/deviceready/downloader.js"></script>
 		<script type="text/javascript" src="js/deviceready/db.js"></script>
@@ -649,6 +664,7 @@
 		<script type="text/javascript" src="js/deviceready/buttons.js"></script>
 		<script type="text/javascript" src="js/deviceready/specialEvents.js"></script>
 		<script type="text/javascript" src="js/deviceready/audio.js"></script>
+		<script type="text/javascript" src="js/clipboard.min.js"></script>
 		<script type="text/javascript" src="js/whirpool.js"></script>
 		<script type="text/javascript" src="js/aes.js"></script>
 		<script type="text/javascript" src="js/date.js"></script>

@@ -8,37 +8,54 @@ dirc = null;
 
 
 onFileSystemSuccess = function(dir){
-	dirc = dir;
+	if (device.platform.toLowerCase() == "android") {
+			dirc = dir;
+	}else{
+		dirc = dir.root
+	}
+	
 }
 
 
 function onDeviceReady_fm() {
+	try{
+		if (device.platform.toLowerCase() == "android") {
+			window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, failFS);
+		}
+		else {
+			window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,onFileSystemSuccess, failFS);
+		}
+	}catch(e){
+		console.log(e)
+	}
+	
+}
+
+function pathToFileEntry(path,cb) {
 	if (device.platform.toLowerCase() == "android") {
-		window.resolveLocalFileSystemURL(cordova.file.externalRootDirectory,onFileSystemSuccess, failFS);
+		window.resolveLocalFileSystemURL(path,cb, failFS);
 	}
 	else {
-		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0,onFileSystemSuccess, failFS);
+		window.requestFileSystem(path, 0,onFileSystemSuccess, failFS);
 	}
 }
 
 
-function readBinaryFile(fileEntry,type) {
-    fileEntry.file(function (file) {
+
+
+
+
+
+
+ function readDataUrl(file,cb) {
+	 
         var reader = new FileReader();
-
-        reader.onloadend = function() {
-
-            console.log("Successful file read: " + this.result);
-            // displayFileData(fileEntry.fullPath + ": " + this.result);
-
-            var blob = new Blob([new Uint8Array(this.result)], { type: type });
-            //displayImage(blob);
+        reader.onloadend = function(evt) {
+            console.log("Read as data URL");
+            cb(evt.target.result);
         };
-
-        reader.readAsArrayBuffer(file);
-
-    }, error);
-}
+        reader.readAsDataURL(file);
+ }
 
 jQuery.fn.extend({
 	displayImageByFileURL : function(fileEntry) {

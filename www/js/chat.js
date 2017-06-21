@@ -1,4 +1,10 @@
 const regex = /^(data:.*\/.*?;base64,)(.*)$/
+var img = new Image();
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+var clip = new Clipboard('#ChatMsgNav .fa-clone');
+
+
 chatBar ="";
 prevEvent = null;
 currentChat = null;
@@ -8,27 +14,66 @@ currentChat = null;
 	    console.log(event.data);
 	  retData = JSON.parse(event.data)
 	  if(retData.tid != undefined){
-		  $("#"+retData.tid).attr("id","msg_"+retData.chatMessageId).find(".fa-clock-o").removeClass("fa-clock-o").addClass("fa-paper-plane-o")
+		  $("#msg"+retData.tid).find(".fa-clock-o").removeClass("fa-clock-o").addClass("fa-paper-plane-o")
 		  console.log("change")
 	  }
    
 };
 
 
-
-
+img.onload = function () {
+	var uuid_ = uuid();
+	var date = (new Date()).getTime()
+	if (this.naturalWidth > 800 && this.naturalWidth > this.naturalHeight){
+		canvas.width = 800;
+		canvas.height = canvas.width * (img.height / img.width);
+		resizeImg(this)
+	}else if(this.naturalHeight > 800){
+		canvas.height= 800;
+		canvas.width = canvas.height * (img.width / img.height);
+		resizeImg(this)
+	}
+	else{
+		canvas.width = this.naturalWidth;
+		canvas.height = this.naturalHeight;
+		octx = canvas.getContext('2d');
+		octx.drawImage(this, 0, 0, canvas.width,canvas.height);
+		
+	}
+	
+	var urlImg = canvas.toDataURL("image/jpeg")	
+	console.log(urlImg)
+	var dom = $(`<div class="chat_message" id="msg`+uuid_+`"><div class="i_said" ></div></div>`)
+	$("#chat_lst_box .nice-wrapper").append(dom)
+	dom.find(".i_said").html('<div class="prevImage" ><img  src="'+urlImg+'"/></div>'+ `<div class="said_bottom">
+					<div class="said_state">
+						<i class="fa `+getIconStatus("N")+`" aria-hidden="true"></i>
+				</div>
+				<div class="said_date">`+(new Date(date).toLocaleString())+`</div>`)
+				goBottom()
+	sendMessage(uuid_,date,"image",urlImg)
+}
 
 selectingMsg = function(e){
 	if((e.type == "tapend" &&  $(".chat_message.selected").length==0)||prevEvent== "taphold" || !checkPress(e)){
 	}else{
+		var copyText = ""
 		e.stopPropagation()
 		$(this).toggleClass("selected")
 		if($(".chat_message.selected").length>0){
 			if($("#ChatMsgNav").find(".fa-chevron-left").length>0){
 				chatBar = $("#ChatMsgNav").html()
+				copyText =$(this).find(".said_body").clone().find(".said_date").remove().end().text().replace(/~+$/, '');
+			}else{
+				$(".chat_message.selected").each(function(){
+					copyText += "["+$(this).find(".said_date").text()+"] "+$(this).find(".said_who").text()+": "+ $(this).find(".said_body").clone().find(".said_date").remove().end().text().replace(/~+$/, '');+"\n"
+				})
+				console.log("copyText: " , copyText)
+				
 			}
-			$("#ChatMsgNav").html('<i class="fa fa-times" aria-hidden="true"></i><span class="selQty">'+$(".chat_message.selected").length+'</span><div class="btn"><i class="fa fa-reply" aria-hidden="true"></i><i class="fa fa-clone" aria-hidden="true"></i><i class="fa fa-quote-right" aria-hidden="true"></i><i class="fa fa-trash-o" aria-hidden="true"></i></div>')
+			$("#ChatMsgNav").html('<i class="fa fa-times" aria-hidden="true"></i><span class="selQty">'+$(".chat_message.selected").length+'</span><div class="btn"><i class="fa fa-reply" aria-hidden="true"></i><i class="fa fa-info-circle" aria-hidden="true"></i><i class="fa fa-clone" data-clipboard-text="'+copyText+'" aria-hidden="true"></i><i class="fa fa-trash-o" aria-hidden="true"></i></div>')
 			
+		
 		}else{
 			$("#ChatMsgNav").html(chatBar)
 		}
@@ -36,10 +81,25 @@ selectingMsg = function(e){
 	prevEvent  = e.type
 }
 
+function resizeImg(img_){
+ 	var oc = document.createElement('canvas'),
+    octx = oc.getContext('2d');
+
+    oc.width = img_.width * 0.5;
+    oc.height = img_.height * 0.5;
+    octx.drawImage(img_, 0, 0, oc.width, oc.height);
+    
+    octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+
+    ctx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5,
+    0, 0, canvas.width, canvas.height);  
+}
+
+
 function goBottom(){
 	$("#chat_lst_box").scrollTop(document.getElementById("chat_lst_box").scrollHeight)
 }
-function makeChatSwipe (selector){
+function makeChatSwipe(selector){
 	return $(selector).swipe({
 		swipeLeft:function(event, direction, distance, duration, fingerCount) {
 			$(".chat_lst_element").not($(this)).animate({"margin-left" : 0+"px"}); 
@@ -66,9 +126,64 @@ function makeChatSwipe (selector){
 	})
 }
 
+function onCamaraSuccess(imageData) {
+   img.src =  "data:image/jpeg;base64," + imageData;
+}
+
+function onCamaraFail(message) {
+    alert('Failed because: ' + message);
+}
 
 
+function getIconStatus(status){
+	switch(status){
+		case "N":
+			return "fa-clock-o"
+		break;
+			
+		case "U":
+			return "fa-paper-plane-o"
+		break;
+		
+		case "D":
+			return "fa-check"
+		break;
+		
+		case "R":
+			return "fa-eye"
+		break;
+		
+		default:
+			return "?"
+		break;
+	}
+}
 
+function bottomSaid(from,msg){
+	if(msg.from == from & msg.fromType == userType){
+		return `<div class="said_bottom">
+					<div class="said_state">
+						<i class="fa `+getIconStatus(msg.status)+`" aria-hidden="true"></i>
+				</div>
+				<div class="said_date">`+(new Date(msg.writeDate).toLocaleString())+`</div>`
+	}else{
+		return '<div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>'
+	}
+}
+
+function getSelectedIds(){
+	var tempArr = []
+	 $(".chat_message.selected").each(function(){
+		 tempArr.push(
+			{
+				id :$(this).attr("id").substring(3),
+				received : $(this).find("he_said").length > 0
+			}
+		)
+		 
+	 })
+	 return tempArr
+}
 function insertMsg(from,msg_){
 	var msg =  Object.assign({}, msg_); 
 	var dom;
@@ -78,16 +193,16 @@ function insertMsg(from,msg_){
 	obj = msg.message
 	
 	if(msg.from == from & msg.fromType == userType){
-		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" ></div></div>`)
+		 dom = $(`<div class="chat_message" id="msg`+msg.chatId+`"><div class="i_said" ><div class="said_who">`+msg.name+`</div><div class="said_body"></div></div></div>`)
 	}else{		
-		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"><div class="he_said" ></div></div>`)
+		 dom = $(`<div class="chat_message"  id="msg`+msg.chatId+`"><div class="he_said" ><div class="said_who">`+msg.name+`</div><div class="said_body"></div></div></div>`)
 		
 	}
 	
 	if($("#msg"+msg.chatId).length>0){
 			$("#"+msg.chatId).replaceWith(dom)
 	}else{
-			$("#chat_lst_box").prepend(dom)
+			$("#chat_lst_box .nice-wrapper").append(dom)
 	}
 	console.log(dom)
 	
@@ -99,17 +214,17 @@ function insertMsg(from,msg_){
 		
 		switch(obj.type){
 			case "text" :
-				dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html(obj.data)
+				dom.find(".said_body").html(obj.data+bottomSaid(from,msg_))
 			break;
 			
 			case "audio":
 			docExist(obj.name,
 					function(entry){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<audio controls> <source src="'+entry.toURL()+'" ></audio><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+						dom.find(".said_body").html('<audio controls> <source src="'+entry.toURL()+'" ></audio>'+bottomSaid(from,msg_))
 					},
 					function(err){
 						var mimetype_icon = "audio.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+							dom.find(".said_body").html('<div class="thumbnail_aud" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'+bottomSaid(from,msg_))
 					}
 				)
 			break;
@@ -118,10 +233,10 @@ function insertMsg(from,msg_){
 			console.log("es imagen")
 				docExist(obj.name,
 					function(entry){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+						dom.find(".said_body").html('<div class="prevImage" download-name="'+obj.name+'"><img  src="'+entry.toURL()+'"/></div>'+bottomSaid(from,msg_))
 					},
 					function(err){
-						dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_img" download-name="'+obj.name+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+						dom.find(".said_body").html('<div class="thumbnail_img" download-name="'+obj.name+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div></div>'+bottomSaid(from,msg_))
 					}
 				)
 				 
@@ -132,10 +247,10 @@ function insertMsg(from,msg_){
 				if("thumbnail" in obj){
 					docExist(obj.name,
 						function(entry){
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+							dom.find(".said_body").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img  src="'+obj.thumbnail+'"/><div class="fileInfo">'+obj.name+'</div></div>'+bottomSaid(from,msg_))
 						},
 						function(){
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+							dom.find(".said_body").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img  src="'+obj.thumbnail+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'+bottomSaid(from,msg_))
 						}
 					)
 					
@@ -143,11 +258,11 @@ function insertMsg(from,msg_){
 					docExist(obj.name,
 						function(entry){ //no tiene prevista y esta en el disco
 							var mimetype_icon = "file.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+							dom.find(".said_body").html('<div class="attachment" download-name="'+obj.name+'" mime="'+obj.mime+'"><img src="img/'+mimetype_icon+'"/><div class="fileInfo">'+obj.name+'</div></div>'+bottomSaid(from,msg_))
 						},
 						function(){
 							var mimetype_icon = "file.png"
-							dom.find((msg.from == from & msg.fromType == userType)? ".i_said" : ".he_said").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div><div class="said_date">'+(new Date(msg.writeDate).toLocaleString())+'</div>')
+							dom.find(".said_body").html('<div class="thumbnail_atta" download-name="'+obj.name+'" mime="'+obj.mime+'" recived="'+ (!(msg.from == from & msg.fromType == userType))+'"><img src="img/'+mimetype_icon+'"/><div class="downloadIcon"> <i class="fa fa-arrow-down fa-fw" aria-hidden="true"></i></div><div class="fileInfo">'+obj.name+'</div></div>'+bottomSaid(from,msg_))
 						}
 					)
 				}
@@ -213,12 +328,100 @@ $(document).on("tapend","#ChatMsgNav .fa-times",function(){
 	$(".chat_message.selected").removeClass("selected")
 })
 
+
+
+
 $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
 	showAlert("Eliminar Mensajes","Desea eliminar "+$(".chat_message.selected").length+" mensajes",function(){
-		$("#ChatMsgNav").html(chatBar)
-		$(".chat_message.selected").remove()
-	},function(){})
 	
+		loginInfo(function(doc){
+			var tempObj = {
+				to : doc.estates[estateSelected].guestId,
+				toType : userType,
+				messages: getSelectedIds()
+			}
+			console.log(tempObj)
+			_post("/chat/delete/message/app" ,tempObj ,function(){
+				$(".chat_message.selected").remove()
+					$("#ChatMsgNav").html(chatBar)
+			},function(){
+				window.plugins.toast.showLongCenter("Imposible borrar archivos en este momento")
+			})
+		
+		})
+	},
+	function(){
+			
+	})
+})
+
+$(document).on("tapend","#chat_sender_ath",function(ev){
+	if(checkPress(ev)){
+		$("#invisibleTap").show()
+		$("#select_attachment_type").css({display: "flex"})
+	}
+})
+
+$(document).on("tapend","#select_attachment_type .fa-file-o",function(ev){
+	console.log("yes")
+	fileChooser.open(function(uri){ 
+	console.log(uri)
+		window.FilePath.resolveNativePath(uri,function(filePath){
+			console.log(filePath)
+			pathToFileEntry(filePath,function(entry){
+				console.log(entry)
+				var fn = getNameFromUrl(filePath)
+				 dirc.getDirectory(directory, { create: true }, function (dirEntry) {
+					dirEntry.getDirectory(fn.ext, { create: true }, function (subDirEntry) {
+						entry.copyTo(subDirEntry,fn.fullName)
+						entry.file(function(file){
+							readDataUrl(file,function(data){
+								var uuid_ = uuid()
+								var date_ = (new Date()).getTime();
+								
+								
+								insertMsg("I",{
+										chatId: uuid_,
+										from: "I",
+										fromType: userType,
+										writeDate: date_ ,
+										message:{
+											type: "attachment",
+											name:  fn.fullName,
+											mime: "none"
+										}
+									}
+								)
+								sendMessage(uuid_,date_,"attachment",data,fn.fullName)
+							})
+						}
+						,function(e){console.log("err",e)})
+						
+					}, function(e){console.log("err",e)});
+				}, function(e){console.log("err",e)});
+				
+			})
+		},function(e){console.log(error)})
+
+	}, function(e){
+		console.log("error: ",e)
+	});
+})
+
+
+$(document).on("tapend","#select_attachment_type .fa-camera",function(ev){
+	navigator.camera.getPicture(onCamaraSuccess, onCamaraFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL});
+})
+
+$(document).on("tapend","#select_attachment_type .fa-picture-o",function(ev){
+	navigator.camera.getPicture(onCamaraSuccess, onCamaraFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL, sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM});
+})
+
+
+
+$(document).on("tapend","#invisibleTap",function(ev){
+	$("#invisibleTap").hide()
+	$("#select_attachment_type").hide()
 })
 
 downloadMsg = function(this_, recived, callback){
@@ -226,10 +429,10 @@ downloadMsg = function(this_, recived, callback){
 			var tempObj = {
 				to : doc.estates[estateSelected].guestId,
 				toType : userType,
-				chatMessageId: this_.parent().parent().attr("id").substring(3),
+				chatMessageId: this_.parents(".chat_message").attr("id").substring(3),
 				received : recived == "true"
 			}
-			console.log(tempObj)
+			console.log("DownloadMsg_temporalObj",tempObj)
 		_post("/chat/read/message/validate",tempObj,function(data){
 			console.log(data)
 			try{
@@ -346,9 +549,16 @@ $("#phone_rec").swipe( {
 			   audioinput.stop();
         }else{
                console.log("enviar")
-			   var dom = $('<div class="chat_message"><div class="i_said"><audio controls></audio><div class="said_date">'+(new Date().toLocaleString())+'</div></div></div>')
-			   $("#chat_lst_box").append(dom);
-			   stopRecoarding(dom.find("audio"))
+			   var uuid_ = uuid()
+			   var date = new Date()
+			   
+			   var dom = $('<div class="chat_message" id="msg'+uuid_+'"><div class="i_said">'+ `<div class="said_bottom">
+					<div class="said_state">
+						<i class="fa `+getIconStatus("N")+`" aria-hidden="true"></i>
+				</div>
+				<div class="said_date">`+(new Date(date).toLocaleString())+`</div>`+'</div></div>')
+			   $("#chat_lst_box .nice-wrapper").append(dom);
+			   stopRecoarding(uuid_,date,dom.find(".i_said"))
         }
     },
    	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
@@ -361,22 +571,19 @@ $("#phone_rec").swipe( {
 	threshold: 0
   });
 
-
-$("#chat_sender_btn").tapend(function(){
-	if($("#chat_sender_btn .fa-microphone").length >0 ){
-	}else{
-		var tid = uuid()
-		$("#chat_lst_box").append('<div class="chat_message"><div class="i_said">'+$("#chat_sender_txt").html()+'<div class="said_date">20/01/2010 15:20</div></div></div>');
-		goBottom();
-		$("#chat_sender_txt").html("")
-		loginInfo(function(doc){
-			var tempObj  = {
+  
+  function sendMessage(tid,date,type,data,fileName){
+	  loginInfo(function(doc){
+		  console.log("doc",doc)
+		  var tempObj  = {
 				from : doc.estates[estateSelected].guestId,
 				fromType : userType,
-				writeDate : (new Date()).getTime(),
+				writeDate : date,
 				tid: tid, // id temporal mientras q be devuelve el real
-				message: $("#chat_sender_txt").html(),
-				attachment : false
+				message: {
+					type: type,
+					data: data
+				}
 			}
 			if(currentChat.chatType == "contact"){
 				tempObj.to 		=  currentChat.to
@@ -384,14 +591,43 @@ $("#chat_sender_btn").tapend(function(){
 			}else{
 				tempObj.chatId = currentChat.chatId
 			}
-			console.log("tempObj: ", tempObj)
-			_post("/chat/write/app",tempObj,function(data){
-				console.log(data)
-			})
+			
+			if(fileName != undefined){
+				tempObj.fileName = fileName
+			}
+			console.log(tempObj)
+			w.postMessage(JSON.stringify(tempObj))
+	  })   
+  }
+
+$("#chat_sender_btn").tapend(function(){
+	if($("#chat_sender_btn .fa-microphone").length >0 ){
+	}else{
+		var tid = uuid()
+		var date = (new Date()).getTime()
+		var data = $("#chat_sender_txt").html().text()
+		$("#chat_sender_txt").html()
+		sendMessage(tid,date,"text",data)
+		
+		insertMsg("I",{
+			from : "I",
+			chatId: tid,
+			fromType : userType,
+			message: {
+				type: "text",
+				data:data
+			},
+			writeDate : date,
+			status: "N"
+			
 		})
 	}
 });
 
+
+observeDOM(document.getElementById("chat_lst_box"),function(){
+		setTimeout(function(){$("#chat_lst_box").getNiceScroll().resize()},1000);
+})
 
 chat = {
 	init: function(){ 	
@@ -495,9 +731,13 @@ chat = {
 
 msgChat = {
 	init :	function(this_,chatId){
-		if(chatId != "'null'"){
+		console.log(chatId)
+			$("#chat_lst_box .nice-wrapper").html("")
+						window.plugins.toast.showLongCenter("Sincronizando mensajes")
+		if(chatId != "null"){
 			currentChat = {chatId : chatId,chatType : "chat"}
 		}else{
+			console.log("Normal")
 			currentChat = {to : $(this_).attr("id"), toType : $(this_).attr("type") == "user" ? "U" : "G", chatType : "contact"}
 		}
 		console.log(chatId)
@@ -511,34 +751,40 @@ msgChat = {
 			}
 			db.get4Guest("chatId"+chatId,doc.estates[estateSelected].guestId).then(function(oldMsg){
 				try{
-					$("#chat_lst_box").html("")
-					console.log(oldMsg)
+				
+					
 				console.log("oldMsg ",oldMsg)
 				tempObj.version = oldMsg.version
 				console.log("tempObj",tempObj);
-				oldMsg.messages.forEach(function(chat){
+				oldMsg.messages.reverse().forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 				})
-//				window.plugins.toast.showLongCenter("Sincronizando mensajes")
+			
 				_post("/chat/read/app",tempObj,function(data){
 					console.log("downloadData:",data)
 					var incommingId = data.messages.map(function(o){return o.chatId})
-					data.messages.concat(oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)}))
+					console.log("incommingId",incommingId)
+					var other_olds = oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)});
+					console.log("other_olds",other_olds)
+					data.messages = data.messages.concat(other_olds)
+					console.log(data)
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
-					data.messages.forEach(function(chat){
+					data.messages.reverse().forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
 					//window.plugins.toast.showLongCenter("Mensajes Sincronizados")
 				},function(e){
-					oldMsg.messages.forEach(function(chat){
+					oldMsg.messages.reverse().forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();
 						//window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
 					
 				})
-				}catch(e){console.log(e)}
+				}catch(e){console.log(e)
+					
+				}
 				
 				
 				
@@ -548,7 +794,7 @@ msgChat = {
 					console.log(data)
 					console.log(e)
 					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
-					data.messages.forEach(function(chat){
+					data.messages.reverse().forEach(function(chat){
 						insertMsg(doc.estates[estateSelected].guestId,chat)
 					})
 					goBottom();

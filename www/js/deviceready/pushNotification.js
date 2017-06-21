@@ -48,7 +48,7 @@ function RegisterPN(){
 // iOS
 function onNotificationAPN (event) {
 	//cordova.plugins.notification.badge.set(100);
-	callMSGback();
+;
 	window.plugins.toast.showLongBottom(event.alert, function(a){console.log('toast success: ' + a)}, function(b){console.log('toast error: ' + b)});
     if ( event.alert )
     {
@@ -95,7 +95,7 @@ function onNotification(e) {
         if ( e.foreground )
         {
             console.log('<li>--INLINE NOTIFICATION--' + '</li>');
-			callMSGback();
+			console.log(e)
 			window.plugins.toast.showLongBottom(e.payload.message, function(a){console.log('toast success: ' + a)}, function(b){console.log('toast error: ' + b)});
 			
             // on Android soundname is outside the payload.

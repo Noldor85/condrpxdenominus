@@ -10,6 +10,8 @@ window = {
 
 
 
+$ = undefined
+
 
 rng_psize = 256
 importScripts('globals.js');
@@ -21,42 +23,52 @@ importScripts('../lib/rsa/rng.js');
 importScripts('../lib/rsa/jsbn2.js');
 importScripts('../lib/rsa/prng4.js');
 importScripts('../lib/rsa/base64.js');
+importScripts('../js/aes.js');
+importScripts('../js/generics.js');
 queueSendPendings = [];
 var i = 0;
 
 
-
-function RSAencript(text) {
-		var before = new Date();
-		var rsa = new RSAKey();
-		rsa.setPublic("00d4b948bff14a76c7f9ce6660c626ff52472d7a415326bb3c2fe8028a552513ccfe6bf168455cb08e2ee78fa50f10e268930236f14a39dff966a8cd8c79b2227c2f99af3ff709b78975d549155f0d0cdfde4ee3cb9b9639452de4151b293432ff4458dd0afe843011cee1032d6254968181b2dbfd7f3acc72e4e3019572adc5a087aa7f5274cecb9a97b84b0d728dee1464af2dbc5bba5a226590bf7f455b0ee476b16a4f0fcebf975e7cd5b00b67a7d612299a035a74ba6e3577f949191d102f82cdc66092bc7c9f37274b7e6e62728953c6da411db19679e0513748c11f0ee2a3c0b95101cae72e451850ab92a44ebb47ea9d0a22e286afe68528adf466e07f", "10001");
-		  var res = rsa.encrypt(text);
-		  var after = new Date();
-		  if(res) {
-			return hex2b64(res)
-		  }
-}
-
-
-
-
-xhrRequest = function(message){
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", '../../chatDriver.php', false);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	console.log("sending msg> ", message)
-	xhr.send("msg="+message);
-	console.log("status> " ,xhr.status)
-	if(xhr.status == 200){
-		postMessage(xhr.responseText)
-		return false;
-	}else{
-		return true;
+cordovaHTTP = {
+	post : function(url,data,headers,callback,fail){
+		var xhr = new XMLHttpRequest();
+		xhr.open("POST",url, false);
+		xhr.setRequestHeader("Content-type", "application/json");
+		try{
+			xhr.send(JSON.stringify(data));
+			console.log("status> " ,xhr.status)
+			if(xhr.status == 200){
+				console.log(callback)
+				callback({data : xhr.responseText})
+			}else{
+				fail({error : xhr.status})
+			}
+		}catch(e){
+			fail({error: e})
+		}
 	}
 }
+
+
+
+
+
+function sendMessage(msg){
+	var retBool;
+	_post("/chat/write/app",msg,function(data){
+		postMessage(JSON.stringify(data))
+		retBool  = false
+	},function(e){
+		retBool = true
+		console.log("error",e)
+	})
+	return retBool;
+}
+
+
 trySend = function(){
 	queueSendPendings = queueSendPendings.filter(function(this_){
-		return xhrRequest(this_);
+		return sendMessage(this_);
 		
 	})
 	if(queueSendPendings.length> 0){
@@ -65,7 +77,9 @@ trySend = function(){
 }
 
 onmessage = function(e) {
-	queueSendPendings.push(e.data)
+	//postMessage("id2")
+	console.log("new message")
+	queueSendPendings.push(JSON.parse(e.data))
 	trySend();
 }
 

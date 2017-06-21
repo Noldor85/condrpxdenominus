@@ -73,3 +73,11 @@
 #people_cars{
 	margin-top: 20px;
 }
+
+#slide_menu{
+	position: fixed;
+	left: 0px;
+	top:0px;
+	bottom: 0px;
+	width:10px;
+}

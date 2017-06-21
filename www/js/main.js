@@ -33,6 +33,14 @@ function uuid() {
   return uuid;
 }
 
+$(function() {
+
+	$(".get-nicer").niceScroll("div.nice-wrapper", {
+		cursorwidth: "5px",
+		enableobserver: true
+	});
+})
+
 
 var addRippleEffect = function (e) {
     var target = e.target;

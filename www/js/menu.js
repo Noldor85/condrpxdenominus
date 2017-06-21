@@ -43,3 +43,27 @@ $(document).on("tapend",".tablist>li:not(.active)",function(){
 	$(this).parent().parent().parent().find("[tab-name]").hide();
 	$("[tab-name="+$(this).attr("tab-target")+"]").show();
 })
+
+$("#slide_menu").swipe({
+    //Generic swipe handler for all directions
+    swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+       if(distance> 125){
+		   $("#main_menu").animate({"left": "0px"});
+		  
+	   }else{
+		   $("#main_menu").animate({"left": "-250px"});
+		   $("#modal").hide();
+		   console.log("here")
+	   }
+    },
+   	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
+		console.log(distance)
+		if(direction=="right" && distance <250){
+			 $("#modal").show();
+			$("#main_menu").css({"left": (-250+distance)+"px"})
+		}else{
+			return 0
+		}
+    },
+	threshold: 0
+});
