@@ -606,6 +606,7 @@ $("#chat_sender_btn").tapend(function(){
 		var tid = uuid()
 		var date = (new Date()).getTime()
 		var data = $("#chat_sender_txt").html()
+		data = escape(data)
 		$("#chat_sender_txt").html()
 		console.log("data: ", data)
 		sendMessage(tid,date,"text",data)
