@@ -384,6 +384,7 @@ $("#chat_sender_btn").tapend(function(){
 			}else{
 				tempObj.chatId = currentChat.chatId
 			}
+			console.log("tempObj: ", tempObj)
 			_post("/chat/write/app",tempObj,function(data){
 				console.log(data)
 			})
