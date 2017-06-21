@@ -571,6 +571,12 @@ $("#phone_rec").swipe( {
 	threshold: 0
   });
 
+function escapeUnicode(str) {
+    return str.replace(/[^\0-~]/g, function(ch) {
+        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+    });
+}
+
   
   function sendMessage(tid,date,type,data,fileName){
 	  loginInfo(function(doc){
@@ -606,7 +612,7 @@ $("#chat_sender_btn").tapend(function(){
 		var tid = uuid()
 		var date = (new Date()).getTime()
 		var data = $("#chat_sender_txt").html()
-		data = escape(data)
+		data = escapeUnicode(data)
 		$("#chat_sender_txt").html()
 		console.log("data: ", data)
 		sendMessage(tid,date,"text",data)
