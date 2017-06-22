@@ -294,7 +294,7 @@ function insertChat(chat){
 									</div> 
 
 									<div class="chat_lst_element_lastMsg">
-										`+chat.message+`
+										`+unescapeUnicode(chat.message)+`
 									</div> 
 
 									<div class="chat_lst_element_lastMsgDate">
