@@ -170,7 +170,9 @@ function getNameFromUrl(url){
 
 function simDevice(){
 	
-	window.device  =  {platform :"chrome"}
+	window.device  =  {platform :"chrome",uuid: uuid()}
+	window.cordova = {platformId : "chrome"}
+	PN = "BROWSER"+uuid()
 	window.cordovaHTTP = null
 	dirc = {
 		getDirectory : function(a,b,c,f){
@@ -212,6 +214,20 @@ var observeDOM = (function(){
         }
     };
 })();
+
+
+function escapeUnicode(str) {
+    return str.replace(/[^\0-~]/g, function(ch) {
+        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
+    });
+}
+
+function unescapeUnicode(str) {
+ var r = /\\u([\d\w]{4})/gi;
+ str = str.replace(r, function (match, grp) {
+  return String.fromCharCode(parseInt(grp, 16)); } );
+ return unescape(str);
+}
 
 
 if($ != undefined){

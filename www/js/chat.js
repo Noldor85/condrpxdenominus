@@ -99,6 +99,90 @@ function resizeImg(img_){
 function goBottom(){
 	$("#chat_lst_box").scrollTop(document.getElementById("chat_lst_box").scrollHeight)
 }
+
+function getMessages(chatId,print,goDown){
+	loginInfo(function(doc){
+			var tempObj = {
+				chatId: chatId,
+				to : doc.estates[estateSelected].guestId,
+				toType : userType
+			}
+			db.get4Guest("chatId"+chatId,doc.estates[estateSelected].guestId).then(function(oldMsg){
+				try{
+				
+					
+				console.log("oldMsg ",oldMsg)
+				tempObj.version = oldMsg.version
+				console.log("tempObj",tempObj);
+				oldMsg.messages.reverse().forEach(function(chat){
+						insertMsg(doc.estates[estateSelected].guestId,chat)
+				})
+			
+				_post("/chat/read/app",tempObj,function(data){
+					console.log("downloadData:",data)
+					var incommingId = data.messages.map(function(o){return o.chatId})
+					console.log("incommingId",incommingId)
+					var other_olds = oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)});
+					console.log("other_olds",other_olds)
+					data.messages = data.messages.concat(other_olds)
+					console.log(data)
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
+					if(print){
+						data.messages.reverse().forEach(function(chat){
+						insertMsg(doc.estates[estateSelected].guestId,chat)
+						})
+					
+						if(goDown){
+							goBottom();
+						}else{
+							
+						}
+						
+					}
+					//window.plugins.toast.showLongCenter("Mensajes Sincronizados")
+				},function(e){
+					if(print){
+						oldMsg.messages.reverse().forEach(function(chat){
+							insertMsg(doc.estates[estateSelected].guestId,chat)
+						})
+						
+						if(goDown){
+							goBottom();
+						}else{
+							
+						}
+						//window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
+					}
+				})
+				}catch(e){
+					console.log(e)
+					
+				}
+				
+				
+				
+				
+			}).catch(function(e){
+				_post("/chat/read/app",tempObj,function(data){
+					console.log(data)
+					console.log(e)
+					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
+						if(print){
+							data.messages.reverse().forEach(function(chat){
+								insertMsg(doc.estates[estateSelected].guestId,chat)
+							})
+							if(goDown){
+								goBottom();
+							}else{
+								
+							}
+						}
+				},function(e){})
+			})
+		})	
+}
+
+
 function makeChatSwipe(selector){
 	return $(selector).swipe({
 		swipeLeft:function(event, direction, distance, duration, fingerCount) {
@@ -116,7 +200,7 @@ function makeChatSwipe(selector){
 		
 		swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){
 			if(direction == "left"){
-				if(distance > 0 & distance < 71){
+				if(distance > 0 & distance < 72){
 					$(this).css({"margin-left" : "-" + distance + "px"})
 				}
 			}
@@ -171,13 +255,6 @@ function bottomSaid(from,msg){
 	}
 }
 
-function unescapeUnicode(str) {
-	var r = /\\u([\d\w]{4})/gi;
-	str = str.replace(r, function (match, grp) {
-		return String.fromCharCode(parseInt(grp, 16)); } );
-	return unescape(str);
-}
-
 function getSelectedIds(){
 	var tempArr = []
 	 $(".chat_message.selected").each(function(){
@@ -216,7 +293,6 @@ function insertMsg(from,msg_){
 	dom.taphold(selectingMsg).tapend(selectingMsg)
 	
 	
-	if(true){
 		console.log(obj)
 		
 		switch(obj.type){
@@ -279,7 +355,6 @@ function insertMsg(from,msg_){
 			break;
 			
 		}	
-	}
 }
 
 function insertChat(chat){
@@ -578,12 +653,6 @@ $("#phone_rec").swipe( {
 	threshold: 0
   });
 
-function escapeUnicode(str) {
-    return str.replace(/[^\0-~]/g, function(ch) {
-        return "\\u" + ("000" + ch.charCodeAt().toString(16)).slice(-4);
-    });
-}
-
   
   function sendMessage(tid,date,type,data,fileName){
 	  loginInfo(function(doc){
@@ -618,10 +687,8 @@ $("#chat_sender_btn").tapend(function(){
 	}else{
 		var tid = uuid()
 		var date = (new Date()).getTime()
-		var data = $("#chat_sender_txt").html()
-		data = escapeUnicode(data)
+		var data = escapeUnicode($("#chat_sender_txt").html())
 		$("#chat_sender_txt").html()
-		console.log("data: ", data)
 		sendMessage(tid,date,"text",data)
 		
 		insertMsg("I",{
@@ -758,64 +825,7 @@ msgChat = {
 		console.log(chatId)
 		console.log($(this_))
 		$("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
-		loginInfo(function(doc){
-			var tempObj = {
-				chatId: chatId,
-				to : doc.estates[estateSelected].guestId,
-				toType : userType
-			}
-			db.get4Guest("chatId"+chatId,doc.estates[estateSelected].guestId).then(function(oldMsg){
-				try{
-				
-					
-				console.log("oldMsg ",oldMsg)
-				tempObj.version = oldMsg.version
-				console.log("tempObj",tempObj);
-				oldMsg.messages.reverse().forEach(function(chat){
-						insertMsg(doc.estates[estateSelected].guestId,chat)
-				})
-			
-				_post("/chat/read/app",tempObj,function(data){
-					console.log("downloadData:",data)
-					var incommingId = data.messages.map(function(o){return o.chatId})
-					console.log("incommingId",incommingId)
-					var other_olds = oldMsg.messages.filter(function(o){return (incommingId.indexOf(o.chatId)== -1)});
-					console.log("other_olds",other_olds)
-					data.messages = data.messages.concat(other_olds)
-					console.log(data)
-					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId, data)
-					data.messages.reverse().forEach(function(chat){
-						insertMsg(doc.estates[estateSelected].guestId,chat)
-					})
-					goBottom();
-					//window.plugins.toast.showLongCenter("Mensajes Sincronizados")
-				},function(e){
-					oldMsg.messages.reverse().forEach(function(chat){
-						insertMsg(doc.estates[estateSelected].guestId,chat)
-					})
-					goBottom();
-						//window.plugins.toast.showLongCenter("Imposible sincronizar mensajes con el sistema")
-					
-				})
-				}catch(e){console.log(e)
-					
-				}
-				
-				
-				
-				
-			}).catch(function(e){
-				_post("/chat/read/app",tempObj,function(data){
-					console.log(data)
-					console.log(e)
-					db.upsert4Guest("chatId"+chatId,doc.estates[estateSelected].guestId,data)
-					data.messages.reverse().forEach(function(chat){
-						insertMsg(doc.estates[estateSelected].guestId,chat)
-					})
-					goBottom();
-				},function(e){})
-			})
-		})
+		getMessages(chatId,true,true)
 	}
 }
 

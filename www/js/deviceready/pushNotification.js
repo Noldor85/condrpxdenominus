@@ -92,7 +92,10 @@ function onNotification(e) {
 		//cordova.plugins.notification.badge.set(200);
         // if this flag is set, this notification happened while we were in the foreground.
         // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-        if ( e.foreground )
+        console.log(e)
+		pushDriver(e)
+		
+		if ( e.foreground )
         {
             console.log('<li>--INLINE NOTIFICATION--' + '</li>');
 			console.log(e)

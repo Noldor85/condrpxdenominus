@@ -102,6 +102,7 @@ $(".login--Credentials").tapend(function(){
 			pushNumber : typeof device !== 'undefined' ? PN : "Browser"
 		}
 		try{
+			console.log(tempObj)
 		_post("/security/login",tempObj,function(data,status){
 			$("#login").fadeOut();
 			if (cordova.platformId == 'android') {
@@ -119,12 +120,12 @@ $(".login--Credentials").tapend(function(){
 				socialRegister(tempObj)
 				
 			}else{
-				$("#login_info_txt").html(JSON.parse(e.responseText).error)
+				console.log(e)
+				//$("#login_info_txt").html(JSON.parse(e.responseText).error)
 			}
 		})
-		}catch(e){
-			alert("error")
-			alert(JSON.stringify(e))
+		}catch(err){
+			console.log("error",err)
 		}
 	}else{
 		$("#login_info_txt").html("Your user is not an email")
