@@ -33,12 +33,28 @@ function uuid() {
   return uuid;
 }
 
+
+function clearWorkspace(){
+	$(".people").remove()
+	$("#resource_request_list .nice-wrapper").html("")
+	$(".bill").remove()
+	$("#service_request_list .nice-wrapper").html("")
+	$("#chat_list .nice-wrapper").html("")
+}
+
 $(function() {
 
-	$(".get-nicer").niceScroll("div.nice-wrapper", {
-		cursorwidth: "5px",
-		enableobserver: true
-	});
+	$(".get-nicer").each(function(){
+		var _this = $(this)
+		_this.niceScroll(_this.find(".nice-wrapper"), {
+			cursorwidth: "5px",
+			enableobserver: true
+		});
+		
+		observeDOM(this,function(){
+		setTimeout(function(){_this.getNiceScroll().resize()},1000);
+})
+	})
 })
 
 
@@ -62,4 +78,4 @@ var addRippleEffect = function (e) {
     return false;
 }
 
-document.addEventListener('tapend', addRippleEffect, false);
+//$(document).on('tapend', "*", addRippleEffect);

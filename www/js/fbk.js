@@ -18,6 +18,7 @@
 */
 
 
+
 $(".loginBtn--facebook").tapend(function(){
  CordovaFacebook.login({
    permissions: ['email', 'user_likes'],

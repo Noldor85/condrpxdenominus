@@ -15,7 +15,11 @@ $(".loginBtn--google").tapend(function(){
 		 fillUserConfig(data)
 		loginId = data.loginId;
 		loginObj= data
-			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
+			db.bulkDocs([
+				Object.assign({"_id" : "googleObj"},result),
+				Object.assign({"_id" : "loginInfo"},data)
+			])
+			//db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 		},function(e){
 			socialRegister({"googleKey"  : HexWhirlpool(result.userId)})
 		})

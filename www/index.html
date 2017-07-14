@@ -70,15 +70,15 @@
         <div class="app">
 			 <div id="modal"></div>
 			  <nav id="main_menu">
-					<div id="condo_logo">
+					<div id="condo_logo"  section-target="home" section-title="Inicio">
 						Condominus &nbsp;
 					</div>
 					<ul>
-						<li class="menu_nav nav_li_selected" section-target="home"><a>Inicio</a></li>
-						<li class="menu_nav" section-target="signInHome"><a>Ingresos</a></li>
+						<li class="menu_nav" section-target="residents"><a>Habitantes</a></li>
+						<li class="menu_nav" section-target="entries"><a>Ingresos</a></li>
 						<li class="menu_nav" section-target="bookin"><a>Reservas</a></li>
 						<li class="menu_nav" section-target="bills"><a>Facturas</a></li>
-						<li class="menu_nav" section-target="msgChat"><a>Servicios</a></li>
+						<li class="menu_nav" section-target="service"><a>Servicios</a></li>
 						<li class="menu_nav" section-target="chat"><a>Chat</a></li>
 					</ul>
 			   </nav>
@@ -99,52 +99,87 @@
 					</header>
 					
 					<div section-name="home" class="section_page section_active">
-					pagina de home
+						<div id ="dashboard" class="get-nicer">
+							<div class="padding10 nice-wrapper">
+			
+								<h3>Mensajes sin leer</h3>
+								<div id="home_chats" class="home_divs dashboard_cards" section-target="chat" section-title="Chat">
+									<div class="fa fa-comment-o"> </div>
+									 <div class="fa fa-comments-o"></div>
+									 <div class="fa fa-home"> </div>
+								</div>
+								
+								<h3>Facturas Pendientes</h3>
+								<div id="home_bills" class="home_divs">
+								</div>
+				
+								<h3>Reservas del día</h3>
+								<div id="home_bookings" class="home_divs dashboard_cards">
+									<div class="home_empty">No hay reservas para su apartamento el día de hoy</div>
+								</div>	
+							</div>
+						</div>
 					</div>
 					
-					<div section-name="signInHome" class="section_page">
-						<nav id="typeOfSignInHome">
-							<ul class="tablist" tab-group="typeOfSignInHome">
-								<li class="active" tab-target="guess">Visitas</li>
-								<li tab-target="guess_service">Servicios</li>
-								<li tab-target="residence">Residentes</li>
+					
+					<div section-name="residents" class="section_page">
+						<nav id="residencesNav">
+							<ul class="tablist" tab-group="residencesNav">
+								<li class="active" tab-target="people">Todos</li>
+								<li tab-target="users">Usuarios</li>
 							</ul>
 						</nav>
-						<div class="tab-listtab" tab-name="guess">
-						</div>
-						<div  class="tab-listtab" tab-name="guess_service">
-							<div class="card_swipe">borrar</div><div class="card for_swipe">
-								<div class="card_guess_id"><i class="fa fa-car" aria-hidden="true"></i></div>
-								<div class="card_guess_info">
-									<table>
-										<tbody>
-											<tr><th>Luis Alfonso Soleira</th></tr>
-											<tr><td>1-1213-1343</td></tr>
-											<tr><td>Propietario</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
+						
+						<div id="habitantList" class="tab-listtab get-nicer" tab-name="people">
+							<div class="nice-wrapper">
 							</div>
 						</div>
 						
-						<div  class="tab-listtab" tab-name="residence">
-							<div class="card_swipe">borrar</div><div class="card for_swipe">
-								<div class="card_guess_id"><i class="fa fa-car" aria-hidden="true"></i></div>
-								<div class="card_guess_info">
-									<table>
-										<tbody>
-											<tr><th>Alejandra Soleira</th></tr>
-											<tr><td>1-1213-1343</td></tr>
-											<tr><td>Propietario</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
+						<div id="userList" class="tab-listtab get-nicer" tab-name="users">
+							<div class="nice-wrapper">
 							</div>
 						</div>
-						<div class="add_btn" section-target="addPerson" section-title="Agregar Ingreso">+</div>
+						
+						<div  id="hab-1" class="add_btn" section-target="habitant" section-title="Habitantes">+</div>
+						
+						
 					</div>
+					
+					<div section-name="entries" class="section_page">
+						<nav id="entriesNav">
+							<ul class="tablist" tab-group="guestNav">
+								<li class="active" tab-target="guest">Visitas</li>
+								<li tab-target="employees">Empleados</li>
+							</ul>
+						</nav>
+						
+						<div class="tab-listtab" tab-name="guest">
+							<div class="searchBox">
+								<input type="search"/>
+								<div class="fa fa-times searchCancel"></div>
+							</div>
+							<div id="guestList" class="get-nicer">
+								<div class="nice-wrapper">
+									<div class="bottomDiv"></div>
+								</div>
+							</div>
+							<div class="search_btn fa fa-search"></div>
+							<div id="gus-1" class="add_btn" section-target="guest" section-title="Visitas">+</div>
+						</div>
+						
+						
+						<div id="employeeList" class="tab-listtab get-nicer" tab-name="employees">
+							<div class="nice-wrapper">
+							</div>
+							<div id="emp-1" class="add_btn" section-target="employee" section-title="Empleados">+</div>
+						</div>
+						
+						
+					</div>
+					
+					
+					
+
 					
 					<div section-name="bookin" class="section_page">
 						<nav id="bookinNav">
@@ -155,105 +190,37 @@
 							</ul>
 						</nav>
 						
-						<div  class="tab-listtab" tab-name="resource">
-							<div class="card" section-target="resource" section-title="Sala de Juegos" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-3.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Sala de Juegos</th></tr>
-											<tr><td>Todos los días</td></tr>
-											<tr><td>de 8:00  a 22:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
+						<div id="resource_list" class="tab-listtab get-nicer" tab-name="resource">
+							<div class="nice-wrapper">
 							</div>
-						
-							<div class="card" section-target="resource" section-title="Sala de Cine" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-2.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Sala de Cine</th></tr>
-											<tr><td>Todos los días</td></tr>
-											<tr><td>de 8:00  a 22:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
-							</div>
-						
-							<div class="card" section-target="resource" section-title="Cancha Multideportes" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-4.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Cancha Multideportes</th></tr>
-											<tr><td>Todos los días</td></tr>
-											<tr><td>de 8:00  a 22:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
-							</div>
-						
-							<div class="card" section-target="resource" section-title="Sala de Negocios" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-7.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Sala de Negocios</th></tr>
-											<tr><td>Todos los días</td></tr>
-											<tr><td>de 8:00  a 21:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
-							</div>
-							
-							<div class="card" section-target="resource" section-title="Picina Azotea" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-11.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Picina Azotea</th></tr>
-											<tr><td>Todos los días</td></tr>
-											<tr><td>de 8:00  a 21:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
-							</div>
+								
 						</div>
 						
-						
-						<div  class="tab-listtab" tab-name="history">
-							<div class="card" section-target="resource" section-title="Picina Azotea" section-fx="">
-								<div class="card_resource_id" style="background-image:url(img/Fotos%20Amenidades-11.jpg);"></div>
-								<div class="card_resource_info">
-									<table>
-										<tbody>
-											<tr><th>Picina Azotea</th></tr>
-											<tr><td>16 de abril 2017</td></tr>
-											<tr><td>de 8:00  a 21:00</td>
-											</tr>
-										</tbody>
-									</table>
-								 </div>
+						<div id="resource_request_list" class="tab-listtab get-nicer" tab-name="history">
+							<div class="nice-wrapper">
 							</div>
+								
 						</div>
 					</div>
 					
 					<div section-name="bills" class="section_page">
 						<nav id="billsNav">
 							<ul class="tablist" tab-group="billsNav">
-								<li class="active" tab-target="Chat">Pendientes</li>
-								<li tab-target="residence">Canceladas</li>
+								<li class="active" tab-target="billsPending">Pendientes</li>
+								<li tab-target="billsCanceled">Canceladas</li>
+								
 							</ul>
 						</nav>
-						<div class="tab-listtab" tab-name="Chat">
-						chat
+						<div class="tab-listtab" tab-name="billsPending">
+						    <div id="billsPending_lst" class="get-nicer">
+								<div class="nice-wrapper"></div>
+							</div>
+						</div>
+						<div class="tab-listtab" tab-name="billsCanceled">
+							<input id="selectMonthBill" type="month" class="selectMonth">
+							<div id="billsCanceled_lst" class="get-nicer">
+								<div class="nice-wrapper"></div>
+							</div>
 						</div>
 					</div>
 
@@ -266,17 +233,50 @@
 							</ul>
 						</nav>
 
-						<div class="tab-listtab" tab-name="Chat"></div>
+						<div class="tab-listtab get-nicer" tab-name="Chat" id="chat_list"><div class="nice-wrapper"></div></div>
 
-						<div class="tab-listtab" tab-name="Employee"></div>
+						<div class="tab-listtab get-nicer" tab-name="Employee" id="chat_list_people"><div class="nice-wrapper"></div></div>
 
-						<div class="tab-listtab" tab-name="Department"></div>
+						<div class="tab-listtab get-nicer" tab-name="Department" id="chat_list_group"><div class="nice-wrapper"></div></div>
+					</div>
+					
+					<div section-name="msgInfo" class="section_page">
+						<nav id="ChatMsgInfoNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat" section-title="Chat"></i>
+								<div>andres@segreda.com</div>
+						</nav>
+						
+						<div class="tab-listtab get-nicer" tab-name="msgInfo">
+							<div class="nice-wrapper">
+							   <div id="msgInfoPreview" ">
+								
+							   </div>
+							   <div id="chatsRead" class="statusInfoBox">
+								  <div class="statusChatHeader">
+									 <div>Leido</div>
+									 <div class="fa fa-eye"></div>
+								  </div>
+							   </div>
+							   <div id="chatsDelivered" class="statusInfoBox">
+								  <div class="statusChatHeader">
+									 <div>Entregado</div>
+									 <div class="fa fa-check"></div>
+								  </div>
+							   </div>
+							   <div id="chatsUndelivered" class="statusInfoBox">
+								  <div class="statusChatHeader">
+									 <div>Restantes</div>
+									 <div class="fa fa-paper-plane-o"></div>
+								  </div>
+							   </div>
+							</div>
+						</div>
 					</div>
 
-					<div section-name="msgChat" class="section_page">
+					<div section-name="msgChat" class="section_page" avoid-autoscroll="true">
 							<nav id="ChatMsgNav" class="chat_action_bar">
 								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat" section-title="Chat"></i>
-								<div>andres@segreda.com</div>
+								<div></div>
 							</nav>
 							<div class="tab-listtab" tab-name="Chat2">
 
@@ -305,7 +305,10 @@
 								  <div class="fa fa-picture-o" aria-hidden="true"></div>
 								  <div class="fa fa-file-o" aria-hidden="true" style="font-size: 30px;"></div>
 							</div>
-						</div>		
+						</div>	
+						<div id="goBottom"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+						  <div class="qtyNewMsg">1</div>
+						</div>
 					</div>
 
 
@@ -318,80 +321,238 @@
 							</ul>
 						</nav>
 						
+						<div class="tab-listtab get-nicer" tab-name="services" id="service_list"><div class="nice-wrapper"></div></div>
+						<div class="tab-listtab get-nicer" tab-name="request" id="service_request_list"><div class="nice-wrapper"></div></div>
+						
+					</div>
+					
+					<div section-name="servicePage" class="section_page">
+						<nav id="ServiceNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="service" section-title="Services"></i>
+								<div class="title"></div>
+						</nav>
+						
+						<div class="tab-listtab get-nicer" tab-name="servicePage" id="service_page">
+							<div class="nice-wrapper">
+								<div class="padding10">
+										<div id="service_photo" class="upPicture"></div>
+									<h3>Precio</h3>
+									  <div class="flex_container">
+										<div id="servicePage_cost"></div><div id="requestSrvBtn">Solicitar</div>
+									  </div>
+										  <h3>Descripción</h3>
+									<div id="serviceDescription" class="fromEditor">
+									  
+									</div>
+										 <h3>Contacto</h3>
+									<table class="service_contact">
+									  <tbody><tr><th>Nombre</th><td id="service_contactName"> </td></tr>
+									  <tr><th>Email</th><td id="service_contactEmail"></td><th>
+										</th></tr><tr><th>Teléfonos</th></tr>
+									</tbody></table>
+										
+										
+										  
+									</div>
+							</div>
+						</div>
+						
+						
+					</div>
+					
+					<div section-name="habitant" class="section_page">
+						<nav id="habitantNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" section-title="Ingresos"></i>
+								<div class="title">Esta Visita</div>
+								<div class="action">
+									<div class="fa fa-car"></div>
+								</div>
+						</nav>
+						<div id="habitantInfo" class="addPerson_select_type_container get-nicer togglePanel active">
+							<div class="nice-wrapper">
+								<table class="form">
+									<tr><td>
+										<label>Nombre:</label>
+										<input id="habitantName" class="form_input_full"/>
+									</tr></td>
+									<tr><td>
+										<label>Identificacion:</label>
+										<input id="habitantId" class="form_input_full"/>
+									</td></tr>
+									<tr><td>
+										<label>Teléfono:</label>
+										<input id="habitantPhone" class="form_input_full"/>
+									</td></tr>
+									</table>
+									
+									<div id="qrcode">
+									</div>
+									
+									<div class="share_btn"><i class="fa fa-share-alt" aria-hidden="true"></i></div>
+									
+									
+									<div class="bottomDiv"></div>
+								</div>
+							</div>	
+							<div id="habitantCar" class=" get-nicer togglePanel">
+								<div class="nice-wrapper"> 
+									<table id="cars_table" class="form">
+										<thead>
+											<tr>
+												<th>Matricula</th>
+												<th>tipo</th>
+												<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
+											
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+									<div class="bottomDiv"></div>
+								
+								</div>
+							</div>
+							<div class="save_btn"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>
+							
 					</div>
 					
 					
-					<div section-name="addPerson" class="section_page">
-						<div class="addPerson_select_type_container">
-						<table class="form">
-							<tr><td>
-								<label>Tipo de persona:</label>
-								<select style="width:100%;">
-									<optgroup label="Visitas">
-										<option>Puntual</option>
-										<option>Tiempo indefinido</option>
-									</optgroup>
-									<optgroup label="Servicios">
-										<option>Limpieza</option>
-										<option>Mantenimiento</option>
-										<option>Cocina</option>
-										<option>Jardinería</option>
-										<option>Jurídica</option>
-										<option>Otros</option>
-										
-									</optgroup>
-									<optgroup label="Residentes">
-										<option>Inquilino</option>
-										<option>Recidente</option>
-										<option>Huesped</option>
-									</optgroup>
+					
+					
+					<div section-name="guest" class="section_page">
+						<nav id="guestNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" section-title="Ingresos"></i>
+								<div class="title">Esta Visita</div>
+								<div class="action">
+									<div class="fa fa-car"></div>
+								</div>
+						</nav>
+						<div id="guestInfo" class="addPerson_select_type_container get-nicer togglePanel active">
+							<div class="nice-wrapper">
+								<table class="form">
+									<tr><td>
+										<label>Nombre:</label>
+										<input id="guestName" class="form_input_full" tabindex="1"/>
+									</tr></td>
+									<tr><td>
+										<label>Identificacion:</label>
+										<input id="guestId" class="form_input_full"  tabindex="2"/>
+									</td></tr>
+									<tr><td>
+										<label>Teléfono:</label>
+										<input id="guestPhone" class="form_input_full"  tabindex="3"/>
+									</td></tr>
+									<tr>
+									<td class="form_td_toggle">
+										<label>Notificar llegada:</label>	
+										<label class="switch">
+										  <input id="guestNotifyIn" type="checkbox"  tabindex="4">
+										  <div class="slider round"></div>
+										</label>
+									</td>
+									<tr><td class="form_td_toggle">
+										<label>Autorizado Permanente:<label>	
+										<label class="switch">
+										  <input id="guestPermanent" type="checkbox">
+										  <div class="slider round"></div>
+										</label>
+									</td></tr>
+									
+									<tr><td>
+										<label>Fecha:</label><br>
+										<input id="guestDateStart" type="date"  tabindex="5"/>
+									</td></tr>
+									
+									<tr><td>
+										<label>Hora:</label><br> 
+										<input id="guestStartTime" type="time"  tabindex="6"/>
+									</td></tr>
 									
 									
-								</select>
-							</td></tr>
-							<tr><td>
-								<label>Nombre:</label>
-								<input class="form_input_full"/>
-							</tr></td>
-							<tr><td>
-								<label>Identificacion:</label>
-								<input class="form_input_full"/>
-							</td></tr>
-							<tr>
-							<td class="form_td_toggle">
-								<label>Notificar llegada:</label>	
-								<label class="switch">
-								  <input type="checkbox">
-								  <div class="slider round"></div>
-								</label>
-							</td>
-							<tr><td class="form_td_toggle">
-								<label>Autorizado Permanente:<label>	
-								<label class="switch">
-								  <input type="checkbox">
-								  <div class="slider round"></div>
-								</label>
-							</td></tr>
-							
-							<tr><td>
-								<label>Fecha:</label><br>
-								<!--<div class="form_input_half datepicker left" id="st_ng_d"/></div><div class="to_txt"> a </div> <div id="ed_ng_d" class="form_input_half datepicker right"/></div>
-								--> 
-								<input type="date"/>
-							</td></tr>
-							
-							<tr><td>
-								<label>Hora:</label><br>
-								<!--<div class="form_input_half timepicker left" id="st_ng_t"/></div><div class="to_txt"> a</div> <div class="form_input_half timepicker right" id="ed_ng_t"/></div>
-															--> 
-								<input type="time"/> to 
-								<input type="time"/>
-							</td></tr>
-							
-							
-							</table>
-							
-							<table class="chekbox_table">
+									</table>
+									
+									<div class="bottomDiv"></div>
+								</div>
+							</div>	
+							<div id="guestCar" class=" get-nicer togglePanel">
+								<div class="nice-wrapper"> 
+									<table id="cars_table" class="form">
+										<thead>
+											<tr>
+												<th>Matricula</th>
+												<th>tipo</th>
+												<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
+											
+											</tr>
+										</thead>
+										<tbody>
+											
+										</tbody>
+									</table>
+									<div class="bottomDiv"></div>
+								
+								</div>
+							</div>
+							<div class="save_btn"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>
+					</div>
+					
+					
+					
+					<div section-name="employee" class="section_page">
+						<nav id="employeeNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" section-title="Ingresos"></i>
+								<div class="title"></div>
+								<div class="action">
+									<div class="fa fa-bookmark"></div>
+								</div>
+						</nav>
+						<div id="employeeInfo" class="addPerson_select_type_container get-nicer togglePanel active">
+							<div class="nice-wrapper">
+								<table class="form">
+									<tr><td>
+										<label>Nombre:</label>
+										<input id="employeeName" class="form_input_full"/>
+									</tr></td>
+									<tr><td>
+										<label>Identificacion:</label>
+										<input id="employeeId" class="form_input_full"/>
+									</td></tr>
+									<tr><td>
+										<label>Teléfono:</label>
+										<input id="employeePhone" class="form_input_full"/>
+									</td></tr>
+									<tr>
+									<td class="form_td_toggle">
+										<label>Notificar llegada:</label>	
+										<label class="switch">
+										  <input  id="employeeNotifyIn" type="checkbox">
+										  <div class="slider round"></div>
+										</label>
+									</td></tr>	
+									<tr>
+									<td class="form_td_toggle">
+										<label>Notificar Salida:</label>	
+										<label class="switch">
+										  <input  id="employeeNotifyOut" type="checkbox">
+										  <div class="slider round"></div>
+										</label>
+									</td></tr>
+									
+									
+									<tr><td>
+										<label>Fecha:</label><br>
+										<input id="employeeDateStart" type="date"/> a <input id="employeeDateEnd" type="date"/>
+									</td></tr>
+									
+									<tr><td>
+										<label>Hora:</label><br> 
+										<input id="employeeStartTime" type="time"/> a <input id="employeeEndTime" type="time"/>
+									</td></tr>
+									</table>
+									
+									
+									<table class="chekbox_table">
 								<tr>
 									<td>L</td><td><div class="checkbox"/></div></td>
 									<td>K</td><td><div class="checkbox check"/></div></td>
@@ -405,147 +566,138 @@
 									<td>D</td><td><div class="checkbox"/></div></td>
 								</tr>
 							</table>
-							
-							<div id="people_cars">
-								<label>Vehiculos</label>
-								<table id="cars_table" class="form">
-									<thead>
-										<tr>
-											<th>Matricula</th>
-											<th>tipo</th>
-											<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
-										
-										</tr>
-									</thead>
-									<tbody>
-										
-										<tr>
-											<td>JSJ001</td>
-											<td>sedan</td>
-											<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-										</tr>
-										<tr>
-											<td>JSJ001</td>
-											<td>sedan</td>
-											<td><i class="fa fa-trash-o" aria-hidden="true"></i></td>
-										</tr>
-									</tbody>
-									</table>
-							</div>
-							
-							<div class="button" id="cancel_people_btn">Cancelar</div>
-							<div class="button mc">Guardar</div>
-						</div>
-						
-						
-						
-					</div>
-					 <div section-name="resource" class="section_page">
-						<div id="resource_select_day">
-							<label>Abril</label> <label>2017</label>
-							<div id="resource_day_cursel">
-								<table class="pick_cursel_day">
-								</table>
-							</div>
-							
-							
-						</div>
-						<div  class="post-cursel" >
-							<div class="card_day" >
-									<div class="card_day_resource_id">12</div>
-									<div class="card_resource_info">
-										<table class="card_day_table">
-											<tbody>
-												<tr><th>Apartamento 103</th></tr>
-												<tr><td>Reservado</td></tr>
-												<tr><td>de 10:00  a 13:00</td>
-												</tr>
-											</tbody>
-										</table>
-										<table class="card_day_table">
-											<tbody>
-												<tr><th>Apartamento 103</th></tr>
-												<tr><td>Reservado</td></tr>
-												<tr><td>de 13:00  a 17:00</td>
-												</tr>
-											</tbody>
-										</table>
-									 </div>
-								</div>
-							
-							<div class="card_day" >
-									<div class="card_day_resource_id">28</div>
-									<div class="card_resource_info">
-										<table class="card_day_table">
-											<tbody>
-												<tr><th>Apartamento 201</th></tr>
-												<tr><td>Reservado</td></tr>
-												<tr><td>de 9:00  a 13:00</td>
-												</tr>
-											</tbody>
-										</table>
-										<table class="card_day_table">
-											<tbody>
-												<tr><th>Administrativo</th></tr>
-												<tr><td>Reunion condominos</td></tr>
-												<tr><td>de 16:00  a 17:00</td>
-												</tr>
-											</tbody>
-										</table>
-										<table class="card_day_table">
-											<tbody>
-												<tr><th>Administativo</th></tr>
-												<tr><td>Mantenimiento</td></tr>
-												<tr><td>de 17:00  a 21:00</td>
-												</tr>
-											</tbody>
-										</table>
-									 </div>
-								</div>
-							</div>
-						
-						
-						<div class="add_btn" section-target="add_book" section-title="Reservar">+</div>
-					</div>
-					<div section-name="add_book" class="section_page">
-						<div class="addPerson_select_type_container">
-						<table class="form">
-							<tr><td>
-								<label>Amenidad:</label>
-								<select style="width:100%;">
-									<option>Sala de Cine</option>
-									<option>Sala de Negocios</option>
-									<option>Sala de Juegos</option>
-									<option>Multideportes</option>
-									<option>Picina Azotea</option>
-								</select>
-							</td></tr>
-							<tr><td>
-								<label>Fecha:</label><br>
-								<div class="form_input_full datepicker" id="rsv_day"/> </div>
-							</td></tr>
-							
-							<tr><td>
-								<label>Hora:</label><br>
-								<div class="form_input_half left timepicker" id="rsv_hr_str"/></div><div class="to_txt"/> a</div><div class="form_input_half timepicker right" id="rsv_hr_end"/></div>
-							</td></tr>
-						</table>
-						
-						<div class="button" id="cancel_people_btn">Cancelar</div>
-						<div class="button mc">Guardar</div>
+									
 
+									<div class="save_btn" ><i class="fa fa-floppy-o" aria-hidden="true"></i></div>
+									<div class="bottomDiv"></div>
+								</div>
+							</div>	
+							
+							
+							<div id="employeeBookmark" class="togglePanel">
+<input type="month" name="month" id="selectMonth">
+								<div id="employeeAccesLst" class="get-nicer">
+	
+									<div class="nice-wrapper"> 
+									
+										<table id="entryLog_table" class="form">
+											<thead>
+												<tr>
+													<th>Ingreso</th>
+													<th>Salida</th>
+												</tr>
+											</thead>
+											<tbody>
+												
+											</tbody>
+										</table>
+										<div class="bottomDiv"></div>
+									
+									</div>
+								</div>
+							</div>
+						
+							
+					</div>
+					
+					 <div section-name="resource" class="section_page">
+						<nav id="ResourceNav" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="bookin" section-title="Reservas"></i>
+								<div class="title"></div>
+								<div class="action">
+									<div class="fa fa-calendar-o"></div>
+								</div>
+						</nav>
+						<div id="infoBookins" class="togglePanel get-nicer active">
+							<div class="nice-wrapper">
+								<div class="padding10">
+											<div id="resourcePhoto" class="upPicture"></div>
+											  <h3>Descripción</h3>
+										<div id="resourceDescription" class="fromEditor"></div>
+											 <h3>Horario</h3>
+												<table  id="resourceSchedule" class="schedule">
+													<tr><th>Domingo</th><td></td></tr>
+													<tr><th>Lunes</th><td></td></tr>
+													<tr><th>Martes</th><td></td></tr>
+													<tr><th>Miercoles</th><td></td></tr>
+													<tr><th>Jueves</th><td></td></tr>
+													<tr><th>Viernes</th><td></td></tr>
+													<tr><th>Sábado</th><td></td></tr>
+												</table>
+											 <h3>Reglas de reserva</h3>
+											 <ul id="resourceRules">
+											 </ul>
+											 <div class="bottomDiv"></div>		  
+								</div>
+							</div>
+						</div>
+						
+						<div id="allBookins" class="togglePanel">
+							
+							<div id="resource_select_day">
+								<select class="select_ix"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Setiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select>
+								<select class="select"><option>2017</option></select>
+								<div id="resource_day_cursel">
+									<table class="pick_cursel_day">
+									</table>
+								</div>
+											
+							</div>
+								<div  class="post-cursel" class="get-nicer" >
+									<div class="nice-wrapper">
+									<div class="day_container" day="01"></div>
+									<div class="day_container" day="02"></div>
+									<div class="day_container" day="03"></div>
+									<div class="day_container" day="04"></div>
+									<div class="day_container" day="05"></div>
+									<div class="day_container" day="06"></div>
+									<div class="day_container" day="07"></div>
+									<div class="day_container" day="08"></div>
+									<div class="day_container" day="09"></div>
+									<div class="day_container" day="10"></div>
+									<div class="day_container" day="11"></div>
+									<div class="day_container" day="12"></div>
+									<div class="day_container" day="13"></div>
+									<div class="day_container" day="14"></div>
+									<div class="day_container" day="15"></div>
+									<div class="day_container" day="16"></div>
+									<div class="day_container" day="17"></div>
+									<div class="day_container" day="18"></div>
+									<div class="day_container" day="19"></div>
+									<div class="day_container" day="20"></div>
+									<div class="day_container" day="21"></div>
+									<div class="day_container" day="22"></div>
+									<div class="day_container" day="23"></div>
+									<div class="day_container" day="24"></div>
+									<div class="day_container" day="25"></div>
+									<div class="day_container" day="26"></div>
+									<div class="day_container" day="27"></div>
+									<div class="day_container" day="28"></div>
+									<div class="day_container" day="29"></div>
+									<div class="day_container" day="30"></div>
+									<div class="day_container" day="31"></div>
+									
+								
+									
+								
+									</div>
+								</div>
+							
+							</div>
+							<div class="add_btn" id="add_book" >+</div>
 					</div>
 			   </section>
 			   
 			  
-			   
+			   <div class="loading"></div>
 			   <section id="user_config">
 			   <h4 class="h4_active_state">Propiedad Activa</h4>
 			   <h4  class="h4_mech_auth">Mecanismos de Autenticación</h4>
 					<div id="personalProfile">
 					<img id="profilePicture" />
-					<i class="fa fa-times close_modal_btn" aria-hidden="true"></i>
 					<span>andres@segreda.com</span>
+					<i class="fa fa-times close_modal_btn" aria-hidden="true"></i>
+					
 					</div>
 					<select id="myProperties">
 					
@@ -618,7 +770,8 @@
 				</div>
 			   
         </div>
-		
+					
+					
 		
 		<div id="imgPreview">
 			<div id="imgPreview_actionBar">
@@ -645,6 +798,7 @@
 		<script type="text/javascript" src="js/mobile-events.js"></script>
 		<script type="text/javascript" src="js/TouchSwipe.js"></script>
 		<script type="text/javascript" src="js/pouchdb-6.1.2.min.js"></script>
+		<script type="text/javascript" src="js/qr.js"></script>
 		<script type="text/javascript" src="lib/select2/js/select2.min.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.date.js"></script>
@@ -657,6 +811,7 @@
 		<script type="text/javascript" src="lib/rsa/rsa.js"></script>
 		<script type="text/javascript" src="lib/rsa/base64.js"></script>
 		<script type="text/javascript" src="js/ResizeSensor.js"></script>
+		<script type="text/javascript" src="js/html2canvas.js"></script>
 		<script type="text/javascript" src="js/deviceready/pushNotification.js"></script>
 		<script type="text/javascript" src="js/deviceready/downloader.js"></script>
 		<script type="text/javascript" src="js/deviceready/db.js"></script>
@@ -665,8 +820,8 @@
 		<script type="text/javascript" src="js/deviceready/specialEvents.js"></script>
 		<script type="text/javascript" src="js/deviceready/audio.js"></script>
 		<script type="text/javascript" src="js/clipboard.min.js"></script>
-		<script type="text/javascript" src="js/whirpool.js"></script>
-		<script type="text/javascript" src="js/aes.js"></script>
+		<script type="text/javascript" src="js/crypto/whirpool.js"></script>
+		<script type="text/javascript" src="js/crypto/aes.js"></script>
 		<script type="text/javascript" src="js/date.js"></script>
 		<script type="text/javascript" src="js/datecou.js"></script>
 		<script type="text/javascript" src="js/generics.js"></script>
@@ -674,15 +829,27 @@
         <script type="text/javascript" src="js/login.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/menu.js"></script>
-		<script type="text/javascript" src="js/user.js"></script>
-		<script type="text/javascript" src="js/people.js"></script>
-		<script type="text/javascript" src="js/chat.js"></script>
-		<script type="text/javascript" src="js/sim.js"></script>
-		<script type="text/javascript" src="js/userConfig.js"></script>
+		<!--script type="text/javascript" src="js/sim.js"></script-->
 		<script type="text/javascript" src="js/pushDriver.js"></script>
+		<!-- pages scripts -->
+		<script type="text/javascript" src="js/pages/home.js"></script>
+		<script type="text/javascript" src="js/pages/user.js"></script>
+		<script type="text/javascript" src="js/pages/people.js"></script>
+		<script type="text/javascript" src="js/pages/guest.js"></script>
+		<script type="text/javascript" src="js/pages/employee.js"></script>
+		<script type="text/javascript" src="js/pages/habitant.js"></script>
+		<script type="text/javascript" src="js/pages/entries.js"></script>
+		<script type="text/javascript" src="js/pages/residents.js"></script>
+		<script type="text/javascript" src="js/pages/chat.js"></script>
+		<script type="text/javascript" src="js/pages/services.js"></script>
+		<script type="text/javascript" src="js/pages/resources.js"></script>
+		<script type="text/javascript" src="js/pages/bills.js"></script>
+	
 
 
 		<script type="text/javascript" src="js/fbk.js"></script>
 		<script type="text/javascript" src="js/google.js"></script>
+		<script type="text/javascript" src="js/pnglib.js"></script>
+		<script type="text/javascript" src="js/Identicon.js"></script>
     </body>
 </html>

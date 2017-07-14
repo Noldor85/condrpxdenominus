@@ -12,7 +12,9 @@ function checkPreviusLogin(){
 				_post("/security/checkLogin",tempObj,function(data){
 					loginObj = data;
 					 fillUserConfig(data)
+					 requestDashboardInfo()
 					$("#login").fadeOut();
+					requestDashboardInfo()
 					navigator.splashscreen.hide();
 					if (cordova.platformId == 'android') {
 						StatusBar.backgroundColorByHexString("#4066b3");
@@ -25,6 +27,7 @@ function checkPreviusLogin(){
 					}
 				})			
 	}).catch(function(err){
+		
 		  navigator.splashscreen.hide();
 	});
 }
@@ -79,7 +82,8 @@ $("#logout_btn").tapend(function(){
 	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
 		_post("/security/logout",{loginId :loginId},function(data,status){
 			db.destroy().then(function(){	onDeviceReady_db()})
-		
+			$("#modal").trigger("tapend")
+			clearWorkspace()
 			$("#login").fadeIn();
 			
 		},function(e){
@@ -108,10 +112,15 @@ $(".login--Credentials").tapend(function(){
 			if (cordova.platformId == 'android') {
 				StatusBar.backgroundColorByHexString("#4066b3");
 			}
+			
 			 loginId = data.loginId;
 			 loginObj= data
 			  fillUserConfig(data)
-			db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
+			
+			db.bulkDocs([
+				Object.assign({"_id" : "email"},{email : tempObj.user}),
+				Object.assign({"_id" : "loginInfo"},data)
+			])
 		
 		},function(e){
 			if(e.status == 401){

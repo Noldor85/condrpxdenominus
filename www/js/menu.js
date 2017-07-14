@@ -15,22 +15,32 @@ $("#modal").tapend(function(){
 
 
 $(document).on("tapend","[section-target]",function(ev){
-	console.log(eval(this))
-	if(checkPress(ev)){
-		var title = $(this).hasAttr("section-title") ? $(this).attr("section-title") : $(this).text();
-		$(".nav_li_selected").removeClass("nav_li_selected");
-		$(this).addClass("nav_li_selected");
-		$("#header_section_description").html(title);
-		$("#main_menu").animate({"left": "-250px"});
-		$("#modal").hide();
-		$(".section_active").removeClass("section_active");
-		$("[section-name="+$(this).attr("section-target")+"]").addClass("section_active");
-	}
-	
-	if($(this).hasAttr("section-fx")){
-		eval($(this).attr("section-fx")+"(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
-	}else if(eval('typeof '+$(this).attr("section-target")+'.init == "function"')){
-		eval($(this).attr("section-target")+".init(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
+		if(checkPress(ev)){
+			
+			var sectionTarget = $("[section-name="+$(this).attr("section-target")+"]")
+			var title = $(this).hasAttr("section-title") ? $(this).attr("section-title") : $(this).text();
+			if($(this).hasClass("menu_nav")){
+				$(".nav_li_selected").removeClass("nav_li_selected");
+				$(this).addClass("nav_li_selected");
+			}
+			
+			setTimeout(function(){
+				$("#header_section_description").html(title);
+				$("#main_menu").animate({"left": "-250px"});
+				$("#modal").hide();
+				$(".section_active").removeClass("section_active");
+				sectionTarget.addClass("section_active");
+				sectionTarget.find(".tablist>li:eq(0)").trigger("tapend");
+				sectionTarget.find(".get-nicer").getNiceScroll().resize();
+				if(sectionTarget.attr("avoid-autoscroll") != "true"){
+					sectionTarget.find(".get-nicer").getNiceScroll(0).doScrollTop(0, 0);
+				}
+			},50) //to avoid focus
+		if($(this).hasAttr("section-fx")){
+			eval($(this).attr("section-fx")+"(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
+		}else if(eval('typeof '+$(this).attr("section-target")+'.init == "function"')){
+			eval($(this).attr("section-target")+".init(this"+($(this).hasAttr("section-fx-parameters")?","+ $(this).attr("section-fx-parameters") : "")+")")
+		}
 	}
 	
 });
@@ -42,6 +52,7 @@ $(document).on("tapend",".tablist>li:not(.active)",function(){
 	
 	$(this).parent().parent().parent().find("[tab-name]").hide();
 	$("[tab-name="+$(this).attr("tab-target")+"]").show();
+	$(".get-nicer").getNiceScroll().resize()
 })
 
 $("#slide_menu").swipe({

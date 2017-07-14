@@ -8,6 +8,8 @@
 emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 filenameExtract = /(([^\/]*)\.([a-zA-Z0-9~]*?))$/;
 data64RegEx = /^(data:.*\/.*?;base64,)(.*)$/
+
+phoneRegEx = /.*?(\d+).*?/g
 function FormatInteger(num, length) {
 			return (num / Math.pow(10, length)).toFixed(length).substr(2);
 }
@@ -73,9 +75,13 @@ function showAlert(title,text,yesFn,noFn){
 
 
 function checkPress(ev){
-	var endX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;
-	var endY = ev.pageY || ev.originalEvent.changedTouches[0].pageY;
-	return Math.abs(endX - startTap.X)  < 10 && Math.abs(endY - startTap.Y) < 10	
+	try{
+		var endX = ev.pageX || ev.originalEvent.changedTouches[0].pageX;
+		var endY = ev.pageY || ev.originalEvent.changedTouches[0].pageY;
+		return Math.abs(endX - startTap.X)  < 10 && Math.abs(endY - startTap.Y) < 10	
+	}catch(e){
+		return true
+	}
 }
 
 function guid() {
@@ -173,6 +179,7 @@ function simDevice(){
 	window.device  =  {platform :"chrome",uuid: uuid()}
 	window.cordova = {platformId : "chrome"}
 	PN = "BROWSER"+uuid()
+	navigator.splashscreen = { show : function(){}};
 	window.cordovaHTTP = null
 	dirc = {
 		getDirectory : function(a,b,c,f){
@@ -229,6 +236,34 @@ function unescapeUnicode(str) {
  return unescape(str);
 }
 
+function zeroPad(num, places) {
+  var zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+}
+
+function normalDateOnly(date){
+	var date_ = new Date(date)
+	return date_.getUTCFullYear()+"-"+zeroPad(date_.getUTCMonth()+1,2)+"-"+zeroPad(date_.getUTCDate(),2)
+}
+
+function normalDate(date){
+	var date_ = new Date(date)
+	return date_.getUTCFullYear()+"-"+zeroPad(date_.getUTCMonth()+1,2)+"-"+zeroPad(date_.getUTCDate(),2)+" "+zeroPad(date_.getUTCHours())+":"+zeroPad(date_.getUTCMinutes())+":"+zeroPad(date_.getSeconds())
+}
+
+function normalDateLocal(date){
+	var date_ = new Date(date)
+	return date_.getFullYear()+"-"+zeroPad(date_.getMonth()+1,2)+"-"+zeroPad(date_.getDate(),2)+" "+zeroPad(date_.getHours())+":"+zeroPad(date_.getMinutes())+":"+zeroPad(date_.getSeconds())
+}
+
+function Int2Time(integer){
+	return {h : parseInt(integer/100),m: integer%100}
+}
+
+
+
+
+Number.prototype.thousand =  function () { return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
 if($ != undefined){
 	$.fn.hasAttr = function(name) {  
@@ -238,6 +273,16 @@ if($ != undefined){
 	$.fn.hasScrollBar = function() {
 			return this.get(0).scrollHeight > this.height();
 	}
+	
+	
+$(".switch").tapend(function(ev){
+   if(checkPress(ev)){
+   ev.preventDefault()
+        $(this).prop("checked", !$(this).prop("checked"));
+   }
+})
+	
+	
 
 
 	//Star in Tap

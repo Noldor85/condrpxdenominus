@@ -50,18 +50,16 @@
 	font-size: 10px;
 }
 
-.chat_lst_element_msgQty{
-	line-height: 18px;
-    margin-right: 6px;
-    height: 18px;
-    flex: 0 0 18px;
+.chat_lst_element_msgQty {
+    line-height: 22px;
+    height: 22px;
+    flex: 0 0 22px;
     background: #0177D7;
     border-radius: 360px;
     color: white;
     text-align: center;
-    font-size: 9px;
-    margin-right: 25px;
-	
+    font-size: 12px;
+    margin-right: 29px;
 }
 
 .chat_contact {
@@ -94,6 +92,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-right: 24px;
+	height: 52px;
 }
 
 .chat_action_bar div{
@@ -215,6 +214,7 @@
     left: 0px;
     right: 0px;
     overflow-y: auto;
+	padding-bottom: 15px;
 }
 
 #chat_lst_box .big {
@@ -271,8 +271,10 @@
 }
 
 .chat_action_bar div>.fa {
-    margin-left: 23px;
+    padding: 10px;
     font-size: 20px;
+    padding-bottom: 5px;
+    margin-top: -5px;
 }
 
 .chat_message.selected{
@@ -309,6 +311,41 @@ audio {
     padding: 15px;
     font-size: 20px;
 }
+
+
+#goBottom{
+	position: fixed;
+    height: 32px;
+    width: 32px;
+    border-radius: 360px;
+    background: #F7F7F7;
+    bottom: 121px;
+    right: 20px;
+    -webkit-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    -moz-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    box-shadow: 0px 1px 9px 5px rgba(200,200,200,0.8);
+    font-size: 22px;
+    text-align: center;
+    line-height: 32px;
+    color: gray;
+}
+
+.qtyNewMsg {
+    font-size: 12px;
+    margin-top: -47px;
+    background: #0177d7;
+    color: white;
+    border-radius: 360px;
+    margin-left: -9px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.qtyNewMsg[qty="0"]{
+	display: none;
+}
+	
 
 
 .close_top_btn{
@@ -415,6 +452,152 @@ audio {
     text-align: center;
     width: 100%;
 }
+
+
+#msgInfoPreview{
+	display: flex;
+    text-align: center;
+    margin: auto;
+    background: ALICEBLUE;
+    padding: 20px 0px;
+}
+
+.statusChatHeader {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    justify-content: space-between;
+    color: #0177D7;
+    font-weight: bold;
+}
+
+.pictureUser {
+    font-size: 32px !important;
+    padding: 15px;
+    color: lightblue;
+    line-height: 46px !important;
+}
+
+.chatPersonInfo {
+    height: 80px;
+    display: flex;
+}
+
+
+.containerPersonInfo {
+    width: calc(100% - 62px);
+    border-bottom: 1px solid lightgray;
+    height: 70px;
+    display: table;
+    align-items: center;
+}
+
+.verticalAlign {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.containerPersonalInfo_name {
+    font-weight: bold;
+}
+
+
+.infoStatusTime {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    font-size: 14px;
+    margin: 5px;
+}
+
+
+.statusInfoBox {
+    background: white;
+    margin: 15px;
+}
+
+.quote {
+    border-left: 4px solid lavender;
+    padding: 5px;
+    background: rebeccapurple;
+    margin-bottom: 10px;
+	opacity: 0.9;
+	color: white;
+}
+
+
+.quote_header {
+    background: lavender;
+    color: rebeccapurple;
+    padding: 5px;
+    margin: -5px;
+    margin-bottom: 5px;
+}
+
+
+.audioBox {
+    height: 40px;
+    width: 189px;
+    padding: 0px;
+    display: flex;
+    border-radius: 4px;
+}
+
+
+.he_said .audioBox_controlBtn {
+    padding: 8px;
+    background: white;
+    color:  #0177d7;
+	line-height: 25px;
+}
+
+.i_said .audioBox_controlBtn {
+    padding: 8px;
+    background: #0177d7;
+    color: white;
+	line-height: 25px;
+}
+
+.audioBox_info {
+    flex: 0 0 160px;
+    background: #f0f0f0;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.audioBok_trackBar {
+    background-color: lightgrey;
+    margin-top: 8px;
+    margin-left: 5px;
+    width: 149px;
+    border-radius: 5px;
+    height: 18px;
+}
+
+.audioBok_position {
+    background: #0177d7;
+    height: 18px;
+    width: 0px;
+    border-radius: 3px;
+}
+
+.audioBox_currentTime {
+    font-size: 11px;
+    margin-top: 2px;
+    margin-right: 7px;
+    color: dimgray;
+	text-align: right;
+}
+
+
+.audioBox_loading {
+    text-align: center;
+    line-height: 40px;
+    color: #0177D7;
+}
+
+
+
 
 canvas {
 	width : 300px;

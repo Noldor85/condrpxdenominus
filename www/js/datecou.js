@@ -55,13 +55,27 @@ function getTmr(){
 	return h.find("p:eq("+getItem(h)+")").text()+":"+m.find("p:eq("+getItem(m)+")").text()+" "+t.find("p:eq("+getItem(t)+")").text();
 }
 
-createDateCoursel(".pick_cursel_day",2017,3)
+var d__ = new Date()
+$("#resource_select_day select").eq(0).find("option").eq(d__.getMonth()).attr("selected",true)
+$("#resource_select_day select").eq(1).html("<option>"+d__.getFullYear()+"</option><option>"+(d__.getFullYear()+1)+"</option><option>"+(d__.getFullYear()+2)+"</option>")
+createDateCoursel(".pick_cursel_day",d__.getFullYear(),d__.getMonth())
+$(".pick_cursel_day_ tr:eq(1) td").eq(12).addClass("selected_cur_day") 
+$(".pick_cursel_day tr").eq(1).find("td").eq(d__.getDate()-1).addClass("selected_cur_day") 
+
 calendarMonth(".jasj_calendar",2000,3)
 
 
 $(document).on("tapend",".pick_cursel_day tr:nth-child(2) td",function(ev){
 	if(checkPress(ev)){
-		$(this).toggleClass("selected_cur_day");
+		
+		
+		if($(this).hasClass("selected_cur_day")){
+			$(this).removeClass("selected_cur_day");
+			$(".day_container[day="+zeroPad(parseInt($(this).text()),2)+"]").html("")
+		}else{
+			$(this).addClass("selected_cur_day");
+			requestDayBooking( $("#resource_select_day select").eq(1).find("option:selected").text(),zeroPad($("#resource_select_day select").eq(0).find("option:selected").index()+1,2),zeroPad(parseInt($(this).text()),2))
+		}
 	}
 })
 
