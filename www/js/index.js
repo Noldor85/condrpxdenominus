@@ -28,3 +28,14 @@ if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/))
   console.log("we are heare")
 }
  
+//Load Translated
+$.i18n.init({ lng: navigator.language , resGetPath: "language/__lng__/__ns__.json",fallbackLng: "es"}, function () {
+	$("[i18Trans]").each(function(){
+		if ( $(this).hasAttr("i18Target")) {
+			$(this).attr($(this).attr("i18Target"),$.t($(this).attr("i18Trans")));
+		} else {
+			$(this).html($.t($(this).attr("i18Trans")));
+		}
+	});
+	// alert( $.t("app.name")) ;
+});
