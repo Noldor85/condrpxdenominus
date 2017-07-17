@@ -21,6 +21,14 @@ var ln =
             $('body').i18n();
             
             ln.getLanguage();
+
+            $("[i18Trans]").each(function(){
+                if( $(this).hasAttr("i18Target")){
+                    $(this).attr($(this).attr("i18Target"),$.t($(this).attr("i18Trans")));
+                }else{
+                    $(this).html($.t($(this).attr("i18Trans")));
+                }
+            });
         });
     },
     

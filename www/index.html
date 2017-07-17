@@ -60,16 +60,16 @@
         <div class="app">
 			 <div id="modal"></div>
 			  <nav id="main_menu">
-					<div id="condo_logo"  section-target="home" section-title="Inicio">
+					<div id="condo_logo"  section-target="home" data-i18n="INDEX" i18Target="section-title">
 						Condominus &nbsp;
 					</div>
 					<ul>
-						<li class="menu_nav" data-i18n="RESIDENTS" section-target="residents"><a>Habitantes</a></li>
-						<li class="menu_nav" data-i18n="ENTRIES" section-target="entries"><a>Ingresos</a></li>
-						<li class="menu_nav" data-i18n="BOOKINGS" section-target="bookin"><a>Reservas</a></li>
-						<li class="menu_nav" data-i18n="BILLS" section-target="bills"><a>Facturas</a></li>
-						<li class="menu_nav" data-i18n="SERVICES" section-target="service"><a>Servicios</a></li>
-						<li class="menu_nav" data-i18n="CHAT" section-target="chat"><a>Chat</a></li>
+						<li class="menu_nav"section-target="residents"><a data-i18n="RESIDENTS"></a></li>
+						<li class="menu_nav" section-target="entries"><a data-i18n="ENTRIES"></a></li>
+						<li class="menu_nav" section-target="bookin"><a data-i18n="BOOKINGS"></a></li>
+						<li class="menu_nav" section-target="bills"><a data-i18n="BILLS"></a></li>
+						<li class="menu_nav" section-target="service"><a data-i18n="SERVICES"></a></li>
+						<li class="menu_nav" section-target="chat"><a data-i18n="CHAT"></a></li>
 					</ul>
 			   </nav>
 			   <section id="workarea">
@@ -91,7 +91,7 @@
 							<div class="padding10 nice-wrapper">
 			
 								<h3 data-i18n="UNREAD_MESSAGES"></h3>
-								<div id="home_chats" class="home_divs dashboard_cards" section-target="chat" section-title="Chat">
+								<div id="home_chats" class="home_divs dashboard_cards" section-target="chat" data-i18n="CHAT" i18Target="section-title">
 									<div class="fa fa-comment-o"> </div>
 									 <div class="fa fa-comments-o"></div>
 									 <div class="fa fa-home"> </div>
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 						
-						<div  id="hab-1" class="add_btn" section-target="habitant" section-title="Habitantes">+</div>
+						<div  id="hab-1" class="add_btn" section-target="habitant" data-i18n="RESIDENTS" i18Target="section-title">+</div>
 						
 						
 					</div>
@@ -152,14 +152,14 @@
 								</div>
 							</div>
 							<div class="search_btn fa fa-search"></div>
-							<div id="gus-1" class="add_btn" section-target="guest" section-title="Visitas">+</div>
+							<div id="gus-1" class="add_btn" section-target="guest"  data-i18n="GUESTS" i18Target="section-title">+</div>
 						</div>
 						
 						
 						<div id="employeeList" class="tab-listtab get-nicer" tab-name="employees">
 							<div class="nice-wrapper">
 							</div>
-							<div id="emp-1" class="add_btn" section-target="employee" section-title="Empleados">+</div>
+							<div id="emp-1" class="add_btn" section-target="employee"  data-i18n="EMPLOYEES" i18Target="section-title">+</div>
 						</div>
 						
 						
@@ -230,7 +230,7 @@
 					
 					<div section-name="msgInfo" class="section_page">
 						<nav id="ChatMsgInfoNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat" section-title="Chat"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat"  data-i18n="CHAT" i18Target="section-title"></i>
 								<div>user@mail.com</div>
 						</nav>
 						
@@ -263,7 +263,7 @@
 
 					<div section-name="msgChat" class="section_page" avoid-autoscroll="true">
 							<nav id="ChatMsgNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat" section-title="Chat"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat"  data-i18n="CHAT" i18Target="section-title"></i>
 								<div></div>
 							</nav>
 							<div class="tab-listtab" tab-name="Chat2">
@@ -316,7 +316,7 @@
 					
 					<div section-name="servicePage" class="section_page">
 						<nav id="ServiceNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="service" section-title="Services"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="service"  data-i18n="SERVICES" i18Target="section-title"></i>
 								<div class="title"></div>
 						</nav>
 						
@@ -350,7 +350,7 @@
 					
 					<div section-name="habitant" class="section_page">
 						<nav id="habitantNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" section-title="Ingresos"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" data-i18n="ENTRIES" i18Target="section-title"></i>
 								<div class="title" data-i18n="VISIT"></div>
 								<div class="action">
 									<div class="fa fa-car"></div>
@@ -410,7 +410,7 @@
 					
 					<div section-name="guest" class="section_page">
 						<nav id="guestNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" section-title="Ingresos"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" data-i18n="ENTRIES" i18Target="section-title"></i>
 								<div class="title">Esta Visita</div>
 								<div class="action">
 									<div class="fa fa-car"></div>
