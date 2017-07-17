@@ -57,7 +57,7 @@
     "PHONE": "Teléfono",
     "PHONES": "Teléfonos",
     "PLATE": "Matrícula",
-    "RECORD": "Historial",
+    "HISTORY": "Historial",
     "REGISTER_ACCOUNT": "Registrar cuenta",
     "REMAININGS": "Restantes",
     "REQUEST": "Solicitar",
@@ -69,7 +69,7 @@
     "SERVICES": "Servicios",
     "SATURDAY": "Sábado",
     "SUNDAY": "Domingo",
-    "TYPE": "tipo",
+    "TYPE": "Tipo",
     "THURSDAY": "Jueves",
     "TUESDAY": "Martes",
     "UNPAID_BILLS": "Facturas Pendientes",
@@ -189,5 +189,10 @@
     "UPDATED_CREDENTIALS": "Cambio de Credenciales",
     "UPDATED_CREDENTIALS_SUCCESS": "Sus credenciales se han cambiado con éxito",
     "USER_DECLINED_SOMETHING": "The User declined something!",
-    "FACEBOOK_AUTHENTICATION": "Ahora esta autenticado con Facebook"
+    "FACEBOOK_AUTHENTICATION": "Ahora esta autenticado con Facebook",
+    "EVERYONE": "Todos",
+    "READ": "Leido",
+    "NAME_FORM": "Nombre:",
+    "IDENTIFICATION_FORM": "Identificación:",
+    "PHONE_FORM": "Teléfono:"
 }
