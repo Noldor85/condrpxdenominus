@@ -1,6 +1,7 @@
 
 var dw = ["D","L","K","M","J","V","S"];
-var mt = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
+var mt = [$.t("JANUARY"),$.t("FEBRUARY"),$.t("MARCH"),$.t("APRIL"),$.t("MAY"),$.t("JUNE"),$.t("JULY"),$.t("AUGUST"),$.t("SEPTEMBER"),$.t("OCTOBER"),$.t("NOVEMBER"),$.t("DECEMBER")]
+
 function createDateCoursel(tbl,year,month){
 	var dayNames 	= "";
 	var dayNumbers 	= "";

@@ -43,7 +43,7 @@ function sendPassword(){
 }
 
 function socialRegister(auth){
-	showAlert("Usuario No Registrado","Desa registrar su usuario?",function(){
+	showAlert($.t("UNREGISTERED_USER"),$.t("REGISTER_YOUR_USER_ASK"),function(){
 		cordova.plugins.barcodeScanner.scan(function (result) {
             if(!result.cancelled)
             {
@@ -60,12 +60,12 @@ function socialRegister(auth){
 						if (cordova.platformId == 'android') {
 							StatusBar.backgroundColorByHexString("#4066b3");
 						}
-						showInfoD("Registrado","Bienvenido a su condominio")
+						showInfoD($.t("REGISTERED"),$.t("WELCOME_MESSAGE"))
 						loginId = data.loginId;
 						loginObj= data
 						db.upsert('loginInfo',data).then(function(doc){console.log(doc)})
 					},function(e){
-						showInfoD("Error","Ha ocurrido un error en el registro")
+						showInfoD($.t("ERROR"),$.t("REGISTER_ERROR"))
 						console.log(e);
 					})
 					alert(result.text)
@@ -79,7 +79,7 @@ function socialRegister(auth){
 //$.get("http://54.212.218.84:2581/security/1.0",{},function(d){alert(d)})
 
 $("#logout_btn").tapend(function(){
-	showAlert("Cerrar Sessión","Desa cerrar su sessión?",function(){
+	showAlert($.t("LOGOUT"),$.t("LOGOUT_ASK"),function(){
 		_post("/security/logout",{loginId :loginId},function(data,status){
 			db.destroy().then(function(){	onDeviceReady_db()})
 			$("#modal").trigger("tapend")
@@ -87,7 +87,7 @@ $("#logout_btn").tapend(function(){
 			$("#login").fadeIn();
 			
 		},function(e){
-			showInfoD("Error","Algo salio mal, intente luego")
+			showInfoD($.t("ERROR"),$.t("SOMETHING_WENT_WRONG_RETRY"))
 		})
 	},function(){
 		
@@ -124,7 +124,7 @@ $(".login--Credentials").tapend(function(){
 		
 		},function(e){
 			if(e.status == 401){
-				$("#login_info_txt").html("Bad Credentials")
+				$("#login_info_txt").html($.t("BAD_CREDENTIALS"))
 			}if(e.status == 402){
 				socialRegister(tempObj)
 				
@@ -137,6 +137,6 @@ $(".login--Credentials").tapend(function(){
 			console.log("error",err)
 		}
 	}else{
-		$("#login_info_txt").html("Your user is not an email")
+		$("#login_info_txt").html($.t("ERROR_EMAIL_VALIDATION"))
 	}
 });

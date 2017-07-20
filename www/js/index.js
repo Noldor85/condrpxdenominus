@@ -1,16 +1,6 @@
 
 function onDeviceReady(){
 	try{
-		/*var mylang = navigator.language ? navigator.language : "es"
-		$.i18n.init({ lng: mylang , resGetPath: 'language/__lng__/__lng__.json',fallbackLng: 'en'},function(){
-			$("[i18Trans]").each(function(){
-				if( $(this).hasAttr("i18Target")){
-					$(this).attr($(this).attr("i18Target"),$.t($(this).attr("i18Trans")));
-				}else{
-					$(this).html($.t($(this).attr("i18Trans")));
-				}
-			});
-		});*/
 		onDeviceReady_db();
 		onDeviceReady_dw();
 		onDeviceReady_fm();

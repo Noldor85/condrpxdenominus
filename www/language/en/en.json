@@ -215,5 +215,13 @@
     "UNKNOWN_PHONE_NUMBER": "Unknown phone number",
     "FAILED_MESSAGE": "Failed because: ",
     "SERVICE_REQUEST": "¿Solicitar servicio?",
-    "SCHEDULE": "Horario"
+    "SCHEDULE": "Horario",
+    "UNREGISTERED_USER": "Usuario No Registrado",
+    "REGISTER_YOUR_USER_ASK": "¿Desea registrar su usuario?",
+    "LOGOUT_ASK": "¿Desea cerrar sessión?",
+    "ERROR_EMAIL_VALIDATION": "El usuario no es un email",
+    "BAD_CREDENTIALS": "Credenciales incorrectas",
+    "REGISTERED": "Registrado",
+    "WELCOME_MESSAGE": "Bienvenido a su condominio",
+    "REGISTER_ERROR": "Ha ocurrido un error en el registro"
 }
