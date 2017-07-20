@@ -2,22 +2,22 @@ var currenetResourceId;
 
 var dict = {
 	timeunits : {
-		"MIN" : " minutos ",
-		"HR" : " horas ",
-		"DAYS" : " dias "
+		"MIN" : $.t("MINUTES_DICT"),
+		"HR" : $.t("HOURS_DICT"),
+		"DAYS" : $.t("DAYS_DICT"),
 		
 	},
 	current: {
-		"DAY" 	: " el día ",
-		"WEEK" 	: " la semana ",
-		"MONTH" : " el mes "
+		"DAY" 	: $.t("DAY_DIC"),
+		"WEEK" 	: $.t("WEEK_DIC"),
+		"MONTH" : $.t("MONTH_DIC")
 	}
 }
 
 var resourceSchedules ={}
 
 function addResourceCard(resource){
-	retDom = $('<div class="card" section-target="resource" section-title="Reservas"><div class="card_resource_id" style="background-image:url();"></div><div class="card_resource_info"> <div class="verticalAlign"> <div class="card_name"></div> <div class="service_description"></div> <div class="service_cost"></div></div></div></div>')					
+	retDom = $('<div class="card" section-target="resource" section-title="'+$.t("BOOKINGS")+'"><div class="card_resource_id" style="background-image:url();"></div><div class="card_resource_info"> <div class="verticalAlign"> <div class="card_name"></div> <div class="service_description"></div> <div class="service_cost"></div></div></div></div>')					
 	retDom.attr("id","rsr"+resource.id)				
 	retDom.attr("section-fx-parameters",'"'+resource.id+'"')	
 	retDom.find(".card_resource_id").css({"background-image" : "url("+resource.thumbnail+")"})
@@ -81,7 +81,7 @@ function requestResourceList(version,old){
 		})
 		loginInfo(function(doc){getRequstResourceList(doc.estates[estateSelected])})
 	},function(err){
-		window.plugins.toast.showLongCenter("Imposible sincronizar listado de recursos en este momento")
+		window.plugins.toast.showLongCenter($.t("ERROR_SYNC_RESOURCES"))
 		loginInfo(function(doc){getRequstResourceList(doc.estates[estateSelected])})
 	})
 }
@@ -96,7 +96,7 @@ function requestOneResource(id,version){
 			replaceResourceInfo(data)
 		}
 	},function(err){
-				window.plugins.toast.showLongCenter("Imposible sincronizar informacion del recurso en este momento")
+				window.plugins.toast.showLongCenter($.t("ERROR_SYNC_RESOURCE_INFO"))
 	})
 }
 
@@ -105,36 +105,40 @@ function generateRuleText(rule){
 	var template;
 	switch (rule.template){
 		case 1: 
-			template = "No se puede reservar  mas de <qty></qty> la amenidad en un lapso de <time></time><timeunit></timeunit>"
+			template = $.t("BOOKING_RULE_1")
 		break;
 		
 		case 2: 
-			template = "No se puede reservar  mas de <qty></qty> la amenidad en <current></current> en curso"
+			template = $.t("BOOKING_RULE_2")
 		break;
 		
 		case 3: 
-			template = "No se puede reservar  la amenidad si tiene en total  <qty></qty>  reservas en general en un lapso de <time></time><timeunit></timeunit>"
+			template = $.t("BOOKING_RULE_3")
 		break;
 		
 		case 4: 
-			template = "No se puede reservar  la amenidad si tiene en total <qty></qty> reservas en general en <current></current> en curso"
+			template = $.t("BOOKING_RULE_4")
 		break;
 		
 		case 5: 
-			template = "No se puede reservar mas de  <qty></qty> horas seguidas"
+			template = $.t("BOOKING_RULE_5")
 		break;
 		
 		case 6:
-			template = "No se permiten reservas con más de <qty></qty> días de anticipación"
+			template = $.t("BOOKING_RULE_6")
 		break;
 		
 		case 7:
-			template = "No se permiten reservar si ya dispone de alguna otra reserva en el mismo horario"
+			template = $.t("BOOKING_RULE_7")
 		break;
-		
-		
 	}
-	return template.replace("<qty></qty>",rule.parameters.qty).replace("<time></time>",rule.parameters.time).replace("<timeunit></timeunit>",dict.timeunits[rule.parameters.timeunit]).replace("<current></current>",dict.current[rule.parameters.current])
+	var qty = rule.parameters && "qty" in rule.parameters ? rule.parameters.qty : ""
+	var time = rule.parameters && "time" in rule.parameters ? rule.parameters.time : ""
+	var timeunit = rule.parameters && "timeunit" in rule.parameters ? rule.parameters.timeunit : ""
+	timeunit = timeunit in dict.timeunits ? dict.timeunits[timeunit] : ""
+	var current = rule.parameters && "current" in rule.parameters ? rule.parameters.current : ""
+	current = current in dict.current ? dict.current[current] : ""
+	return template.replace("<qty></qty>",qty).replace("<time></time>",time).replace("<timeunit></timeunit>",timeunit).replace("<current></current>",current)
 		
 }
 
@@ -145,14 +149,14 @@ function replaceResourceInfo(resource){
 	$("#resourceDescription").html(resource==undefined ? "": card.find(".service_description").html())
 	if(resource == undefined){
 		$("#resourceRules li").remove()
-		$("table.schedule td").html("Cerrado")
+		$("table.schedule td").html($.t("CLOSED"))
 	}
 		
 	else{
 		var schedule = resourceSchedules[currenetResourceId]
 		schedule.forEach(function(day){
 			console.log(Boolean(day.available))
-			 $("table.schedule tr:eq("+day.day+") td").html(day.available== "true" ? day.start +" - "+day.end : "Cerrado")
+			 $("table.schedule tr:eq("+day.day+") td").html(day.available== "true" ? day.start +" - "+day.end : $.t("CLOSED"))
 		})
 		console.log(resource.rules)
 		$("#resourceRules li").remove()
@@ -197,11 +201,11 @@ function getResourceState(schedule){
 		e.setMinutes(endSlited[1])
 		console.log("open result",s < d && d < e)
 		if(s < d && d < e){
-			return '<font color="#0177D7">Abierto hasta las '+thisSch.end+'</font>'
+			return '<font color="#0177D7">'+$.t("OPEN_UNTIL")+thisSch.end+'</font>'
 		}
 		
 	}else{
-		return '<font color="gray">Cerrado</font>'
+		return '<font color="gray">'+$.t("CLOSED")+'</font>'
 	}
 
 }
@@ -228,7 +232,7 @@ function requestResourceRqsList(version,old,estate){
 			})
 			
 		},function(err){
-			window.plugins.toast.showLongCenter("Imposible sincronizar en este momento")
+			window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
 		})
 	})
 }
@@ -250,7 +254,7 @@ function requestTblDayBooking(c,b){
 	b.forEach(function(bb){
 		var start = Int2Time(bb.start)
 		var end = Int2Time(bb.end)
-		var dom = $('<table class="card_day_table"><tbody><tr><th class="estate"></th></tr><tr><td>Reservado</td></tr><tr><td class="time"></td></tr></tbody></table>')
+		var dom = $('<table class="card_day_table"><tbody><tr><th class="estate"></th></tr><tr><td>'+$.t("BOOKED")+'</td></tr><tr><td class="time"></td></tr></tbody></table>')
 		dom.find(".estate").html(bb.estate)
 		dom.find(".time").html(zeroPad(start.h,2)+":"+zeroPad(start.m,2)+ " - "+zeroPad(end.h,2)+":"+zeroPad(end.m,2))
 		c.append(dom)
@@ -277,7 +281,7 @@ function requestDayBooking(Y,M,D){
 		$(".day_container[day="+D+"]").html("")
 		$(".day_container[day="+D+"]").append(dom)
 	},function(){
-		window.plugins.toast.showLongCenter("No se pudo obtener las reservas del día")
+		window.plugins.toast.showLongCenter($.t("ERROR_GETTING_BOOKINGS"))
 	})
 }
 
@@ -302,7 +306,7 @@ $(document).on("change","#resource_select_day select",function(){
 
 $(document).on("tapend","#add_book",function(ev){
 	if(checkPress(ev)){
-		showAlert("Reservar",'<table id="tbl_for_bookin"><tr><th>Fecha</th><td><input type="date"/></td></tr><tr><th>Hora Inicio</th><td><input type="time"/></td></tr><tr><th>Hora Fin</th><td><input type="time"/></td></tr></table>',function(){
+		showAlert($.t("BOOK"),'<table id="tbl_for_bookin"><tr><th>'+$.t("DATE")+'</th><td><input type="date"/></td></tr><tr><th>'+$.t("START_TIME")+'</th><td><input type="time"/></td></tr><tr><th>'+$.t("END_TIME")+'</th><td><input type="time"/></td></tr></table>',function(){
 			loginInfo(function(doc){
 				var tempObj = {
 					guestId:  doc.estates[estateSelected].guestId,
@@ -313,28 +317,28 @@ $(document).on("tapend","#add_book",function(ev){
 				}
 				console.log("tempObj",tempObj)
 				_post("/condominus/bookings/insert",tempObj,function(data){
-					showInfoD("Reservado","Su reserva se ha gestionado con éxito")
+					showInfoD($.t("BOOKED"),$.t("BOOKING_SUCCESS"))
 				},function(err){
 					var s;
 					switch(err.status){
 						case 600:
-							s= "La fecha seleccionada no esta disponible"
+							s= $.t("ERROR_BOOKING_DATE")
 						break;
 						
 						case 601:
-							s= "El recurso se encuentra inactivo"
+							s= $.t("ERROR_INACTIVE_RESOURCE")
 						break;
 						
 						case 602:
-							s= "El recurso ya no existe"
+							s= $.t("ERROR_NOT_FOUND_RESOURCE")
 						break;
 						
 						case 603:
-							s= "No se puede reservar por traslape de horas"
+							s= $.t("ERROR_BOOKING_OVERLAP")
 						break;
 						
 						case 604:
-							s= "El recurso ya no existe"
+							s= $.t("ERROR_NOT_FOUND_RESOURCE")
 						break;
 						
 						case 605:
@@ -342,11 +346,11 @@ $(document).on("tapend","#add_book",function(ev){
 						break;
 						
 					    default:
-							s= "algo a salido mal, consulte a su administrador"
+							s= $.t("ERROR_GENERIC_2")
 						break;
 							
 					}
-					showInfoD("Error en Reservación", s)
+					showInfoD($.t("ERROR_BOOKING"), s)
 					console.log(JSON.stringify(err))
 				})
 			})
@@ -358,7 +362,7 @@ $(document).on("tapend","#resource_request_list .delete_swipe",function(ev){
 	if(checkPress(ev)){
 		var parent_ = $(this).parents(".card") 
 		var resourceName = parent_.find(".card_name").html()
-		showAlert("Cancelar reservación","Seguro que desea cancelar la  reserva en "+ resourceName,function(){
+		showAlert($.t("CANCEL_BOOKING"),$.t("CANCEL_BOOKING_CONFIRMATION")+ resourceName+"?",function(){
 			loginInfo(function(doc){
 				var tempObj = {
 					id: parent_.attr("id").substr(6),
@@ -366,10 +370,10 @@ $(document).on("tapend","#resource_request_list .delete_swipe",function(ev){
 				}
 				console.log(tempObj)
 				_post("/condominus/bookings/cancel",tempObj,function(data){
-					showInfoD("Solicitud cancelada","El servicio de "+resourceName+" fue cancelado")
+					showInfoD($.t("REQUEST_CANCELED"),$.t("SERVICE_CANCEL_MESSAGE_1")+resourceName+$.t("SERVICE_CANCEL_MESSAGE_2"))
 					parent_.remove()
 				},function(err){
-					showInfoD("Error","No se pudo cancelar el servicio")
+					showInfoD($.t("ERROR"),$.t("ERROR_CANCELING_SERVICE"))
 				})
 			})
 		})

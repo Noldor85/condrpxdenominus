@@ -1,7 +1,7 @@
 var currentServiceId;
 
 function addServiceCard(service){
-	retDom = $('<div class="card" section-target="servicePage" section-title="Servicio"><div class="card_resource_id" style="background-image:url();"></div><div class="card_resource_info"> <div class="verticalAlign"> <div class="card_name"></div> <div class="service_description"></div> <div class="service_cost"></div></div></div></div>')					
+	retDom = $('<div class="card" section-target="servicePage" section-title="'+$.t("SERVICE")+'"><div class="card_resource_id" style="background-image:url();"></div><div class="card_resource_info"> <div class="verticalAlign"> <div class="card_name"></div> <div class="service_description"></div> <div class="service_cost"></div></div></div></div>')					
 	retDom.attr("id","srv"+service.id)				
 	retDom.attr("section-fx-parameters",'"'+service.id+'"')		
 	retDom.find(".card_resource_id").css({"background-image" : "url("+service.thumbnail+")"})
@@ -54,7 +54,7 @@ function requestServiceList(version,old){
 		loginInfo(function(doc){getRequstServiceList(doc.estates[estateSelected])})
 		
 	},function(err){
-		window.plugins.toast.showLongCenter("Imposible sincronizar en este momento")
+		window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
 		loginInfo(function(doc){getRequstServiceList(doc.estates[estateSelected])})
 	})
 }
@@ -80,7 +80,7 @@ function requestServiceRqsList(version,old,estate){
 			})
 			
 		},function(err){
-			window.plugins.toast.showLongCenter("Imposible sincronizar servicios en este momento")
+			window.plugins.toast.showLongCenter($.t("ERROR_SYNC_SERVICES"))
 		})
 
 }
@@ -137,7 +137,7 @@ function requestOneService(id,version){
 			replaceServiceInfo(data)
 		}
 	},function(err){
-				window.plugins.toast.showLongCenter("Imposible sincronizar en este momento")
+				window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
 	})
 }
 
@@ -145,7 +145,7 @@ function requestOneService(id,version){
 $(document).on("tapend","#requestSrvBtn",function(ev){
 	if(checkPress(ev)){
 		var serviceName = $("#ServiceNav .title").html()
-		showAlert("Solcitar servicio?","<span>Comentario<span><textarea id='service_comment' class='prompt'></textarea>",function(){
+		showAlert($.t("SERVICE_REQUEST"),"<span>"+$.t("COMMENTARY")+"<span><textarea id='service_comment' class='prompt'></textarea>",function(){
 			loginInfo(function(doc){
 				var tempObj = {
 					serviceId: currentServiceId,
@@ -153,9 +153,9 @@ $(document).on("tapend","#requestSrvBtn",function(ev){
 					description: $("#service_comment").val()
 				}
 				_post("/condominus/service/byGuest/request",tempObj,function(data){
-					showInfoD("Solicitud completada","El servicio de "+serviceName+" fue solicitado")
+					showInfoD($.t("REQUEST_COMPLETED"),$.t("SERVICE_MESSAGE_1")+serviceName+$.t("SERVICE_REQUEST_MESSAGE_1"))
 				},function(err){
-					showInfoD("Error","No se pudo solicitar el servicio")
+					showInfoD($.t("ERROR"),$.t("ERROR_REQUEST_SERVICE"))
 				})
 			})
 		})
@@ -166,7 +166,7 @@ $(document).on("tapend","#service_request_list .delete_swipe",function(ev){
 	if(checkPress(ev)){
 		var parent_ = $(this).parents(".card") 
 		var serviceName = parent_.find(".card_name").html()
-		showAlert("Cancelar servicio","Seguro que desea cancelar el servicio de "+ serviceName,function(){
+		showAlert($.t("CANCEL_SERVICE"),$.t("CANCEL_SERVICE_CONFIRMATION")+ serviceName+"?",function(){
 			loginInfo(function(doc){
 				var tempObj = {
 					id: parent_.attr("id").substr(6),
@@ -174,10 +174,10 @@ $(document).on("tapend","#service_request_list .delete_swipe",function(ev){
 				}
 				console.log(tempObj)
 				_post("/condominus/service/byGuest/delete",tempObj,function(data){
-					showInfoD("Solicitud cancelada","El servicio de "+serviceName+" fue cancelado")
+					showInfoD($.t("REQUEST_CANCELED"),$.t("SERVICE_MESSAGE_1")+serviceName+$.t("SERVICE_CANCEL_MESSAGE_1"))
 					parent_.remove()
 				},function(err){
-					showInfoD("Error","No se pudo cancelar el servicio")
+					showInfoD($.t("ERROR"),$.t("ERROR_CANCELING_SERVICE"))
 				})
 			})
 		})

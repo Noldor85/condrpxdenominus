@@ -40,36 +40,36 @@
 				<input id="login_user" required>
 				<span class="highlight"></span>
 				<span class="bar"></span>
-				<label data-i18n="EMAIL"></label>
+				<label i18Trans="EMAIL"></label>
 			</div>
 			<div class="login_input">      
 				<input id="login_psw" type="password" required>
 				<span class="highlight"></span>
 				<span class="bar"></span>
-				<label data-i18n="PASSWORD"></label>
+				<label i18Trans="PASSWORD"></label>
 			</div>
 			<p id="login_info_txt"></p>
-			<button class="loginBtn login--Credentials" data-i18n="LOGIN"></button>
-			<button class="loginBtn loginBtn--facebook" data-i18n="FACEBOOK_LOGIN"></button>
-			<button class="loginBtn loginBtn--google" data-i18n="GOOGLE_LOGIN"></button>
-			<a href="" data-i18n="CANT_SIGN"></a>
-			<a href="" data-i18n="REGISTER_ACCOUNT"></a>
+			<button class="loginBtn login--Credentials" i18Trans="LOGIN"></button>
+			<button class="loginBtn loginBtn--facebook" i18Trans="FACEBOOK_LOGIN"></button>
+			<button class="loginBtn loginBtn--google" i18Trans="GOOGLE_LOGIN"></button>
+			<a href="" i18Trans="CANT_SIGN"></a>
+			<a href="" i18Trans="REGISTER_ACCOUNT"></a>
 		</div>
 		</div>
 
         <div class="app">
 			 <div id="modal"></div>
 			  <nav id="main_menu">
-					<div id="condo_logo"  section-target="home" data-i18n="INDEX" i18Target="section-title">
+					<div id="condo_logo"  section-target="home" i18Trans="START" i18Target="section-title">
 						Condominus &nbsp;
 					</div>
 					<ul>
-						<li class="menu_nav"section-target="residents"><a data-i18n="RESIDENTS"></a></li>
-						<li class="menu_nav" section-target="entries"><a data-i18n="ENTRIES"></a></li>
-						<li class="menu_nav" section-target="bookin"><a data-i18n="BOOKINGS"></a></li>
-						<li class="menu_nav" section-target="bills"><a data-i18n="BILLS"></a></li>
-						<li class="menu_nav" section-target="service"><a data-i18n="SERVICES"></a></li>
-						<li class="menu_nav" section-target="chat"><a data-i18n="CHAT"></a></li>
+						<li class="menu_nav"section-target="residents"><a i18Trans="RESIDENTS"></a></li>
+						<li class="menu_nav" section-target="entries"><a i18Trans="ENTRIES"></a></li>
+						<li class="menu_nav" section-target="bookin"><a i18Trans="BOOKINGS"></a></li>
+						<li class="menu_nav" section-target="bills"><a i18Trans="BILLS"></a></li>
+						<li class="menu_nav" section-target="service"><a i18Trans="SERVICES"></a></li>
+						<li class="menu_nav" section-target="chat"><a i18Trans="CHAT"></a></li>
 					</ul>
 			   </nav>
 			   <section id="workarea">
@@ -79,7 +79,7 @@
 							<i class="fa fa-bars" aria-hidden="true"></i>
 						</div>
 						
-						<div id="header_section_description" data-i18n="INDEX"></div>
+						<div id="header_section_description" i18Trans="INDEX"></div>
 						
 						<div id="header_user_btn">
 							<i class="fa fa-user" aria-hidden="true"></i>
@@ -90,20 +90,20 @@
 						<div id ="dashboard" class="get-nicer">
 							<div class="padding10 nice-wrapper">
 			
-								<h3 data-i18n="UNREAD_MESSAGES"></h3>
-								<div id="home_chats" class="home_divs dashboard_cards" section-target="chat" data-i18n="CHAT" i18Target="section-title">
+								<h3 i18Trans="UNREAD_MESSAGES"></h3>
+								<div id="home_chats" class="home_divs dashboard_cards" section-target="chat" i18Trans="CHAT" i18Target="section-title">
 									<div class="fa fa-comment-o"> </div>
 									 <div class="fa fa-comments-o"></div>
 									 <div class="fa fa-home"> </div>
 								</div>
 								
-								<h3 data-i18n="UNPAID_BILLS"></h3>
+								<h3 i18Trans="UNPAID_BILLS"></h3>
 								<div id="home_bills" class="home_divs">
 								</div>
 				
-								<h3 data-i18n="RESERVATIONS"></h3>
+								<h3 i18Trans="RESERVATIONS"></h3>
 								<div id="home_bookings" class="home_divs dashboard_cards">
-									<div class="home_empty" data-i18n="EMPTY_BOOKINGS_MESSAGE"></div>
+									<div class="home_empty" i18Trans="EMPTY_BOOKINGS_MESSAGE"></div>
 								</div>	
 							</div>
 						</div>
@@ -113,8 +113,8 @@
 					<div section-name="residents" class="section_page">
 						<nav id="residencesNav">
 							<ul class="tablist" tab-group="residencesNav">
-								<li class="active" tab-target="people" data-i18n="EVERYONE"></li>
-								<li tab-target="users" data-i18n="USERS"></li>
+								<li class="active" tab-target="people" i18Trans="EVERYONE"></li>
+								<li tab-target="users" i18Trans="USERS"></li>
 							</ul>
 						</nav>
 						
@@ -128,7 +128,7 @@
 							</div>
 						</div>
 						
-						<div  id="hab-1" class="add_btn" section-target="habitant" data-i18n="RESIDENTS" i18Target="section-title">+</div>
+						<div  id="hab-1" class="add_btn" section-target="habitant"  i18Trans="RESIDENTS" i18Target="section-title">+</div>
 						
 						
 					</div>
@@ -136,8 +136,8 @@
 					<div section-name="entries" class="section_page">
 						<nav id="entriesNav">
 							<ul class="tablist" tab-group="guestNav">
-								<li class="active" tab-target="guest">Visitas</li>
-								<li tab-target="employees" data-i18n="EMPLOYEES"></li>
+								<li class="active" tab-target="guest" i18Trans="GUESTS"></li>
+								<li tab-target="employees" i18Trans="EMPLOYEES"></li>
 							</ul>
 						</nav>
 						
@@ -152,14 +152,14 @@
 								</div>
 							</div>
 							<div class="search_btn fa fa-search"></div>
-							<div id="gus-1" class="add_btn" section-target="guest"  data-i18n="GUESTS" i18Target="section-title">+</div>
+							<div id="gus-1" class="add_btn" section-target="guest" i18Trans="GUESTS" i18Target="section-title">+</div>
 						</div>
 						
 						
 						<div id="employeeList" class="tab-listtab get-nicer" tab-name="employees">
 							<div class="nice-wrapper">
 							</div>
-							<div id="emp-1" class="add_btn" section-target="employee"  data-i18n="EMPLOYEES" i18Target="section-title">+</div>
+							<div id="emp-1" class="add_btn" section-target="employee" i18Trans="EMPLOYEES" i18Target="section-title">+</div>
 						</div>
 						
 						
@@ -172,8 +172,8 @@
 					<div section-name="bookin" class="section_page">
 						<nav id="bookinNav">
 							<ul class="tablist" tab-group="bookin">
-								<li class="active" tab-target="resource" data-i18n="AMENITIES"></li>
-								<li tab-target="history" data-i18n="HISTORY"></li>
+								<li class="active" tab-target="resource" i18Trans="AMENITIES"></li>
+								<li tab-target="history" i18Trans="HISTORY"></li>
 							
 							</ul>
 						</nav>
@@ -194,8 +194,8 @@
 					<div section-name="bills" class="section_page">
 						<nav id="billsNav">
 							<ul class="tablist" tab-group="billsNav">
-								<li class="active" tab-target="billsPending" data-i18n="PENDINGS"></li>
-								<li tab-target="billsCanceled" data-i18n="CANCELED"></li>
+								<li class="active" tab-target="billsPending" i18Trans="PENDINGS"></li>
+								<li tab-target="billsCanceled" i18Trans="CANCELED"></li>
 								
 							</ul>
 						</nav>
@@ -215,9 +215,9 @@
 					<div section-name="chat" class="section_page">
 						<nav id="ChatNav">
 							<ul class="tablist" tab-group="AdminNav">
-								<li class="active" tab-target="Chat" data-i18n="CHATS"></li>
-								<li tab-target="Employee" data-i18n="PERSONAL"></li>
-								<li tab-target="Department" data-i18n="GROUPS"></li>
+								<li class="active" tab-target="Chat" i18Trans="CHATS"></li>
+								<li tab-target="Employee" i18Trans="PERSONAL"></li>
+								<li tab-target="Department" i18Trans="GROUPS"></li>
 							</ul>
 						</nav>
 
@@ -230,30 +230,30 @@
 					
 					<div section-name="msgInfo" class="section_page">
 						<nav id="ChatMsgInfoNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat"  data-i18n="CHAT" i18Target="section-title"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat"  i18Trans="CHAT" i18Target="section-title"></i>
 								<div>user@mail.com</div>
 						</nav>
 						
 						<div class="tab-listtab get-nicer" tab-name="msgInfo">
 							<div class="nice-wrapper">
-							   <div id="msgInfoPreview" ">
+							   <div id="msgInfoPreview">
 								
 							   </div>
 							   <div id="chatsRead" class="statusInfoBox">
 								  <div class="statusChatHeader">
-									 <div data-i18n="READ"></div>
+									 <div i18Trans="READ"></div>
 									 <div class="fa fa-eye"></div>
 								  </div>
 							   </div>
 							   <div id="chatsDelivered" class="statusInfoBox">
 								  <div class="statusChatHeader">
-									 <div data-i18n="DELIVERED"></div>
+									 <div i18Trans="DELIVERED"></div>
 									 <div class="fa fa-check"></div>
 								  </div>
 							   </div>
 							   <div id="chatsUndelivered" class="statusInfoBox">
 								  <div class="statusChatHeader">
-									 <div data-i18n="REMAININGS"></div>
+									 <div i18Trans="REMAININGS"></div>
 									 <div class="fa fa-paper-plane-o"></div>
 								  </div>
 							   </div>
@@ -263,7 +263,7 @@
 
 					<div section-name="msgChat" class="section_page" avoid-autoscroll="true">
 							<nav id="ChatMsgNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat"  data-i18n="CHAT" i18Target="section-title"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="chat"  i18Trans="CHAT" i18Target="section-title"></i>
 								<div></div>
 							</nav>
 							<div class="tab-listtab" tab-name="Chat2">
@@ -304,8 +304,8 @@
 					<div section-name="service" class="section_page">
 						<nav id="ServiceNav">
 							<ul class="tablist" tab-group="AdminNav">
-								<li tab-target="services" data-i18n="SERVICES"></li>
-								<li tab-target="request" data-i18n="REQUESTS"></li>
+								<li tab-target="services" i18Trans="SERVICES"></li>
+								<li tab-target="request" i18Trans="REQUESTS"></li>
 							</ul>
 						</nav>
 						
@@ -316,7 +316,7 @@
 					
 					<div section-name="servicePage" class="section_page">
 						<nav id="ServiceNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="service"  data-i18n="SERVICES" i18Target="section-title"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="service" i18Trans="SERVICES" i18Target="section-title"></i>
 								<div class="title"></div>
 						</nav>
 						
@@ -326,17 +326,17 @@
 										<div id="service_photo" class="upPicture"></div>
 									<h3>Precio</h3>
 									  <div class="flex_container">
-										<div id="servicePage_cost"></div><div id="requestSrvBtn" data-i18n="REQUEST"></div>
+										<div id="servicePage_cost"></div><div id="requestSrvBtn" i18Trans="REQUEST"></div>
 									  </div>
-										  <h3 data-i18n="DESCRIPTION"></h3>
+										  <h3 i18Trans="DESCRIPTION"></h3>
 									<div id="serviceDescription" class="fromEditor">
 									  
 									</div>
-										 <h3 data-i18n="CONTACT"></h3>
+										 <h3 i18Trans="CONTACT"></h3>
 									<table class="service_contact">
-									  <tbody><tr><th data-i18n="NAME"></th><td id="service_contactName"> </td></tr>
-									  <tr><th data-i18n="EMAIL"></th><td id="service_contactEmail"></td><th>
-										</th></tr><tr><th data-i18n="PHONES"></th></tr>
+									  <tbody><tr><th i18Trans="NAME"></th><td id="service_contactName"> </td></tr>
+									  <tr><th i18Trans="EMAIL"></th><td id="service_contactEmail"></td><th>
+										</th></tr><tr><th i18Trans="PHONES"></th></tr>
 									</tbody></table>
 										
 										
@@ -350,8 +350,8 @@
 					
 					<div section-name="habitant" class="section_page">
 						<nav id="habitantNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" data-i18n="ENTRIES" i18Target="section-title"></i>
-								<div class="title" data-i18n="VISIT"></div>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" i18Trans="ENTRIES" i18Target="section-title"></i>
+								<div class="title" i18Trans="VISIT"></div>
 								<div class="action">
 									<div class="fa fa-car"></div>
 								</div>
@@ -360,15 +360,15 @@
 							<div class="nice-wrapper">
 								<table class="form">
 									<tr><td>
-										<label data-i18n="NAME_FORM"></label>
+										<label i18Trans="NAME_FORM"></label>
 										<input id="habitantName" class="form_input_full"/>
 									</tr></td>
 									<tr><td>
-										<label data-i18n="IDENTIFICATION_FORM"></label>
+										<label i18Trans="IDENTIFICATION_FORM"></label>
 										<input id="habitantId" class="form_input_full"/>
 									</td></tr>
 									<tr><td>
-										<label data-i18n="PHONE_FORM"></label>
+										<label i18Trans="PHONE_FORM"></label>
 										<input id="habitantPhone" class="form_input_full"/>
 									</td></tr>
 									</table>
@@ -387,8 +387,8 @@
 									<table id="cars_table" class="form">
 										<thead>
 											<tr>
-												<th data-i18n="PLATE"></th>
-												<th data-i18n="TYPE"></th>
+												<th i18Trans="PLATE"></th>
+												<th i18Trans="TYPE"></th>
 												<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
 											
 											</tr>
@@ -410,8 +410,8 @@
 					
 					<div section-name="guest" class="section_page">
 						<nav id="guestNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" data-i18n="ENTRIES" i18Target="section-title"></i>
-								<div class="title">Esta Visita</div>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries"  i18Trans="ENTRIES" i18Target="section-title"></i>
+								<div class="title" i18Trans="VISIT"></div>
 								<div class="action">
 									<div class="fa fa-car"></div>
 								</div>
@@ -420,27 +420,28 @@
 							<div class="nice-wrapper">
 								<table class="form">
 									<tr><td>
-										<label>Nombre:</label>
+										<label i18Trans="NAME_FORM"></label>
 										<input id="guestName" class="form_input_full" tabindex="1"/>
 									</tr></td>
 									<tr><td>
-										<label>Identificación:</label>
+										<label i18Trans="IDENTIFICATION_FORM"></label>
 										<input id="guestId" class="form_input_full"  tabindex="2"/>
 									</td></tr>
 									<tr><td>
-										<label>Teléfono:</label>
+										<label i18Trans="PHONE_FORM"></label>
 										<input id="guestPhone" class="form_input_full"  tabindex="3"/>
 									</td></tr>
 									<tr>
 									<td class="form_td_toggle">
-										<label>Notificar llegada:</label>	
+										<label i18Trans="NOTIFY_ARRIVAL_FORM"></label>	
 										<label class="switch">
 										  <input id="guestNotifyIn" type="checkbox"  tabindex="4">
 										  <div class="slider round"></div>
 										</label>
-									</td>
-									<tr><td class="form_td_toggle">
-										<label>Autorizado permanente:<label>	
+									</td></tr>
+									<tr>
+									<td class="form_td_toggle">
+										<label i18Trans="PERMANENT_AUTHORIZED_FORM"></label>	
 										<label class="switch">
 										  <input id="guestPermanent" type="checkbox">
 										  <div class="slider round"></div>
@@ -448,12 +449,12 @@
 									</td></tr>
 									
 									<tr><td>
-										<label>Fecha:</label><br>
+										<label i18Trans="DATE_FORM"></label><br>
 										<input id="guestDateStart" type="date"  tabindex="5"/>
 									</td></tr>
 									
 									<tr><td>
-										<label>Hora:</label><br> 
+										<label i18Trans="HOUR_FORM"></label><br> 
 										<input id="guestStartTime" type="time"  tabindex="6"/>
 									</td></tr>
 									
@@ -468,8 +469,8 @@
 									<table id="cars_table" class="form">
 										<thead>
 											<tr>
-												<th>Matrícula</th>
-												<th>Tipo</th>
+												<th i18Trans="PLATE"></th>
+												<th i18Trans="TYPE"></th>
 												<th class="add_car_btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></th>
 											
 											</tr>
@@ -489,7 +490,7 @@
 					
 					<div section-name="employee" class="section_page">
 						<nav id="employeeNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" section-title="Ingresos"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" i18Trans="ENTRIES" i18Target="section-title"></i>
 								<div class="title"></div>
 								<div class="action">
 									<div class="fa fa-bookmark"></div>
@@ -499,20 +500,20 @@
 							<div class="nice-wrapper">
 								<table class="form">
 									<tr><td>
-										<label>Nombre:</label>
+										<label i18Trans="NAME_FORM"></label>
 										<input id="employeeName" class="form_input_full"/>
 									</tr></td>
 									<tr><td>
-										<label>Identificación:</label>
+										<label i18Trans="IDENTIFICATION_FORM"></label>
 										<input id="employeeId" class="form_input_full"/>
 									</td></tr>
 									<tr><td>
-										<label>Teléfono:</label>
+										<label i18Trans="PHONE_FORM"></label>
 										<input id="employeePhone" class="form_input_full"/>
 									</td></tr>
 									<tr>
 									<td class="form_td_toggle">
-										<label>Notificar llegada:</label>	
+										<label i18Trans="NOTIFY_ARRIVAL_FORM"></label>	
 										<label class="switch">
 										  <input  id="employeeNotifyIn" type="checkbox">
 										  <div class="slider round"></div>
@@ -520,7 +521,7 @@
 									</td></tr>	
 									<tr>
 									<td class="form_td_toggle">
-										<label>Notificar salida:</label>	
+										<label i18Trans="NOTIFY_OUT_FORM"></label>	
 										<label class="switch">
 										  <input  id="employeeNotifyOut" type="checkbox">
 										  <div class="slider round"></div>
@@ -529,12 +530,12 @@
 									
 									
 									<tr><td>
-										<label>Fecha:</label><br>
+										<label i18Trans="DATE_FORM"></label><br>
 										<input id="employeeDateStart" type="date"/> a <input id="employeeDateEnd" type="date"/>
 									</td></tr>
 									
 									<tr><td>
-										<label>Hora:</label><br> 
+										<label i18Trans="HOUR_FORM"></label><br> 
 										<input id="employeeStartTime" type="time"/> a <input id="employeeEndTime" type="time"/>
 									</td></tr>
 									</table>
@@ -571,8 +572,8 @@
 										<table id="entryLog_table" class="form">
 											<thead>
 												<tr>
-													<th>Ingreso</th>
-													<th>Salida</th>
+													<th i18Trans="ENTRY"></th>
+													<th i18Trans="OUT"></th>
 												</tr>
 											</thead>
 											<tbody>
@@ -590,7 +591,7 @@
 					
 					 <div section-name="resource" class="section_page">
 						<nav id="ResourceNav" class="chat_action_bar">
-								<i class="fa fa-chevron-left" aria-hidden="true" section-target="bookin" section-title="Reservas"></i>
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="bookin" i18Trans="BOOKINGS" i18Target="section-title"></i>
 								<div class="title"></div>
 								<div class="action">
 									<div class="fa fa-calendar-o"></div>
@@ -600,19 +601,19 @@
 							<div class="nice-wrapper">
 								<div class="padding10">
 											<div id="resourcePhoto" class="upPicture"></div>
-											  <h3>Descripción</h3>
+											  <h3 i18Trans="DESCRIPTION"></h3>
 										<div id="resourceDescription" class="fromEditor"></div>
-											 <h3>Horario</h3>
+											 <h3 i18Trans="SCHEDULE"></h3>
 												<table  id="resourceSchedule" class="schedule">
-													<tr><th>Domingo</th><td></td></tr>
-													<tr><th>Lunes</th><td></td></tr>
-													<tr><th>Martes</th><td></td></tr>
-													<tr><th>Miércoles</th><td></td></tr>
-													<tr><th>Jueves</th><td></td></tr>
-													<tr><th>Viernes</th><td></td></tr>
-													<tr><th>Sábado</th><td></td></tr>
+													<tr><th i18Trans="SUNDAY"></th><td></td></tr>
+													<tr><th i18Trans="MONDAY"></th><td></td></tr>
+													<tr><th i18Trans="TUESDAY"></th><td></td></tr>
+													<tr><th i18Trans="WEDNESDAY"></th><td></td></tr>
+													<tr><th i18Trans="THURSDAY"></th><td></td></tr>
+													<tr><th i18Trans="FRIDAY"></th><td></td></tr>
+													<tr><th i18Trans="SATURDAY"></th><td></td></tr>
 												</table>
-											 <h3>Reglas de reserva</h3>
+											 <h3 i18Trans="BOOKING_RULES"></h3>
 											 <ul id="resourceRules">
 											 </ul>
 											 <div class="bottomDiv"></div>		  
@@ -623,7 +624,19 @@
 						<div id="allBookins" class="togglePanel">
 							
 							<div id="resource_select_day">
-								<select class="select_ix"><option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option><option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option><option>Setiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option></select>
+								<select class="select_ix">
+									<option i18Trans="JANUARY"></option>
+									<option i18Trans="FEBRUARY"></option>
+									<option i18Trans="MARCH"></option>
+									<option i18Trans="APRIL"></option>
+									<option i18Trans="MAY"></option>
+									<option i18Trans="JUNE"></option>
+									<option i18Trans="JULY"></option>
+									<option i18Trans="AUGUST"></option>
+									<option i18Trans="SEPTEMBER"></option>
+									<option i18Trans="OCTOBER"></option>
+									<option i18Trans="NOVEMBER"></option>
+									<option i18Trans="DECEMBER"></option></select>
 								<select class="select"><option>2017</option></select>
 								<div id="resource_day_cursel">
 									<table class="pick_cursel_day">
@@ -679,8 +692,8 @@
 			  
 			   <div class="loading"></div>
 			   <section id="user_config">
-			   <h4 class="h4_active_state">Propiedad Activa</h4>
-			   <h4  class="h4_mech_auth">Mecanismos de Autenticación</h4>
+			   <h4 class="h4_active_state" i18Trans="ACTIVE_ESTATE">/h4>
+			   <h4  class="h4_mech_auth" i18Trans="LOGIN_TYPES"></h4>
 					<div id="personalProfile">
 					<img id="profilePicture" />
 					<span>user@mail.com</span>
@@ -691,9 +704,8 @@
 					
 					</select>
 					
-					<div id="add_estate_btn">
+					<div id="add_estate_btn" i18Trans="ADD_ESTATE">
 						<i class="fa fa-home" aria-hidden="true"></i>
-						Agregar Propiedad
 					  </div>
 					<div id="AuthIntegration">
 						<div class="authIntegration_fbk">
@@ -706,7 +718,7 @@
 							<i class="fa fa-key" aria-hidden="true"></i>
 						</div>
 				    </div>
-					<div id="logout_btn">Cerrar Sesión</div>
+					<div id="logout_btn" i18Trans="LOGOUT"></div>
 			   </section>
 			   
 			   <section class="modalEfika" id="modal2Btn">
@@ -716,10 +728,10 @@
 						<p></p>
 						<ul>
 							<li>
-								<button class="yesBtn" i18Trans="Yes">Si</button>
+								<button class="yesBtn" i18Trans="YES"></button>
 							</li>
 							<li>
-								<button class="noBtn" i18Trans="No">No</button>
+								<button class="noBtn" i18Trans="NO"></button>
 							</li>
 						</ul>
 					</div>
@@ -730,7 +742,7 @@
 					  <div class="boxModal">
 						<h2></h2>
 						<p></p>
-						<button class="okBtn" i18Trans="OK">OK</button>
+						<button class="okBtn" i18Trans="OK"></button>
 					</div><!--close modal-->
 				</section>
 				
@@ -753,7 +765,7 @@
 				   <div class="jasj_topcover">
 				   </div>
 				   <div class="jasj_bottomcover">
-				   </table><table class='navTimer'><tr><td class='tmr_clean'>LIMPIAR</td><td d class='tmr_cancel'>CANCELAR</td><td d class='tmr_acept'>ACEPTAR</td></tr></table>
+				   </table><table class='navTimer'><tr><td class='tmr_clean' i18Trans='CLEAN'></td><td d class='tmr_cancel' i18Trans='CANCEL'></td><td d class='tmr_acept' i18Trans='ACCEPT'></td></tr></table>
 				   </div>
 				</div>
 			   
@@ -784,7 +796,7 @@
 		<script type="text/javascript" src="lib/hamster/hamster.js"></script>
 		<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
         <script type="text/javascript" src="js/i18next-1.8.0.min.js"></script>
-        <script type="text/javascript" src="js/ln.js"></script>
+        <!--<script type="text/javascript" src="js/ln.js"></script>-->
 		<script type="text/javascript" src="js/mobile-events.js"></script>
 		<script type="text/javascript" src="js/TouchSwipe.js"></script>
 		<script type="text/javascript" src="js/pouchdb-6.1.2.min.js"></script>

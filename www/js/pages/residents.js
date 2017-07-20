@@ -13,9 +13,11 @@ function requestHabitantList(version,old,estate){
 		_post("/condominus/guest/read/byEstate",tempObj,function(data){
 			$(".loading").fadeOut()
 			if(old != undefined){
-				var newIdexes = data.guests.map(function(t){return t.guestId})
-				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && data.deleted.indexOf(t.guestId) <0 })
-				data.guests = old.guests.concat(data.guests)
+				var guests = data.guests || []
+				var newIdexes =  guests.map(function(t){return t.guestId})
+				var deleted = data.deleted || []
+				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
+				data.guests = old.guests.concat(guests)
 			}
 			db.upsert4Guest("residents",estate.guestId,data)
 			data.guests.forEach(function(entry){
@@ -23,7 +25,7 @@ function requestHabitantList(version,old,estate){
 			})
 			
 		},function(err){
-			window.plugins.toast.showLongCenter("Imposible sincronizar en este momento")
+			window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
 		})
 }
 

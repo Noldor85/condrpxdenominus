@@ -4,7 +4,7 @@ function addHabitant(obj,estate){
 	var phone = ("phone" in obj )? obj.phone.replace(phoneRegEx,"$1") : "";
 	dom.attr("id","per"+obj.guestId)
 	dom.attr("section-target", "habitant")
-	dom.attr("section-title", "Habitantes")
+	dom.attr("section-title", $.t("RESIDENTS"))
 	dom.find(".chat_lst_element_who").html(obj.name)
 	dom.find(".call").attr("phone-number",phone)
 	
@@ -59,19 +59,20 @@ function replaceHabitantInfo(data,estate,t){
 		
 	}else{
 		console.log("repace",data)
-		if(data.guest.qrCode && (estate.type == "O" || estate.type == "T")){
+		if(data.guest && data.guest.qrCode && (estate.type == "O" || estate.type == "T")){
 			new QRCode(document.getElementById("qrcode"),{text: data.guest.qrCode, colorDark : "#0177D7",correctLevel : QRCode.CorrectLevel.M ,width: 150, height:150});
 			$("#qrcode").show()
 			$(".share_btn").show()
 		}
 	
-		data.plates.forEach(function(plate){
-			var domPlate = requestPlateDOM()
-			domPlate.find("input").val(plate.plate)
-			domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
-			$("#habitantCar #cars_table tbody").append(domPlate)
-		})
-		
+		if (data.plates) {
+			data.plates.forEach(function(plate){
+				var domPlate = requestPlateDOM()
+				domPlate.find("input").val(plate.plate)
+				domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
+				$("#habitantCar #cars_table tbody").append(domPlate)
+			})
+		}		
 		
 		$("[section-name=habitant] .save_btn").css({"display" : (estate.type == "O" || estate.type == "T" )? "block" : "none"})
 		
@@ -98,7 +99,7 @@ $(document).on("tapend","#habitantNav .fa-address-card-o",function(ev){
 
 $(document).on("tapend",".share_btn",function(ev){
 	if(checkPress(ev)){
-		window.plugins.socialsharing.share('Con este codigo puede registrar su usuario asociado a la propiedad', null, $("#qrcode").find("img").attr("src"), 'http://baja.nuestro.app/')
+		window.plugins.socialsharing.share($.t("QR_CODE_MESSAGE"), null, $("#qrcode").find("img").attr("src"), $.t("APP_URL"))
 	}
 })
 
@@ -109,7 +110,7 @@ $(document).on("tapend",".share_btn",function(ev){
 habitant  = {
 	init : function(t){
 		currentPersonId = $(t).attr("id").substr(3);
-		$("#habitantNav .title").html(($(t).find(".chat_lst_element_who").length >0) ? $(t).find(".chat_lst_element_who").html() : "Nuevo Habitante")
+		$("#habitantNav .title").html(($(t).find(".chat_lst_element_who").length >0) ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_HABITANT"))
 		$("[section-name=habitant]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-car")
 		$("#habitantCar").removeClass("active");
 		$("#habitantInfo").addClass("active")
@@ -134,9 +135,9 @@ habitant  = {
 			}
 			_post("/condominus/guest/manage/habitant",tempObj,function(data){
 				if(currentPersonId != -1){
-					showInfoD("Habitante Actualizado","Se cambiaron los datos del habitante con éxito")
+					showInfoD($.t("UPDATED_HABITANT_HEADER"),$.t("UPDATED_HABITANT_DETAIL"))
 				}else{
-					showInfoD("Habitante Creado","Se ha creado el habitante con éxito. Comparta el código QR para que este cree un usuario")
+					showInfoD($.t("CREATED_HABITANT_HEADER"),$.t("CREATED_HABITANT_DETAIL"))
 					currentPersonId = data.guestId
 					new QRCode(document.getElementById("qrcode"),{text: data.qrValue, colorDark : "#0177D7",correctLevel : QRCode.CorrectLevel.M , width: 150, height:150});
 					$("#qrcode").show()

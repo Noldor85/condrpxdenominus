@@ -22,6 +22,9 @@ var ln =
             
             ln.getLanguage();
 
+            console.log("ddddddddddddd")
+            console.log($("[i18Trans]"))
+
             $("[i18Trans]").each(function(){
                 if( $(this).hasAttr("i18Target")){
                     $(this).attr($(this).attr("i18Target"),$.t($(this).attr("i18Trans")));

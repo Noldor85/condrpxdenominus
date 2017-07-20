@@ -4,7 +4,7 @@ function addGuest(obj,estate){
 	var phone = obj.phone.replace(phoneRegEx,"$1")
 	dom.attr("id","per"+obj.guestId)
 	dom.attr("section-target", "guest")
-	dom.attr("section-title", "Visitas")
+	dom.attr("section-title", $.t("GUESTS"))
 	dom.find(".call").attr("phone-number",phone)
 	dom.find(".chat_lst_element_who").html(obj.name)
 	dom.find(".people_lst_elemen").eq(0).html(obj.id)
@@ -38,18 +38,22 @@ function replaceGuestInfo(data,estate,t){
 		$("[section-name=guest] .save_btn").show()
 		
 	}else{
-		var stime = Int2Time(data.guest.startTime)
-		$("#guestNotifyIn").prop('checked', data.guest.notification);
-		$("#guestPermanent").prop('checked', data.guest.permanent);
-		$("#guestDateStart").val(normalDateOnly(data.guest.startDate))
-		$("#guestStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
+		if (data.guest) {
+			var stime = Int2Time(data.guest.startTime)
+			$("#guestNotifyIn").prop('checked', data.guest.notification);
+			$("#guestPermanent").prop('checked', data.guest.permanent);
+			$("#guestDateStart").val(normalDateOnly(data.guest.startDate))
+			$("#guestStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
+		}
 		
-		data.plates.forEach(function(plate){
-			var domPlate = requestPlateDOM()
-			domPlate.find("input").val(plate.plate)
-			domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
-			$("#guestCar #cars_table tbody").append(domPlate)
-		})
+		if (data.plates) {
+			data.plates.forEach(function(plate){
+				var domPlate = requestPlateDOM()
+				domPlate.find("input").val(plate.plate)
+				domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
+				$("#guestCar #cars_table tbody").append(domPlate)
+			})
+		}
 		
 		
 		
@@ -83,7 +87,7 @@ $(document).on("tapend","#guestNav .fa-address-card-o",function(ev){
 guest = {
 	init : function(t){
 		currentPersonId = $(t).attr("id").substr(3);
-		$("#guestNav .title").html($(t).find(".chat_lst_element_who").length ? $(t).find(".chat_lst_element_who").html() : "Nueva Visita")
+		$("#guestNav .title").html($(t).find(".chat_lst_element_who").length ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_GUEST"))
 		$("[section-name=guest]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-car")
 		$("#guestCar").removeClass("active");
 		$("#guestInfo").addClass("active")
@@ -119,11 +123,11 @@ guest = {
 		
 		_post("/condominus/guest/manage/entry",tempObj,function(data){
 			if(currentPersonId != -1){
-				showInfoD("Visita actualizada","El registro de la visita ha sido actualizado con éxito")
+				showInfoD($.t("UPDATED_GUEST_HEADER"),$.t("UPDATED_GUEST_DETAIL"))
 				
 			}else{
 				currentPersonId = data.guestId
-				showInfoD("Visita Creada","El registro de la visita ha sido creado con éxito")
+				showInfoD($.t("CREATED_GUEST_HEADER"),$.t("CREATED_GUEST_DETAIL"))
 			}
 			$("#guestNav .title").html($("#guestName").val())
 		}

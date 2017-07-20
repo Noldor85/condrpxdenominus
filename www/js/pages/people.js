@@ -5,13 +5,13 @@ function requestPeopleDOM(){
 
 function requestPlateDOM(){
 	return $(`<tr>
-				<td><input placeholder="placa"></td>
+				<td><input placeholder="`+$.t("PLATE")+`"></td>
 				<td>
 					<select>
-						<option value="M">Moto</option>
-						<option value="L">Liviano</option>
-						<option value="C">Carga</option>
-						<option value="D">Diplomatico</option>
+						<option value="M">`+$.t("MOTORCYCLE")+`</option>
+						<option value="L">`+$.t("CAR")+`</option>
+						<option value="C">`+$.t("CARGO_TRUCK")+`</option>
+						<option value="D">`+$.t("DIPLOMATIC_CAR")+`</option>
 					</select>
 				</td>
 				<td>
@@ -128,43 +128,43 @@ creationPeopleErrorCode = function(err){
 			var s;
 			switch(err.status){
 				case 600:
-					s = "El habitante no se encuentra autorizado para crear/actualizar otros habitantes"
+					s = $.t("ERROR_HABITANT_GUEST_NOT_AUTHORIZED")
 				break;
 				
 				case 601:
-					s = "Se ha excedido el número máximo de residentes para el estate"
+					s = $.t("ERROR_MAX_HABITANTS")
 				break;
 				
 				case 602:
-					s = "Se ha excedido el número máximo de ingresos para el estate"
+					s = $.t("ERROR_MAX_ENTRIES")
 				break;
 				
 				case 603:
-					s = "No se encuentra el habitante"
+					s = $.t("ERROR_HABITANT_NOT_FOUND")
 				break;
 				
 				case 604:
-					s = "El habitante no cuenta con usuario asociado"
+					s = $.t("ERROR_HABITANT_IS_NOT_USER")
 				break;
 				
 				case 606:
-					s = "El guest no es de tipo O, T o G"
+					s = $.t("ERROR_HABITANT_IS_NOT_O_T_G")
 				break;
 				
 				case 607:
-					s = "El inquilino no puede crear/actualizar un guest de tipo owner"
+					s = $.t("ERROR_TENANT_UPSERT_OWNER")
 				break;
 				
 				case 608:
-					s = "Un habitante no puede crear/actualizar un guest de tipo owner, inquilino o guest"
+					s = $.t("ERROR_HABITANT_UPSERT_GUEST")
 				break;
 				
 				default:
-						s= "algo a salido mal, consulte a su administrador"
+						s= $.t("ERROR_GENERIC_2")
 					break;
 						
 				}
-				showInfoD("Error en creación", s)
+				showInfoD($.t("ERROR_CREATING"), s)
 				console.log(JSON.stringify(err))
 			
 						
@@ -176,8 +176,8 @@ $(document).on("tapend",".call:not(.inactive)",function(ev){
 		phonedialer.dial(
 		  $(this).attr("phone-number"), 
 		  function(err) {
-			if (err == "empty") alert("Unknown phone number");
-			else showInfoD("Error en llamada","Algo no ha salido bien")   
+			if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
+			else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
 		  },
 		  function(success) { }
 		 );
@@ -188,7 +188,7 @@ $(document).on("tapend",".removePeople",function(ev){
 	var this_ = $(this)
 	if(checkPress(ev)){
 		ev.stopPropagation()
-		showAlert("Borrar Persona","seguro que desea borrar a esta persona",function(){
+		showAlert($.t("DELETE_PERSON"),$.t("DELETE_PERSON_CONFIRMATION"),function(){
 			loginInfo(function(doc){
 				var estate = doc.estates[estateSelected]
 				var tempObj =	{
@@ -197,10 +197,10 @@ $(document).on("tapend",".removePeople",function(ev){
 				}
 				
 				_post("/condominus/guest/delete",tempObj,function(){
-					showInfoD("Persona Eliminada","Persona Eliminada con éxito")
+					showInfoD($.t("DELETED_PERSON_HEADER"),$.t("DELETED_PERSON_DETAIL"))
 					this_.parents(".people").remove()
 				},function(){
-					showInfoD("Error Eliminando","No se pudo eliminar a la persona")
+					showInfoD($.t("ERROR_DELETING"),$.t("ERROR_DELETING_PERSON"))
 				})
 				
 			})

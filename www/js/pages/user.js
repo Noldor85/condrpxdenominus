@@ -35,7 +35,7 @@ $("#header_user_btn").tapend(function(){
 		$("#myProperties").html(estatesStr).change(function(){
 				estateSelected = $(this).find("option:selected").attr("value")
 				$("#condo_logo").trigger("tapend")
-				showInfoD("Cambio Propiedad","Ha cambiado a la propiedad "+  $(this).find("option:selected").html)
+				showInfoD($.t("SWITCH_ESTATE_HEADER"),$.t("SWITCH_ESTATE_DETAIL")+  $(this).find("option:selected").html)
 				
 		})
 	})
@@ -66,9 +66,9 @@ $("#add_estate_btn").tapend(function(){
 						_post("/condominus/guest/addEstate",tempObj,function(data){
 							doc.estates.push(data)
 							db.upsert("loginInfo",doc)
-							showInfoD("Éxito","propiedad agregada")
+							showInfoD($.t("SUCCESS"),$.t("ESTATE_ADDED"))
 						},function(err){
-							showInfoD("Error","Algo salio mal")
+							showInfoD($.t("ERROR"),$.t("SOMETHING_WENT_WRONG"))
 						})
 
 					})
@@ -85,7 +85,7 @@ $(document).on("change","#myProperties",function(){
 		var estateName = $("#myProperties").find("option:selected").html()
 		console.log(estateName)
 		clearWorkspace()
-		showInfoD("Cambio de Propiedad","Ahora navega en la propiedad "+estateName,function(){})
+		showInfoD($.t("SWITCH_ESTATE_HEADER"),$.t("YOU_ARE_IN_ESTATE")+estateName,function(){})
 })
 
 
@@ -108,10 +108,10 @@ $(".authIntegration_google").tapend(function(){
 				userId: loginObj.userId
 				}
 			_post("/security/update/credentials",tempObj,function(data,status){
-				showInfoD("Autenticado","Ahora esta autenticado con Google")
+				showInfoD($.t("AUTHENTICATED"),$.t("GOOGLE_AUTHENTICATION"))
 				
 			},function(e){
-				showInfoD("Error","Algo salio mal, intente luego")
+				showInfoD($.t("ERROR"),$.t("SOMETHING_WENT_WRONG_RETRY"))
 				console.log(e)
 			})
 		  })
@@ -120,7 +120,7 @@ $(".authIntegration_google").tapend(function(){
 
 $(".authIntegration_key").tapend(function(ev){
 	if(checkPress(ev)){
-		showAlert("Cambio de Credenciales",'<table><tr><th>Email</th><td><input type="email" class="psw_input_usr"></td></tr><tr><th>Contraseña</th><td><input type="text" class="psw_input_usr"></td></tr></table>',function(){
+		showAlert($.t("UPDATED_CREDENTIALS"),'<table><tr><th>'+$.t("EMAIL")+'</th><td><input type="email" class="psw_input_usr"></td></tr><tr><th>'+$.t("PASSWORD")+'</th><td><input type="text" class="psw_input_usr"></td></tr></table>',function(){
 			loginInfo(function(loginObj){
 				var tempObj = {
 					password : HexWhirlpool($(".psw_input_usr").eq(1).val()),
@@ -129,10 +129,10 @@ $(".authIntegration_key").tapend(function(ev){
 				}
 				console.log(tempObj)
 				_post("/security/update/credentials",tempObj,function(data,status){
-					showInfoD("Éxito","Sus credenciales se han cambiado con éxito")
+					showInfoD($.t("SUCCESS"),$.t("UPDATED_CREDENTIALS_SUCCESS"))
 					$("#personalProfile span").html(tempObj.user)
 				},function(e){
-					showInfoD("Error","Algo salio mal, intente luego")
+					showInfoD($.t("ERROR"),$.t("SOMETHING_WENT_WRONG_RETRY"))
 					console.log(e)
 				})
 			})
@@ -145,7 +145,7 @@ $(".authIntegration_fbk").tapend(function(){
    permissions: ['email', 'user_likes'],
    onSuccess: function(result) {
       if(result.declined.length > 0) {
-         showInfoD("Error","The User declined something!");
+         showInfoD($.t("ERROR"),$.t("USER_DECLINED_SOMETHING"));
       }else{
 		  console.log(result)
 		  loginInfo(function(loginObj){
@@ -155,10 +155,10 @@ $(".authIntegration_fbk").tapend(function(){
 			}
 			_post("/security/update/credentials",tempObj,function(data,status){
 				db.upsert('fbkToken', {token: result.accessToken}).then(function(doc){console.log(doc)})
-				showInfoD("Autenticado","Ahora esta autenticado con Facebook")
+				showInfoD($.t("AUTHENTICATED"),$.t("FACEBOOK_AUTHENTICATION"))
 				
 			},function(e){
-				showInfoD("Error","Algo salio mal, intente luego")
+				showInfoD($.t("ERROR"),$.t("SOMETHING_WENT_WRONG_RETRY"))
 				console.log(e)
 			})
 		})

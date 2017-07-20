@@ -18,7 +18,7 @@ $(document).on("tapend","[section-target]",function(ev){
 		if(checkPress(ev)){
 			
 			var sectionTarget = $("[section-name="+$(this).attr("section-target")+"]")
-			var title = $(this).hasAttr("section-title") ? $(this).attr("section-title") : $(this).text();
+			var title = $(this).hasAttr("section-title") ? $.t($(this).attr("section-title")) : $(this).text();
 			if($(this).hasClass("menu_nav")){
 				$(".nav_li_selected").removeClass("nav_li_selected");
 				$(this).addClass("nav_li_selected");

@@ -108,6 +108,7 @@ div#dashboard {
     position: fixed;
     top: 60px;
     bottom: 0px;
+    width: 100%;
 } 
 
 .add_btn {

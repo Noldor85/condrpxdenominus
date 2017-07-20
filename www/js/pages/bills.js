@@ -21,7 +21,7 @@ function addBillCard(obj){
 		}
 		switch(obj.status){
 			case "E":
-				dom.find(".bill_status").html("Expiró "+normalDate(obj.dueDate))
+				dom.find(".bill_status").html($.t("OVERDUE")+normalDate(obj.dueDate))
 				dom.find(".bill_status").addClass("overdue")
 				if($("#bill"+obj.id).length>0){
 					$("#bill"+obj.id).replaceWith(dom)
@@ -36,7 +36,7 @@ function addBillCard(obj){
 			case "P":
 				var dateNow = new Date()
 				
-				dom.find(".bill_status").html("Vence "+normalDate(obj.dueDate))
+				dom.find(".bill_status").html($.t("EXPIRES")+normalDate(obj.dueDate))
 				dom.find(".bill_status").addClass("pending")
 				if($("#bill"+obj.id).length>0){
 					$("#bill"+obj.id).replaceWith(dom)
@@ -50,7 +50,7 @@ function addBillCard(obj){
 			
 			
 			case "C":
-				dom.find(".bill_status").html("Pagado "+normalDate(obj.payDate))
+				dom.find(".bill_status").html($.t("PAID_OUT")+normalDate(obj.payDate))
 				dom.find(".bill_status").addClass("payed")
 				
 				if($("#bill"+obj.id).length>0){
@@ -121,7 +121,7 @@ function requestBillList(version,old,estate){
 			makeBillSwipe(".bill")
 			
 		},function(err){
-			window.plugins.toast.showLongCenter("Imposible sincronizar facturas en este momento")
+			window.plugins.toast.showLongCenter($.t("ERROR_SYNC_BILLS"))
 		})
 
 }

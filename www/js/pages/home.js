@@ -43,12 +43,12 @@ function requestDashboardInfo(){
 		
 		
 		if($.isEmptyObject(data.bills)){
-			$("#home_bills").html('<div  class="home_divs dashboard_cards"><div class="home_empty">Todas sus propiedades se encuentran al día </div></div>')
+			$("#home_bills").html('<div  class="home_divs dashboard_cards"><div class="home_empty">'+$.t("EMPTY_BILLS_MESSAGE")+'</div></div>')
 		}else{
 			for(var estate in data.bills){
 				var dom = $('<div class="bill_dashboard_card"><div class="estateidentifier">'+estate+'</div>');
 				if("E" in data.bills[estate]){
-					dom.append($('<div class="subtitleBillCard overdue">Vencido</div>'))
+					dom.append($('<div class="subtitleBillCard overdue">'+$.t("EXPIRED")+'</div>'))
 					var dom2 = $('<div class="currencyCard"></div>')
 					for(var currency in data.bills[estate].E){
 						var dom3 = $('<div class="currencyBox"><div class="currency">'+currency+'</div><div class="amount">'+data.bills[estate].E[currency].thousand()+'</div></div>')
@@ -58,7 +58,7 @@ function requestDashboardInfo(){
 				}
 				
 				if("P" in data.bills[estate]){
-					dom.append($('<div class="subtitleBillCard pending">Pendiente</div>'))
+					dom.append($('<div class="subtitleBillCard pending">'+$.t("PENDING")+'</div>'))
 					var dom2 = $('<div class="flex flex-sb  currencyCard"></div>')
 					for(var currency in data.bills[estate].P){
 						var dom3 = $('<div class="currencyBox"><div class="currency">'+currency+'</div><div class="amount">'+data.bills[estate].P[currency].thousand()+'</div></div>')
@@ -92,7 +92,7 @@ function requestDashboardInfo(){
 				
 			}else{
 				$("#home_bookings").addClass("dashboard_cards")
-				$("#home_bookings").html('<div class="home_empty">No hay reservas para su apartamento el día de hoy</div>')
+				$("#home_bookings").html('<div class="home_empty">'+$.t("EMPTY_BOOKINGS_MESSAGE")+'</div>')
 			}
 			
 			$(".get-nicer").getNiceScroll().resize()

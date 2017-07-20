@@ -3,7 +3,7 @@ function addEmployee(obj,estate){
 	var phone = obj.phone.replace(phoneRegEx,"$1")
 	dom.attr("id","per"+obj.guestId)
 	dom.attr("section-target", "employee")
-	dom.attr("section-title", "Empleados")
+	dom.attr("section-title", $.t("EMPLOYEES"))
 	dom.attr("authorizer",obj.authorizer)
 	dom.find(".call").attr("phone-number",phone)
 	dom.find(".chat_lst_element_who").html(obj.name)
@@ -54,17 +54,19 @@ function replaceEmployeeInfo(data,estate,t){
 		checkMask(0)
 		$("[section-name=employee] .save_btn").show()
 	}else{
-		var stime = Int2Time(data.guest.startTime)
-		var etime = Int2Time(data.guest.endTime)
-		console.log(etime)
-		$("#employeeNotifyIn").prop('checked', data.guest.notification);
-		$("#employeeNotifyOut").prop('checked', data.guest.notificationOut);
-		$("#employeeDateStart").val(normalDateOnly(data.guest.startDate))
-		$("#employeeDateEnd").val(normalDateOnly(data.guest.endDate))
-		$("#employeeStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
-		$("#employeeEndTime").val(zeroPad(etime.h,2)+":"+zeroPad(etime.m,2))
-		
-		checkMask(data.guest.mask)
+		if (data.guest) {
+			var stime = Int2Time(data.guest.startTime)
+			var etime = Int2Time(data.guest.endTime)
+			console.log(etime)
+			$("#employeeNotifyIn").prop('checked', data.guest.notification);
+			$("#employeeNotifyOut").prop('checked', data.guest.notificationOut);
+			$("#employeeDateStart").val(normalDateOnly(data.guest.startDate))
+			$("#employeeDateEnd").val(normalDateOnly(data.guest.endDate))
+			$("#employeeStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
+			$("#employeeEndTime").val(zeroPad(etime.h,2)+":"+zeroPad(etime.m,2))
+			
+			checkMask(data.guest.mask)
+		}
 		$("[section-name=employee] .save_btn").css({"display" : (estate.type == "O" || estate.type == "T"  )? "block" : "none"})
 	}
 	
@@ -101,7 +103,7 @@ function printLogs(logs){
 }
 
 function insertLogs(logs,old){
-	if(old != undefined){
+	if(old != undefined && old != null && typeof old == "object" && "logs" in old){
 		for(month in logs.logs){
 			if(month in old.logs){
 				Object.assign(old.logs[month],logs.logs[month])
@@ -169,7 +171,7 @@ $(document).on("tapend","#employeeNav .fa-address-card-o",function(ev){
 employee = {
 	init : function(t){
 		currentPersonId = $(t).attr("id").substr(3);
-		$("#employeeNav .title").html($(t).find(".chat_lst_element_who").length > 0 ? $(t).find(".chat_lst_element_who").html() : "Nuevo Empleado")
+		$("#employeeNav .title").html($(t).find(".chat_lst_element_who").length > 0 ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_EMPLOYEE"))
 		$("[section-name=employee]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-bookmark")
 		$("#employeeBookmark").removeClass("active");
 		$("#employeeInfo").addClass("active")
@@ -205,11 +207,11 @@ employee = {
 			
 			_post("/condominus/guest/manage/entry",tempObj,function(data){
 				if(currentPersonId != -1){
-					showInfoD("Empleado actualizada","El registro de la empleado ha sido actualizado con éxito")
+					showInfoD($.t("UPDATED_EMPLOYEE_HEADER"),$.t("UPDATED_EMPLOYEE_DETAIL"))
 				
 				}else{
 					currentPersonId = data.guestId
-					showInfoD("Empleado Creada","El registro de la empleado ha sido creado con éxito")
+					showInfoD($.t("CREATED_EMPLOYEE_HEADER"),$.t("CREATED_EMPLOYEE_DETAIL"))
 				}
 				$("#employeeNav .title").html($("#employeeName").val())
 			}

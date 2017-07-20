@@ -300,7 +300,7 @@ function onCamaraSuccess(imageData) {
 }
 
 function onCamaraFail(message) {
-    alert('Failed because: ' + message);
+    alert($.t("FAILED_MESSAGE") + message);
 }
 
 
@@ -502,7 +502,7 @@ function insertMsg(from,msg_){
 }
 
 function insertChat(chat){
-	var dom = $(`<div id="`+ chat.id+`"  class="chat_lst_element" section-target="msgChat" section-title="Chat" section-fx-parameters="'`+ chat.chatId+`'">
+	var dom = $(`<div id="`+ chat.id+`"  class="chat_lst_element" section-target="msgChat"  i18Trans="CHAT" i18Target="section-title" section-fx-parameters="'`+ chat.chatId+`'">
 								<div class="chat_lst_element_picture">
 									<i class="fa fa-user`+(chat.isGroup==1? "s" : "")+`"></i>
 								</div>
@@ -543,7 +543,7 @@ function insertChat(chat){
 }
 
 function insertChatContact(contact,type){
-	var dom = $(`<div id="`+contact.id+`" class="chat_contact" type="`+type+`" section-target="msgChat" section-fx-parameters="'`+contact.chat+`'" section-title="Chat" >
+	var dom = $(`<div id="`+contact.id+`" class="chat_contact" type="`+type+`" section-target="msgChat" section-fx-parameters="'`+contact.chat+`'"  i18Trans="CHAT" i18Target="section-title" >
 					<i class="fa fa-`+type+`"></i> <span class="chat_lst_element_who">`+ contact.name+`</span> 
 				</div>`)
 	$('[tab-name='+(type=="user"? "Employee" : "Department")+'] .nice-wrapper').append(dom)
@@ -572,7 +572,7 @@ $(document).on("tapend","#ChatMsgNav .fa-reply",function(){
 
 
 $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
-	showAlert("Eliminar Mensajes","Desea eliminar "+$(".chat_message.selected").length+" mensajes",function(){
+	showAlert($.t("DELETE_MESSAGES"),$.t("DELETE_ASK")+$(".chat_message.selected").length+" "+$.t("MESSAGES"),function(){
 	
 		loginInfo(function(doc){
 			var tempObj = {
@@ -597,7 +597,7 @@ $(document).on("tapend","#ChatMsgNav .fa-trash-o",function(){
 				
 })
 			},function(){
-				window.plugins.toast.showLongCenter("Imposible borrar archivos en este momento")
+				window.plugins.toast.showLongCenter($.t("ERROR_REMOVING_FILES"))
 			})
 		
 		})
@@ -694,7 +694,7 @@ downloadMsg = function(this_, recived, callback){
 						callback(entity);
 					},
 					function(e){
-						window.plugins.toast.showLongCenter("Error downloading file")
+						window.plugins.toast.showLongCenter($.t("ERROR_DOWNLOADING_FILE"))
 						failFS(e)
 					}
 				)
@@ -705,7 +705,7 @@ downloadMsg = function(this_, recived, callback){
 			//window.open("http://54.212.218.84:2591/downloader/1.0/read/message/"+data.uid+"/"+this_.next().next().html());
 		},function(e){
 			console.log(e); 
-		showInfoD("Error","Imposible obtener ruta segura")})
+		showInfoD($.t("ERROR"),$.t("ERROR_GETTING_PATH"))})
 		
 	})
 }
@@ -791,7 +791,7 @@ $(document).on("tapend",".removeChat",function(ev){
 		var this_ = $(this)
 		var chatId = eval($(this).parents(".chat_lst_element").attr("section-fx-parameters"))
 		
-		showAlert("Confirmación","Seguro que desea borrar este Chat",function(){
+		showAlert($.t("CONFIRMATION"),$.t("DELETE_CHAT_CONFIRMATION"),function(){
 			loginInfo(function(doc){
 				var tempObj = {
 					to : doc.estates[estateSelected].guestId,
@@ -990,7 +990,7 @@ $(document).on("tapend",".audioBox_controlBtn",function(ev){
 		}else if($(this).hasClass("fa-arrow-circle-o-down")){	
 			var this_ = $(this);
 			var acb = this_.next(".audioBox_info")
-			acb.find(".audioBox_loading").addClass("downloading").html("Descargando")
+			acb.find(".audioBox_loading").addClass("downloading").html($.t("DOWNLOADING"))
 			downloadMsg(this_,this_.attr("recived"),function(entity){
 				this_.removeClass("fa-arrow-circle-o-down").addClass("fa-play")
 				this_.attr("audio-src",entity.toURL())
@@ -1149,7 +1149,7 @@ chat = {
 					})
 					db.upsert("contacts",data)
 				},function(e){
-					showInfoD("Error","No se pudo descargar las listas de contactos")
+					showInfoD($.t("ERROR"),$.t("ERROR_GETTING_CONTACTS"))
 				})
 			})
 				
@@ -1166,7 +1166,7 @@ msgChat = {
 			$("#chat_lst_box .nice-wrapper").html("")
 		}
 			
-						window.plugins.toast.showLongCenter("Sincronizando mensajes")
+						window.plugins.toast.showLongCenter($.t("SYNC_MESSAGES"))
 		if(chatId != "null"){
 			currentChat = {chatId : chatId,chatType : "chat"}
 		}else{

@@ -1,7 +1,7 @@
 
 function guestGetAvailability(guest){
 	if(guest.permanent==1){
-		return '<font color="#0177D701DD7D">Permanente</font>'
+		return '<font color="#0177D701DD7D">'+$.t("PERMANENT")+'</font>'
 	}else{
 		var now 	= new Date()
 		var start	= new Date(guest.startDate)
@@ -23,12 +23,12 @@ function guestGetAvailability(guest){
 		console.log("ntime",new Date(ntime).toUTCString())
 		if(now.getUTCFullYear() == start.getUTCFullYear() && now.getUTCMonth() == start.getUTCMonth() && now.getUTCDate() == start.getUTCDate() ){
 			if(stime <= ntime &&  ntime <= etime){
-				return '<font color="#01DD7D">Autorizado en este momento</font>'
+				return '<font color="#01DD7D">'+$.t("AUTHORIZED")+'</font>'
 			}else{
-				return 'Fuera de horario'
+				return $.t("OUT_OF_SCHEDULE")
 			}
 		}else{
-			return "No hay autorización para hoy"
+			return $.t("ERROR_TODAY_IS_NOT_AUTHORIZED")
 		}
 		
 	}
@@ -37,7 +37,7 @@ function guestGetAvailability(guest){
 
 function employeeGetAvailability(guest){
 	if(guest.permanent==1){
-		return '<font color="#0177D701DD7D">Permanente</font>'
+		return '<font color="#0177D701DD7D">'+$.t("PERMANENT")+'</font>'
 	}else{
 		var now 	= new Date()
 		var start	= new Date(guest.startDate)
@@ -60,12 +60,12 @@ function employeeGetAvailability(guest){
 		console.log("ntime",new Date(ntime).toUTCString())
 		if(now.getUTCFullYear() == start.getUTCFullYear() && now.getUTCMonth() == start.getUTCMonth() && now.getUTCDate() == start.getUTCDate() ){
 			if(stime <= ntime &&  ntime <= etime){
-				return '<font color="#01DD7D">Autorizado en este momento</font>'
+				return '<font color="#01DD7D">'+$.t("AUTHORIZED")+'</font>'
 			}else{
-				return 'Fuera de horario'
+				return $.t("OUT_OF_SCHEDULE")
 			}
 		}else{
-			return "No hay autorización para hoy"
+			return $.t("ERROR_TODAY_IS_NOT_AUTHORIZED")
 		}
 		
 	}
@@ -85,9 +85,11 @@ function requestEntryList(version,old,estate){
 			$(".loading").fadeOut()
 			if(old != undefined){
 				console.log("aka9",data)
-				var newIdexes = data.guests.map(function(t){return t.guestId})
-				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && data.deleted.indexOf(t.guestId) <0 })
-				data.guests = old.guests.concat(data.guests)
+				var guests = data.guests || []
+				var deleted = data.deleted || []
+				var newIdexes = guests.map(function(t){return t.guestId})
+				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
+				data.guests = old.guests.concat(guests)
 			}
 			db.upsert4Guest("entries",estate.guestId,data)
 			data.guests.forEach(function(entry){
@@ -99,7 +101,7 @@ function requestEntryList(version,old,estate){
 			})
 			
 		},function(err){
-			window.plugins.toast.showLongCenter("Imposible sincronizar en este momento")
+			window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
 		})
 }
 
