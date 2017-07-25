@@ -87,7 +87,7 @@
     <gap:plugin name="cordova-plugin-network-information" source="npm"/>
     <gap:plugin name="cordova-plugin-vibration" source="npm"/>
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-	<gap:plugin name="nl.x-services.plugins.toast" source="npm" />
+	<gap:plugin name="cordova-plugin-x-toast" source="npm" />
 	
 
 
