@@ -75,8 +75,9 @@
 	<plugin spec="https://github.com/wymsee/cordova-HTTP.git" />
 	<plugin spec="https://github.com/peutetre/PhoneGap-PhoneDialer.git" />
 	<plugin spec="https://github.com/apache/cordova-plugin-camera.git" />
+	<plugin spec="https://github.com/apache/cordova-plugin-media-capture" />
 	<!--<gap:plugin name="org.apache.cordova.camera" source="npm"/> -->
-    <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
+    <!--<gap:plugin name="org.apache.cordova.media-capture" source="npm"/> -->
     <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
     <gap:plugin name="org.apache.cordova.device" source="npm"/>
     <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
