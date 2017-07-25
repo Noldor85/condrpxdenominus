@@ -75,18 +75,17 @@
 	<plugin spec="https://github.com/wymsee/cordova-HTTP.git" />
 	<plugin spec="https://github.com/peutetre/PhoneGap-PhoneDialer.git" />
 	<plugin spec="https://github.com/apache/cordova-plugin-camera.git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-media-capture" />
-	<!--<gap:plugin name="org.apache.cordova.camera" source="npm"/> -->
-    <!--<gap:plugin name="org.apache.cordova.media-capture" source="npm"/> -->
-    <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
-    <gap:plugin name="org.apache.cordova.device" source="npm"/>
-    <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
-    <gap:plugin name="org.apache.cordova.geolocation" source="npm" />
-    <gap:plugin name="org.apache.cordova.globalization" source="npm"/>
-    <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/>
-    <gap:plugin name="org.apache.cordova.media" source="npm"/>
-    <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
-    <gap:plugin name="org.apache.cordova.vibration" source="npm"/>
+	<gap:plugin name="cordova-plugin-camera" source="npm"/>
+    <gap:plugin name="cordova-plugin-media-capture" source="npm"/>
+    <gap:plugin name="cordova-plugin-contacts" source="npm"/>
+    <gap:plugin name="cordova-plugin-device" source="npm"/>
+    <gap:plugin name="cordova-plugin-dialogs" source="npm"/>
+    <gap:plugin name="cordova-plugin-geolocation" source="npm" />
+    <gap:plugin name="cordova-plugin-globalization" source="npm"/>
+    <gap:plugin name="cordova-plugin-inappbrowser" source="npm"/>
+    <gap:plugin name="cordova-plugin-media" source="npm"/>
+    <gap:plugin name="cordova-plugin-network-information" source="npm"/>
+    <gap:plugin name="cordova-plugin-vibration" source="npm"/>
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<gap:plugin name="nl.x-services.plugins.toast" source="npm" />
 	
