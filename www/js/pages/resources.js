@@ -131,6 +131,8 @@ function generateRuleText(rule){
 		case 7:
 			template = $.t("BOOKING_RULE_7")
 		break;
+		
+		
 	}
 	var qty = rule.parameters && "qty" in rule.parameters ? rule.parameters.qty : ""
 	var time = rule.parameters && "time" in rule.parameters ? rule.parameters.time : ""

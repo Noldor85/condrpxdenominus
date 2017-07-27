@@ -1,5 +1,20 @@
 function pushDriver(ev){
-	var payload = ev.payload
+	console.log("ev",ev)
+	var payload = ev.payload	
+	if ( ev.coldstart )
+            {
+                console.log('<li>--COLDSTART NOTIFICATION--' + '</li>');
+				console.log("cold",ev)
+                console.log('<li>--COLDSTART NOTIFICATION--' + '</li>');
+				
+            }
+            else
+            {
+                console.log('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+				console.log("back",ev)
+                console.log('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+            }
+			
 	switch (payload.type){
 		case "chat":
 			var inTheChat =false
@@ -15,6 +30,52 @@ function pushDriver(ev){
 			if(inTheChat){
 				$(".qtyNewMsg").attr("qty",(parseInt($(".qtyNewMsg").attr("qty"))+1)).html($(".qtyNewMsg").attr("qty"))
 			}
+		break;
+		
+		case "requestAuth":
+			showAlert($.t("ENTRY_REQUEST"),payload.message,function(){
+				console.log("sas")
+				loginInfo(function(doc){
+					console.log("doc",doc)
+					var tempObj = {
+						"requestId":	payload.requestId,
+						"guestId": doc.estates[estateSelected].guestId,
+						"description" :payload.authDescription,
+						"type": payload.authType,
+						"value": payload.authValue,
+						"approved": true
+					}
+					console.log(tempObj)
+					_post("/condominus/guest/authorization/response",tempObj,function(data){
+						showInfoD($.t("AUTHORIZED_RES"),$.t("ENTRY_AUTHORIZED")+payload.authDescription)
+					})
+					
+				})
+				
+			},function(){
+				loginInfo(function(doc){
+					var tempObj = {
+						"requestId":	payload.requestId,
+						"guestId": doc.estates[estateSelected].guestId,
+						"description" :payload.authDescription,
+						"type": payload.authType,
+						"value": payload.authValue,
+						"approved": false
+					}
+					console.log("aquiTemp",tempObj)
+					_post("/condominus/guest/authorization/response",tempObj,function(data){
+						showInfoD($.t("REJECTED"),$.t("ENTRY_REJECTED")+payload.authDescription)
+					})
+					
+				})
+				
+			}
+			
+			
+			
+			)
+			
+		
 		break;
 		
 		default:

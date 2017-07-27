@@ -33,7 +33,7 @@ function startRecoarding(){
 	}
 }
 
-function stopRecoarding(tid,date,audio_control){
+function stopRecoarding(tid,date,cb){
 	try {
         if (window.audioinput && audioinput.isCapturing()) {
 			console.log("stop")
@@ -58,14 +58,7 @@ function stopRecoarding(tid,date,audio_control){
 										sendMessage(tid,date,"audio",data,fileName)});
 							console.log(file.toURL())
 							console.log("File created!");
-							var audio = $('<audio controls></audio>');
-							audio_control.prepend(audio)
-						/*	sendMessage(tid,date,"audio",file.toURL())*/
-							audio.append($('<source>').attr("src",file.toURL()))
-							setTimeout(function(){
-									audio[0].pause();
-									audio[0].load();
-							},1000) 
+							cb(fileName)
 							goBottom()
 						}, function () {
 							alert("FileWriter error!");

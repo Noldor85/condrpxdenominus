@@ -3,6 +3,7 @@ ServerIP = "http://54.212.218.84:2521/ravel/1.0"
 loginObj = {}
 estateSelected = 0
 directory = "condo"
+btToken = "sandbox_vcs5jw2p_8n4tk7sj3dw3g79s"
 
 
 captureCfg = {

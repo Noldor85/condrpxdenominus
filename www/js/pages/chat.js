@@ -11,10 +11,11 @@ currentChat = null;
 
   w = new Worker("js/workers/chat_worker.js");
   w.onmessage = function(event){
-	    console.log(event.data);
+	    console.log("event.data",event.data);
 	  retData = JSON.parse(event.data)
 	  if(retData.tid != undefined){
 		  $("#msg"+retData.tid).find(".fa-clock-o").removeClass("fa-clock-o").addClass("fa-paper-plane-o")
+		   $("#msg"+retData.tid).attr("id","msg"+retData.chatMessageId)
 		  console.log("change")
 	  }
    
@@ -855,13 +856,22 @@ $("#phone_rec").swipe( {
 			   var uuid_ = uuid()
 			   var date = new Date()
 			   
-			   var dom = $('<div class="chat_message" id="msg'+uuid_+'"><div class="i_said">'+ `<div class="said_bottom">
-					<div class="said_state">
-						<i class="fa `+getIconStatus("N")+`" aria-hidden="true"></i>
-				</div>
-				<div class="said_date">`+(new Date(date).toLocaleString())+`</div>`+'</div></div>')
-			   $("#chat_lst_box .nice-wrapper").append(dom);
-			   stopRecoarding(uuid_,date,dom.find(".i_said"))
+			
+			   stopRecoarding(uuid_,date,function(fileName){
+				   alert(fileName)
+				     insertMsg("I",{
+										chatId: uuid_,
+										from: "I",
+										fromType: userType,
+										writeDate: date ,
+										message:{
+											type: "audio",
+											name: fileName,
+											mime: "none"
+										}
+									}
+								)
+			   })
         }
     },
    	swipeStatus:function(event, phase, direction, distance, duration, fingers, fingerData, currentDirection){

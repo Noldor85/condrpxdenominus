@@ -38,22 +38,24 @@ function replaceGuestInfo(data,estate,t){
 		$("[section-name=guest] .save_btn").show()
 		
 	}else{
-		if (data.guest) {
-			var stime = Int2Time(data.guest.startTime)
-			$("#guestNotifyIn").prop('checked', data.guest.notification);
-			$("#guestPermanent").prop('checked', data.guest.permanent);
-			$("#guestDateStart").val(normalDateOnly(data.guest.startDate))
-			$("#guestStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
+		var stime = Int2Time(data.guest.startTime)
+		$("#guestNotifyIn").prop('checked', data.guest.notification);
+		$("#guestPermanent").prop('checked', data.guest.permanent);
+		$("#guestDateStart").val(normalDateOnly(data.guest.startDate))
+		$("#guestStartTime").val(zeroPad(stime.h,2)+":"+zeroPad(stime.m,2))
+		if(!$("#guestPermanent").is(":checked")){
+			$("#guestDateStart").parents("tr").show()
+			$("#guestStartTime").parents("tr").show()
+		}else{
+			 $("#guestDateStart").parents("tr").hide()
+			 $("#guestStartTime").parents("tr").hide()
 		}
-		
-		if (data.plates) {
-			data.plates.forEach(function(plate){
-				var domPlate = requestPlateDOM()
-				domPlate.find("input").val(plate.plate)
-				domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
-				$("#guestCar #cars_table tbody").append(domPlate)
-			})
-		}
+		data.plates.forEach(function(plate){
+			var domPlate = requestPlateDOM()
+			domPlate.find("input").val(plate.plate)
+			domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
+			$("#guestCar #cars_table tbody").append(domPlate)
+		})
 		
 		
 		
@@ -63,6 +65,16 @@ function replaceGuestInfo(data,estate,t){
 	}
 	
 }
+
+$("#guestPermanent").change(function(){
+	if(!$(this).is(":checked")){
+		 $("#guestDateStart").parents("tr").show()
+		 $("#guestStartTime").parents("tr").show()
+	}else{
+		 $("#guestDateStart").parents("tr").hide()
+		 $("#guestStartTime").parents("tr").hide()
+	}
+})
 
 
 

@@ -1,4 +1,5 @@
 function addBillCard(obj){
+	console.log(obj)
 	var dateAsArray = $("#selectMonthBill").val().split("-")
 	var dueDateTime =     new Date(obj.dueDate).getTime()
 	var firsDayMonthSel = new Date($("#selectMonthBill").val()+"-01").getTime()
@@ -8,13 +9,20 @@ function addBillCard(obj){
 	console.log("firsDayMonthSel",firsDayMonthSel)
 	console.log("lastDayMonthSel",lastDayMonthSel)
 	if(obj.status != "C"  || (firsDayMonthSel<=dueDateTime && dueDateTime <=lastDayMonthSel)){
-		dom = $('<div class="bill"><div class="chat_lst_element_picture"><i class="fa"></i></div><div class="chat_lst_element_info"><div class="chat_lst_element_who"></div><div class="bill_description"></div><div class="bill_status"></div><div class="bill_amount"></div></div><div class="chat_lst_element_right"> <div class="pay_bill"> <i class="fa fa-credit-card-alt" aria-hidden="true"></i></div></div></div>')
+		dom = $('<div class="bill"><div class="chat_lst_element_picture"><i class="fa"></i></div><div class="chat_lst_element_info"><div class="chat_lst_element_who"></div><div class="bill_description"></div><div class="bill_status"></div><div class="bill_amount"></div></div><div class="chat_lst_element_right"> <div class="pay_bill" section-target="payForm"> <i class="fa fa-credit-card-alt" aria-hidden="true"></i></div></div></div>')
 		dom.attr("id","bill"+obj.id)
 		dom.attr("amount",obj.amount)
 		dom.find(".chat_lst_element_picture i").addClass(obj.image)
 		dom.find(".chat_lst_element_who").html(obj.item)
 		dom.find(".bill_description").html(obj.description)
 		dom.find(".bill_amount").html(obj.amount.thousand()+ " "+obj.currency)
+		
+		var payBtn = dom.find(".pay_bill")
+		payBtn.attr("amount",obj.amount)
+		payBtn.attr("currency",obj.currency)
+		payBtn.attr("item",obj.item)
+		payBtn.attr("description",obj.description)
+		
 	
 		if(obj.status == "P" && dueDateTime < new Date().getTime()){
 			obj.status == "E"

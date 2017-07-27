@@ -28,7 +28,7 @@
 		<link rel="stylesheet" type="text/css" href="lib/select2/css/select2.min.css" />
 		
 		<link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
-        <title>Condominus</title>
+        <title>Condominux</title>
     </head>
     <body>
 		<canvas id="canvas"></canvas>
@@ -61,7 +61,7 @@
 			 <div id="modal"></div>
 			  <nav id="main_menu">
 					<div id="condo_logo"  section-target="home" i18Trans="START" i18Target="section-title">
-						Condominus &nbsp;
+						Condominux &nbsp;
 					</div>
 					<ul>
 						<li class="menu_nav"section-target="residents"><a i18Trans="RESIDENTS"></a></li>
@@ -375,7 +375,7 @@
 									
 									<div id="qrcode">
 									</div>
-
+									
 									<div class="share_btn"><i class="fa fa-share-alt" aria-hidden="true"></i></div>
 									
 									
@@ -589,6 +589,51 @@
 							
 					</div>
 					
+					
+					<div section-name="payForm" class="section_page">
+						<nav id="payform" class="chat_action_bar">
+								<i class="fa fa-chevron-left" aria-hidden="true" section-target="bills" i18Trans="BILLS" i18Target="section-title"></i>
+								<div class="title"></div>
+								<div class="action">
+									<div class="cards"></div>
+								</div>
+						</nav>
+						
+						<div id="payForm" class="togglePanel get-nicer active">
+							<div class="nice-wrapper">
+								<div class="padding10">
+									<div class="completeBillInfo">
+										<h4 id="completeBillInfo_item"></h4>
+										<div id="completeBillInfo_description"></div>
+										<table class="billDetails">
+											<tr><th i18Trans="AMOUNT"></th><td id="billAmount"></td></tr>
+											<tr><th i18Trans="TAX"></th><td id="billTax"></td></tr>
+											<tr><th i18Trans="RATE"></th><td id="billRate"></td></tr>
+											<tr><th i18Trans="FEE"></th><td id="billFee"></td></tr>
+											<tr><th i18Trans="TOTAL"></th><th id="billTotal"></th></tr>
+											
+										</table>
+										<div class="payData">
+											<input id="credit_holder" type="phone" i18Trans="NAME" i18Target="placeholder"/>
+											<input id="credit_id" type="phone" i18Trans="CARD_NUMBER" i18Target="placeholder"/>
+											<i class="fa fa-camera-retro" aria-hidden="true" id="card_scan"></i>
+											
+											<br>
+											<input id="credit_month"type="phone" max-length="2" placeholder="MM"/> / <input id="credit_year"type="phone" max-length="2"placeholder="YYYY"/>
+											<br>
+											<div id="credit_type"></div><input id="credit_ccv" type="phone" placeholder="CCV"/>
+										</div>
+										
+										<div class="payBtn" i18Trans="PAY"></div>
+									</div>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					
 					 <div section-name="resource" class="section_page">
 						<nav id="ResourceNav" class="chat_action_bar">
 								<i class="fa fa-chevron-left" aria-hidden="true" section-target="bookin" i18Trans="BOOKINGS" i18Target="section-title"></i>
@@ -791,12 +836,12 @@
 	
         <script type="text/javascript" src="js/globals.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
         <script type="text/javascript" src="push.js"></script>
 		<script type="text/javascript" src="SQLitePlugin.js"></script>
 		<script type="text/javascript" src="lib/hamster/hamster.js"></script>
 		<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
         <script type="text/javascript" src="js/i18next-1.8.0.min.js"></script>
-        <!--<script type="text/javascript" src="js/ln.js"></script>-->
 		<script type="text/javascript" src="js/mobile-events.js"></script>
 		<script type="text/javascript" src="js/TouchSwipe.js"></script>
 		<script type="text/javascript" src="js/pouchdb-6.1.2.min.js"></script>
@@ -846,6 +891,7 @@
 		<script type="text/javascript" src="js/pages/services.js"></script>
 		<script type="text/javascript" src="js/pages/resources.js"></script>
 		<script type="text/javascript" src="js/pages/bills.js"></script>
+		<script type="text/javascript" src="js/pages/payForm.js"></script>
 	
 
 

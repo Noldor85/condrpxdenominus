@@ -6,7 +6,7 @@
         id        = "com.efika.condominus"
         version   = "1.0.0">
 
-    <name>Condominus</name>
+    <name>Condominux</name>
 
     <description>
         Programa de administracion de condominios
@@ -38,6 +38,7 @@
 	
 	
 		  <!-- android: MIN SDK version supported on the target device. MAX version is blank by default. -->
+		  <preference name="android-minSdkVersion" value="19" />
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->
     <preference name="android-build-tool" value="gradle" />
 	<preference name="android-windowSoftInputMode" value="stateVisible|adjustResize"/>
@@ -47,11 +48,12 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
+	
 	<gap:plugin name="cordova-custom-config" source="npm"/>
 	<gap:plugin name="cordova-plugin-pushplugin" source="npm"/>
-    <gap:plugin name="cordova-plugin-statusbar" source="npm"/>
-    <gap:plugin name="cordova-plugin-splashscreen" source="npm"/>
-    <gap:plugin name="cordova-plugin-file" source="npm"  version="1.0.1"/>
+    
+    <gap:plugin name="cordova-plugin-splashscreen" source="npm" />
+    <gap:plugin name="cordova-plugin-file" source="npm"/>
     <gap:plugin name="cordova-plugin-file-transfer" source="npm"/>
     <gap:plugin name="cordova-plugin-file-opener2" source="npm"/>
     <gap:plugin name="cordova-plugin-filepath" source="npm"/>
@@ -70,24 +72,32 @@
     </gap:plugin>
 	<plugin spec="https://github.com/litehelpers/Cordova-sqlite-evcore-extbuild-free.git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git" />
-	<plugin spec="https://github.com/fastrde/cordova-plugin-fastrde-downloader.git" />
+
 	<plugin spec="http://github.com/don/cordova-filechooser.git" />
 	<plugin spec="https://github.com/wymsee/cordova-HTTP.git" />
 	<plugin spec="https://github.com/peutetre/PhoneGap-PhoneDialer.git" />
-	<plugin spec="https://github.com/apache/cordova-plugin-camera.git" />
+	<plugin spec="https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git" />
+<!--	<plugin spec="https://github.com/taracque/cordova-plugin-braintree" />-->
+	<plugin spec="https://github.com/card-io/card.io-Cordova-Plugin" />
+		<plugin spec="https://github.com/jasj/cordova-plugin-fastrde-downloader.git" />
+		<plugin spec="https://github.com/jasj/cordova-plugin-fastrde-md5.git" />
 	<gap:plugin name="cordova-plugin-camera" source="npm"/>
     <gap:plugin name="cordova-plugin-media-capture" source="npm"/>
     <gap:plugin name="cordova-plugin-contacts" source="npm"/>
     <gap:plugin name="cordova-plugin-device" source="npm"/>
     <gap:plugin name="cordova-plugin-dialogs" source="npm"/>
-    <gap:plugin name="cordova-plugin-geolocation" source="npm" />
+    <gap:plugin name="cordova-plugin-zip" source="npm"/>
     <gap:plugin name="cordova-plugin-globalization" source="npm"/>
     <gap:plugin name="cordova-plugin-inappbrowser" source="npm"/>
     <gap:plugin name="cordova-plugin-media" source="npm"/>
     <gap:plugin name="cordova-plugin-network-information" source="npm"/>
     <gap:plugin name="cordova-plugin-vibration" source="npm"/>
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-	<gap:plugin name="cordova-plugin-x-toast" source="npm" />
+	<gap:plugin name="cordova-plugin-statusbar" source="npm"/>
+
+<!--	<gap:plugin name="com.paypal.cordova.mobilesdk" source="npm" />-->
+	
+
 	
 
 
@@ -153,9 +163,6 @@
 	<allow-navigation href="http://*/*" />
 	<allow-navigation href="https://*/*" />
 	
-	
-	
-
 	<preference name="android-manifest/application/activity/@android:theme" value="@android:style/Theme.Holo.Light" />
-
+	
 </widget>
