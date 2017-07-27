@@ -503,7 +503,7 @@ function insertMsg(from,msg_){
 }
 
 function insertChat(chat){
-	var dom = $(`<div id="`+ chat.id+`"  class="chat_lst_element" section-target="msgChat"  i18Trans="CHAT" i18Target="section-title" section-fx-parameters="'`+ chat.chatId+`'">
+	var dom = $(`<div id="`+ chat.id+`"  class="chat_lst_element" section-target="msgChat" section-title="CHAT" section-fx-parameters="'`+ chat.chatId+`'">
 								<div class="chat_lst_element_picture">
 									<i class="fa fa-user`+(chat.isGroup==1? "s" : "")+`"></i>
 								</div>
@@ -544,7 +544,7 @@ function insertChat(chat){
 }
 
 function insertChatContact(contact,type){
-	var dom = $(`<div id="`+contact.id+`" class="chat_contact" type="`+type+`" section-target="msgChat" section-fx-parameters="'`+contact.chat+`'"  i18Trans="CHAT" i18Target="section-title" >
+	var dom = $(`<div id="`+contact.id+`" class="chat_contact" type="`+type+`" section-target="msgChat" section-fx-parameters="'`+contact.chat+`'"  section-title="CHAT" >
 					<i class="fa fa-`+type+`"></i> <span class="chat_lst_element_who">`+ contact.name+`</span> 
 				</div>`)
 	$('[tab-name='+(type=="user"? "Employee" : "Department")+'] .nice-wrapper').append(dom)

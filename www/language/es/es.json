@@ -181,7 +181,7 @@
     "ERROR_REQUEST_SERVICE": "No se pudo solicitar el servicio",
     "CANCEL_SERVICE": "Cancelar servicio",
     "CANCEL_SERVICE_CONFIRMATION": "¿Seguro que desea cancelar el servicio de ",
-    "SWITCH_ESTATE_HEADER": "Cambio Propiedad",
+    "SWITCH_ESTATE_HEADER": "Cambio de Propiedad",
     "SWITCH_ESTATE_DETAIL": "Ha cambiado a la propiedad ",
     "ESTATE_ADDED": "Propiedad agregada",
     "SOMETHING_WENT_WRONG": "Algo salió mal",
@@ -235,5 +235,6 @@
     "AUTHORIZED_RES": "Autorizado",
     "ENTRY_AUTHORIZED": "Se autorizo el ingreso a ",
     "REJECTED": "Rechazado",
-    "ENTRY_REJECTED": "Se rechazo el ingreso a "
+    "ENTRY_REJECTED": "Se rechazo el ingreso a ",
+    "START": "Inicio"
 }
