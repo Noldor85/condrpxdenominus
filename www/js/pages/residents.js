@@ -12,17 +12,19 @@ function requestHabitantList(version,old,estate){
 		$(".loading").fadeIn()
 		_post("/condominus/guest/read/byEstate",tempObj,function(data){
 			$(".loading").fadeOut()
-			if(old != undefined){
-				var guests = data.guests || []
-				var newIdexes =  guests.map(function(t){return t.guestId})
-				var deleted = data.deleted || []
-				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
-				data.guests = old.guests.concat(guests)
+			if(data.version !=null){
+				if(old != undefined){
+					var guests = data.guests || []
+					var newIdexes =  guests.map(function(t){return t.guestId})
+					var deleted = data.deleted || []
+					old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
+					data.guests = old.guests.concat(guests)
+				}
+				db.upsert4Guest("residents",estate.guestId,data)
+				data.guests.forEach(function(entry){
+					addHabitant(entry,estate)
+				})
 			}
-			db.upsert4Guest("residents",estate.guestId,data)
-			data.guests.forEach(function(entry){
-				addHabitant(entry,estate)
-			})
 			
 		},function(err){
 			window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))

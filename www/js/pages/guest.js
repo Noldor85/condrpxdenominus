@@ -1,7 +1,8 @@
 
 function addGuest(obj,estate){
 	var dom = requestPeopleDOM()
-	var phone = obj.phone.replace(phoneRegEx,"$1")
+	
+	var phone =  obj.phone == null ? "" : obj.phone.replace(phoneRegEx,"$1")
 	dom.attr("id","per"+obj.guestId)
 	dom.attr("section-target", "guest")
 	dom.attr("section-title", $.t("GUESTS"))
@@ -50,12 +51,23 @@ function replaceGuestInfo(data,estate,t){
 			 $("#guestDateStart").parents("tr").hide()
 			 $("#guestStartTime").parents("tr").hide()
 		}
+		
+		if("entryCode" in data.guest && data.guest.entryCode != null){
+			createPDF417("guestCodeCanvas",data.guest.entryCode)
+			$(".circle.bottom").show()
+		}else{
+			$(".circle.bottom").hide()
+		}
+		
+		
 		data.plates.forEach(function(plate){
 			var domPlate = requestPlateDOM()
 			domPlate.find("input").val(plate.plate)
 			domPlate.find("select option[value="+plate.type+"]").attr("selected", "selected");
 			$("#guestCar #cars_table tbody").append(domPlate)
 		})
+		
+		
 		
 		
 		
@@ -78,6 +90,23 @@ $("#guestPermanent").change(function(){
 
 
 
+
+
+$(document).on("tapend","#guestNav .fa-ellipsis-v",function(ev){
+	$(".circle.left .label").html($.t("VEHICULE_AUTH"))
+	$(".circle.left").removeClass("fa-bookmark").addClass("fa-car")
+	$(".internalMenu").fadeIn();
+	$(".circle.left").animate({"margin-left": "-150px", "margin-top": "-40px"},function(){$(".circle.left .label").fadeIn()})
+	$(".circle.top").animate({"margin-left": "-50px", "margin-top": "-150px"},function(){$(".circle.top .label").fadeIn()})
+	$(".circle.right").animate({"margin-left": "50px", "margin-top": "-40px"},function(){$(".circle.right .label").fadeIn()})
+	$(".circle.bottom").animate({"margin-left": "-50px", "margin-top": "60px"},function(){$(".circle.bottom .label").fadeIn()})
+	
+	internalMenuTarget = "guest"
+})
+
+
+
+
 $(document).on("tapend","#guestNav .fa-car",function(ev){
 	$(this).removeClass("fa-car").addClass("fa-address-card-o")
 	$("#guestInfo").removeClass("active");
@@ -96,12 +125,19 @@ $(document).on("tapend","#guestNav .fa-address-card-o",function(ev){
 
 
 
+
+
 guest = {
 	init : function(t){
+		currentPersonIdCode = undefined
 		currentPersonId = $(t).attr("id").substr(3);
+		$("#guestDateStart").parents("tr").show()
+		$("#guestStartTime").parents("tr").show()
 		$("#guestNav .title").html($(t).find(".chat_lst_element_who").length ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_GUEST"))
-		$("[section-name=guest]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-car")
+		$(".circle").removeClass("active")
+		$(".circle.top").addClass("active")
 		$("#guestCar").removeClass("active");
+		$("#guestCode").removeClass("active");
 		$("#guestInfo").addClass("active")
 		replaceGuestInfo()
 		loginInfo(function(doc){getOnePerson(currentPersonId,doc.estates[estateSelected],replaceGuestInfo,t)})
@@ -118,6 +154,7 @@ guest = {
 			"personalId" :  $("#guestId").val(),
 			"type" : "V",
 			"phone" :$("#guestPhone").val(),
+			"temporalCode" : false,
 			"vehicles" : getPlatesObj("#guestCar"),
 			"notification" : $("#guestNotifyIn").is(":checked") ,
 			"permanent" : $("#guestPermanent").is(":checked"),
@@ -129,6 +166,10 @@ guest = {
 		
 		if(currentPersonId != -1){
 				tempObj.guestId = currentPersonId
+		}else if(currentPersonIdCode != undefined){
+			tempObj.entryCode = currentPersonIdCode
+		}else{
+			tempObj.temporalCode = true
 		}
 		
 		console.log("tempObj",tempObj)

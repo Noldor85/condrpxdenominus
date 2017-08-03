@@ -11,7 +11,7 @@ function checkPreviusLogin(){
 		console.log(tempObj)
 				_post("/security/checkLogin",tempObj,function(data){
 					loginObj = data;
-					 fillUserConfig(data)
+					 fillUserConfigLogin(data)
 					 requestDashboardInfo()
 					$("#login").fadeOut();
 					requestDashboardInfo()
@@ -115,7 +115,7 @@ $(".login--Credentials").tapend(function(){
 			
 			 loginId = data.loginId;
 			 loginObj= data
-			  fillUserConfig(data)
+			  fillUserConfigLogin(data)
 			
 			db.bulkDocs([
 				Object.assign({"_id" : "email"},{email : tempObj.user}),

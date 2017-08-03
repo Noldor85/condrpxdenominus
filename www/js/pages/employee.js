@@ -66,6 +66,13 @@ function replaceEmployeeInfo(data,estate,t){
 			$("#employeeEndTime").val(zeroPad(etime.h,2)+":"+zeroPad(etime.m,2))
 			
 			checkMask(data.guest.mask)
+			
+			if("entryCode" in data.guest && data.guest.entryCode != null){
+				createPDF417("employeeCodeCanvas",data.guest.entryCode)
+				$(".circle.bottom").show()
+			}else{
+				$(".circle.bottom").hide()
+			}
 		}
 		$("[section-name=employee] .save_btn").css({"display" : (estate.type == "O" || estate.type == "T"  )? "block" : "none"})
 	}
@@ -152,6 +159,20 @@ $(document).on("change","#selectMonth",function(){
 	filertLogs($(this).val())
 })
 
+
+
+$(document).on("tapend","#employeeNav .fa-ellipsis-v",function(ev){
+	$(".circle.left .label").html($.t("LOG_MARK"))
+	$(".circle.left").removeClass("fa-car").addClass("fa-bookmark")
+	$(".internalMenu").fadeIn();
+	$(".circle.left").animate({"margin-left": "-150px", "margin-top": "-40px"},function(){$(".circle.left .label").fadeIn()})
+	$(".circle.top").animate({"margin-left": "-50px", "margin-top": "-150px"},function(){$(".circle.top .label").fadeIn()})
+	$(".circle.right").animate({"margin-left": "50px", "margin-top": "-40px"},function(){$(".circle.right .label").fadeIn()})
+	$(".circle.bottom").animate({"margin-left": "-50px", "margin-top": "60px"},function(){$(".circle.bottom .label").fadeIn()})
+	
+	internalMenuTarget = "employee"
+})
+
 $(document).on("tapend","#employeeNav .fa-bookmark",function(ev){
 	$(this).removeClass("bookmark").addClass("fa-address-card-o")
 	$("#employeeInfo").removeClass("active");
@@ -170,10 +191,13 @@ $(document).on("tapend","#employeeNav .fa-address-card-o",function(ev){
 
 employee = {
 	init : function(t){
+		currentPersonIdCode = undefined
 		currentPersonId = $(t).attr("id").substr(3);
 		$("#employeeNav .title").html($(t).find(".chat_lst_element_who").length > 0 ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_EMPLOYEE"))
-		$("[section-name=employee]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-bookmark")
+		$(".circle").removeClass("active")
+		$(".circle.top").addClass("active")
 		$("#employeeBookmark").removeClass("active");
+		$("#employeeCode").removeClass("active");
 		$("#employeeInfo").addClass("active")
 		replaceEmployeeInfo()
 		loginInfo(function(doc){getOnePerson(currentPersonId,doc.estates[estateSelected],replaceEmployeeInfo,t)})
@@ -196,13 +220,17 @@ employee = {
 				"startTime": parseInt($("#employeeStartTime").val().replace(":","")),
 				"endTime": parseInt($("#employeeEndTime").val().replace(":","")),
 				"maskDaysWeek" : getMaskWeek(),
-				
+				"temporalCode" : false,
 				"permanent": false
 			}
 			console.log(tempObj)
 			
 			if(currentPersonId != -1){
-					tempObj.guestId = currentPersonId
+				tempObj.guestId = currentPersonId
+			}else if(currentPersonIdCode != undefined){
+				tempObj.entryCode = currentPersonIdCode
+			}else{
+				tempObj.temporalCode = true
 			}
 			
 			_post("/condominus/guest/manage/entry",tempObj,function(data){

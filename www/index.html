@@ -49,9 +49,9 @@
 				<label i18Trans="PASSWORD"></label>
 			</div>
 			<p id="login_info_txt"></p>
-			<button class="loginBtn login--Credentials" i18Trans="LOGIN"></button>
-			<button class="loginBtn loginBtn--facebook" i18Trans="FACEBOOK_LOGIN"></button>
-			<button class="loginBtn loginBtn--google" i18Trans="GOOGLE_LOGIN"></button>
+			<button class="loginBtn login--Credentials" i18Trans="LOGIN" section-target="home"></button>
+			<button class="loginBtn loginBtn--facebook" i18Trans="FACEBOOK_LOGIN" section-target="home"></button>
+			<button class="loginBtn loginBtn--google" i18Trans="GOOGLE_LOGIN" section-target="home"></button>
 			<a href="" i18Trans="CANT_SIGN"></a>
 			<a href="" i18Trans="REGISTER_ACCOUNT"></a>
 		</div>
@@ -353,7 +353,7 @@
 								<i class="fa fa-chevron-left" aria-hidden="true" section-target="residents" i18Trans="ENTRIES" i18Target="section-title"></i>
 								<div class="title" i18Trans="VISIT"></div>
 								<div class="action">
-									<div class="fa fa-car"></div>
+									<div class="fa fa-ellipsis-v"></div>
 								</div>
 						</nav>
 						<div id="habitantInfo" class="addPerson_select_type_container get-nicer togglePanel active">
@@ -401,6 +401,16 @@
 								
 								</div>
 							</div>
+							
+							<div id="habitantCode" class=" get-nicer togglePanel">
+								<div class="nice-wrapper full"> 
+								<div class="pdf417_container">
+									<canvas id="habitantCodeCanvas" class="pdf417"></canvas>
+								</div>
+									<div class="shareBtn fa fa-share-alt"></div>
+								
+								</div>
+							</div>
 							<div class="save_btn"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>
 							
 					</div>
@@ -413,7 +423,7 @@
 								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries"  i18Trans="ENTRIES" i18Target="section-title"></i>
 								<div class="title" i18Trans="VISIT"></div>
 								<div class="action">
-									<div class="fa fa-car"></div>
+									<div class="fa fa-ellipsis-v"></div>
 								</div>
 						</nav>
 						<div id="guestInfo" class="addPerson_select_type_container get-nicer togglePanel active">
@@ -483,6 +493,16 @@
 								
 								</div>
 							</div>
+							
+							<div id="guestCode" class=" get-nicer togglePanel">
+								<div class="nice-wrapper full"> 
+								<div class="pdf417_container">
+									<canvas id="guestCodeCanvas" class="pdf417"></canvas>
+								</div>
+									<div class="shareBtn fa fa-share-alt"></div>
+								
+								</div>
+							</div>
 							<div class="save_btn"><i class="fa fa-floppy-o" aria-hidden="true"></i></div>
 					</div>
 					
@@ -493,9 +513,10 @@
 								<i class="fa fa-chevron-left" aria-hidden="true" section-target="entries" i18Trans="ENTRIES" i18Target="section-title"></i>
 								<div class="title"></div>
 								<div class="action">
-									<div class="fa fa-bookmark"></div>
+									<div class="fa fa-ellipsis-v"></div>
 								</div>
 						</nav>
+						
 						<div id="employeeInfo" class="addPerson_select_type_container get-nicer togglePanel active">
 							<div class="nice-wrapper">
 								<table class="form">
@@ -543,16 +564,16 @@
 									
 									<table class="chekbox_table">
 								<tr>
-									<td>L</td><td><div class="checkbox"/></div></td>
-									<td>K</td><td><div class="checkbox check"/></div></td>
-									<td>M</td><td><div class="checkbox"/></div></td>
-									<td>J</td><td><div class="checkbox check"/></div></td>
+									<td>L</td><td><div class="checkbox"></div></td>
+									<td>K</td><td><div class="checkbox check"></div></td>
+									<td>M</td><td><div class="checkbox"></div></td>
+									<td>J</td><td><div class="checkbox check"></div></td>
 								</tr>
 								<tr>
 									
-									<td>V</td><td><div class="checkbox"/></div></td>
-									<td>S</td><td><div class="checkbox"/></div></td>
-									<td>D</td><td><div class="checkbox"/></div></td>
+									<td>V</td><td><div class="checkbox"></div></td>
+									<td>S</td><td><div class="checkbox"></div></td>
+									<td>D</td><td><div class="checkbox"></div></td>
 								</tr>
 							</table>
 									
@@ -561,6 +582,16 @@
 									<div class="bottomDiv"></div>
 								</div>
 							</div>	
+							
+							<div id="employeeCode" class=" get-nicer togglePanel">
+								<div class="nice-wrapper full"> 
+								<div class="pdf417_container">
+									<canvas id="employeeCodeCanvas" class="pdf417"></canvas>
+								</div>
+									<div class="shareBtn fa fa-share-alt"></div>
+								
+								</div>
+							</div>
 							
 							
 							<div id="employeeBookmark" class="togglePanel">
@@ -828,6 +859,13 @@
 			</div>
 		</div>
 		
+		<div class="internalMenu">
+			<div class="circle left fa fa-car"><div class="label" i18Trans="VEHICULE_AUTH"></div></div>
+			<div class="circle top fa fa-info active"><div class="label" i18Trans="INFO"></div></div>
+			<div class="circle right fa fa-id-card-o"><div class="label" i18Trans="SCAN_IDCARD"></div></div>
+			<div class="circle bottom fa fa-barcode"><div class="label" i18Trans="SHOW_CODE"></div></div>
+		</div>
+		
 		<div id="slide_menu"></div>
 		<div id="invisibleTap"></div>
 
@@ -836,7 +874,6 @@
 	
         <script type="text/javascript" src="js/globals.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-		<script type="text/javascript" src="js/paypal-mobile-js-helper.js"></script>
         <script type="text/javascript" src="push.js"></script>
 		<script type="text/javascript" src="SQLitePlugin.js"></script>
 		<script type="text/javascript" src="lib/hamster/hamster.js"></script>
@@ -878,6 +915,8 @@
 		<script type="text/javascript" src="js/menu.js"></script>
 		<!--script type="text/javascript" src="js/sim.js"></script-->
 		<script type="text/javascript" src="js/pushDriver.js"></script>
+		<script type="text/javascript" src="js/pdf417.js"></script>
+		<script type="text/javascript" src="js/bcmath-min.js"></script>
 		<!-- pages scripts -->
 		<script type="text/javascript" src="js/pages/home.js"></script>
 		<script type="text/javascript" src="js/pages/user.js"></script>

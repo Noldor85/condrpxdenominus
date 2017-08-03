@@ -64,6 +64,13 @@ function replaceHabitantInfo(data,estate,t){
 			$("#qrcode").show()
 			$(".share_btn").show()
 		}
+		
+		if("entryCode" in data.guest && data.guest.entryCode != null){
+			createPDF417("habitantCodeCanvas",data.guest.entryCode)
+			$(".circle.bottom").show()
+		}else{
+			$(".circle.bottom").hide()
+		}
 	
 		if (data.plates) {
 			data.plates.forEach(function(plate){
@@ -83,6 +90,18 @@ function replaceHabitantInfo(data,estate,t){
 }
 
 
+
+$(document).on("tapend","#habitantNav .fa-ellipsis-v",function(ev){
+	$(".circle.left .label").html($.t("VEHICULE_AUTH"))
+	$(".circle.left").removeClass("fa-bookmark").addClass("fa-car")
+	$(".internalMenu").fadeIn();
+	$(".circle.left").animate({"margin-left": "-150px", "margin-top": "-40px"},function(){$(".circle.left .label").fadeIn()})
+	$(".circle.top").animate({"margin-left": "-50px", "margin-top": "-150px"},function(){$(".circle.top .label").fadeIn()})
+	$(".circle.right").animate({"margin-left": "50px", "margin-top": "-40px"},function(){$(".circle.right .label").fadeIn()})
+	$(".circle.bottom").animate({"margin-left": "-50px", "margin-top": "60px"},function(){$(".circle.bottom .label").fadeIn()})
+	
+	internalMenuTarget = "habitant"
+})
 
 $(document).on("tapend","#habitantNav .fa-car",function(ev){
 	$(this).removeClass("fa-car").addClass("fa-address-card-o")
@@ -109,9 +128,12 @@ $(document).on("tapend",".share_btn",function(ev){
 
 habitant  = {
 	init : function(t){
+		currentPersonIdCode = undefined
 		currentPersonId = $(t).attr("id").substr(3);
 		$("#habitantNav .title").html(($(t).find(".chat_lst_element_who").length >0) ? $(t).find(".chat_lst_element_who").html() : $.t("NEW_HABITANT"))
-		$("[section-name=habitant]").find(".fa-address-card-o").removeClass("fa-address-card-o").addClass("fa-car")
+		$(".circle").removeClass("active")
+		$(".circle.top").addClass("active")
+		$("#habitantCode").removeClass("active");
 		$("#habitantCar").removeClass("active");
 		$("#habitantInfo").addClass("active")
 		replaceHabitantInfo()
@@ -127,12 +149,18 @@ habitant  = {
 				"name" : $("#habitantName").val(),
 				"personalId" :  $("#habitantId").val(),
 				"type" : "G",
+				"temporalCode" : false,
 				"phone" :$("#habitantPhone").val(),
 				"vehicles" : getPlatesObj("#habitantCar")
 			}
 			if(currentPersonId != -1){
 				tempObj.guestId = currentPersonId
+			}else if(currentPersonIdCode != undefined){
+				tempObj.entryCode = currentPersonIdCode
+			}else{
+				tempObj.temporalCode = true
 			}
+			
 			_post("/condominus/guest/manage/habitant",tempObj,function(data){
 				if(currentPersonId != -1){
 					showInfoD($.t("UPDATED_HABITANT_HEADER"),$.t("UPDATED_HABITANT_DETAIL"))

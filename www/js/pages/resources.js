@@ -1,18 +1,5 @@
 var currenetResourceId;
-
-var dict = {
-	timeunits : {
-		"MIN" : $.t("MINUTES_DICT"),
-		"HR" : $.t("HOURS_DICT"),
-		"DAYS" : $.t("DAYS_DICT"),
-		
-	},
-	current: {
-		"DAY" 	: $.t("DAY_DIC"),
-		"WEEK" 	: $.t("WEEK_DIC"),
-		"MONTH" : $.t("MONTH_DIC")
-	}
-}
+ 
 
 var resourceSchedules ={}
 
@@ -70,15 +57,25 @@ function requestResourceList(version,old){
 	$(".loading").fadeIn()
 	console.log(version)
 	_post("/condominus/resource/read",{version: version},function(data){
-		if(old != undefined){
-			var newIdexes = data.resources.map(function(t){return t.id})
-			old.resources = old.resources.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
-			data.resources = old.resources.concat(data.resources)
+		console.log("old resoure lst",old)
+		if(data.version != null){
+			if(old != undefined){
+				console.log("old resoure lst",old)
+				var newIdexes = data.resources.map(function(t){return t.id})
+				old.resources = old.resources.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+				data.resources = old.resources.concat(data.resources)
+			}
+			db.upsert("resources",data)
+			
+			if(data.deleted != null){
+				data.deleted.forEach(function(rsr){
+					$("#rsr"+rsr).remove()
+				})
+			}
+			data.resources.forEach(function(resource){
+				addResourceCard(resource)
+			})
 		}
-		db.upsert("resources",data)
-		data.resources.forEach(function(resource){
-			addResourceCard(resource)
-		})
 		loginInfo(function(doc){getRequstResourceList(doc.estates[estateSelected])})
 	},function(err){
 		window.plugins.toast.showLongCenter($.t("ERROR_SYNC_RESOURCES"))

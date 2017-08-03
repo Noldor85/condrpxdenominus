@@ -288,7 +288,7 @@ div#dashboard {
     left: 0px;
     right: 0px;
     bottom: 0px;
-    top: 123px;
+    top: 113px;
     overflow: auto;
 }
 
@@ -978,9 +978,17 @@ input[type="month"], #selectMonth{
 }
 
 
-#employeeAccesLst,#billsCanceled_lst {
+#employeeAccesLst{
     position: fixed !important;
-    top: 169px;
+    top: 158px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#billsCanceled_lst {
+    position: fixed !important;
+    top: 166px;
     left: 0px;
     right: 0px;
     bottom: 0px;
@@ -1116,7 +1124,7 @@ input[type="month"], #selectMonth{
     margin-top: 5px;
     width: calc(100% + 140px);
     justify-content: space-between;
-    height: 62px;
+    height: 75px;
 }
 
 
@@ -1353,6 +1361,93 @@ table.billDetails {
     margin-left: calc(50% - 75px);
     text-align: center;
     margin-top: 20px;
+}
+
+
+.internalMenu {
+    background: rgba(80,80,80,0.8);
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 1;
+    display: none; 
+}
+
+.circle {
+    border-radius: 360px;
+    height: 100px;
+    width: 100px;
+    background: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 50px !important;
+    text-align: center;
+    line-height: 100px !important;
+    color: #0177D7;
+	margin-left: -50px;
+	margin-top: -50px;
+}
+
+.circle.left_ {
+    margin-left: -150px;
+    margin-top: -20px;
+}
+
+.circle .label {
+    font-size: 12px;
+    line-height: 16px;
+    color: white;
+    margin-top: 7px;
+    display: none;
+}
+
+.circle.active {
+    background: #0177D7;
+    color: white;
+	z-index: 1;
+}
+
+.shareBtn {
+    height: 58px;
+    width: 58px;
+    background-color: white;
+    border-radius: 360px;
+    line-height: 58px !important;
+    text-align: center;
+    font-size: 26px !important;
+    color: #0177D7;
+    position: fixed;
+    top: 100%;
+    left: 37px;
+    -webkit-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    -moz-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    box-shadow: 0px 1px 9px 5px rgba(200,200,220,0.8);
+    margin-top: -77px;
+    margin-left: -15px;
+}
+
+.nice-wrapper.full {
+    height: 100%;
+    display: table;
+    width: 100%;
+    margin-left: auto;
+}
+
+.pdf417 {
+    width: auto;
+    height: auto;
+    /* transform: rotate(90deg); */
+    margin-top: -60px;
+}
+
+.pdf417_container {
+	display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
 }
 
 

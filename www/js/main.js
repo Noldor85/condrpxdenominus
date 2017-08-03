@@ -92,5 +92,19 @@ $.i18n.init({ lng: navigator.language , resGetPath: 'language/__lng__/__lng__.js
 		}
 	});
 //	alert( $.t("app.name")) ;
-
+	// init variables with transtalation
+	mt = [$.t("JANUARY"),$.t("FEBRUARY"),$.t("MARCH"),$.t("APRIL"),$.t("MAY"),$.t("JUNE"),$.t("JULY"),$.t("AUGUST"),$.t("SEPTEMBER"),$.t("OCTOBER"),$.t("NOVEMBER"),$.t("DECEMBER")];
+	dict = {
+		timeunits : {
+			"MIN" : $.t("MINUTES_DICT"),
+			"HR" : $.t("HOURS_DICT"),
+			"DAYS" : $.t("DAYS_DICT"),
+			
+		},
+		current: {
+			"DAY" 	: $.t("DAY_DIC"),
+			"WEEK" 	: $.t("WEEK_DIC"),
+			"MONTH" : $.t("MONTH_DIC")
+		}
+	}
 });

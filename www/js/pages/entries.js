@@ -83,22 +83,24 @@ function requestEntryList(version,old,estate){
 		$(".loading").fadeIn()
 		_post("/condominus/guest/read/byEstate",tempObj,function(data){
 			$(".loading").fadeOut()
-			if(old != undefined){
-				console.log("aka9",data)
-				var guests = data.guests || []
-				var deleted = data.deleted || []
-				var newIdexes = guests.map(function(t){return t.guestId})
-				old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
-				data.guests = old.guests.concat(guests)
-			}
-			db.upsert4Guest("entries",estate.guestId,data)
-			data.guests.forEach(function(entry){
-				if(entry.type == "V"){
-				addGuest(entry,estate)
-				}else{
-					addEmployee(entry,estate)
+			if(data.version != null){
+				if(old != undefined){
+				
+					var guests = data.guests || []
+					var deleted = data.deleted || []
+					var newIdexes = guests.map(function(t){return t.guestId})
+					old.guests = old.guests.filter(function(t){return newIdexes.indexOf(t.guestId) < 0 && deleted.indexOf(t.guestId) <0 })
+					data.guests = old.guests.concat(guests)
 				}
-			})
+				db.upsert4Guest("entries",estate.guestId,data)
+				data.guests.forEach(function(entry){
+					if(entry.type == "V"){
+					addGuest(entry,estate)
+					}else{
+						addEmployee(entry,estate)
+					}
+				})
+			}
 			
 		},function(err){
 			window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
@@ -126,6 +128,16 @@ $(document).on("keyup",".searchBox input",function(){
 	
 	$("#guestList .people:contains("+$(this).val()+")").show()
 	$("#guestList .people:not(:contains("+$(this).val()+"))").hide()
+	$("#guestList").getNiceScroll().resize();
+	$("#guestList").getNiceScroll(0).doScrollTop(0, 0);
+})
+
+$(document).on("search",".searchBox input",function(){
+	
+	$("#guestList .people:contains("+$(this).val()+")").show()
+	$("#guestList .people:not(:contains("+$(this).val()+"))").hide()
+	$("#guestList").getNiceScroll().resize();
+	$("#guestList").getNiceScroll(0).doScrollTop(0, 0);
 })
 
 

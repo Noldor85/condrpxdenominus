@@ -26,7 +26,7 @@ function addServiceRqstHistCard(request,state){
 	retDom.find(".card_resource_id").css({"background-image" : service.find(".card_resource_id").css("background-image") })
 	retDom.find(".card_name").html(service.find(".card_name").html())
 	retDom.find(".service_description").html(request.description)
-	retDom.find(".service_cost").html(normalDate(request.requestDate))
+	retDom.find(".service_cost").html(normalDateLocal(request.requestDate))
 	
 	if($("#srvrsq"+request.id).length>0){
 		$("#srvrsq"+request.id).replaceWith(retDom)
@@ -42,16 +42,19 @@ function addServiceRqstHistCard(request,state){
 
 function requestServiceList(version,old){
 	_post("/condominus/service/read",{version: version},function(data){
-		if(old != undefined){
-			var newIdexes = data.services.map(function(t){return t.id})
-			old.services = old.services.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
-			data.services = old.services.concat(data.services)
+		if(data.version != null){
+			if(old != undefined){
+				var newIdexes = data.services.map(function(t){return t.id})
+				old.services = old.services.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+				data.services = old.services.concat(data.services)
+			}
+			db.upsert("services",data)
+			data.services.forEach(function(service){
+				addServiceCard(service)
+			})
 		}
-		db.upsert("services",data)
-		data.services.forEach(function(service){
-			addServiceCard(service)
-		})
 		loginInfo(function(doc){getRequstServiceList(doc.estates[estateSelected])})
+		
 		
 	},function(err){
 		window.plugins.toast.showLongCenter($.t("ERROR_SYNC"))
@@ -69,15 +72,17 @@ function requestServiceRqsList(version,old,estate){
 		}
 		_post("/condominus/service/byGuest/read",tempObj,function(data){
 			$(".loading").fadeOut()
-			if(old != undefined){
-				var newIdexes = data.services.map(function(t){return t.id})
-				old.services = old.services.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
-				data.services = old.services.concat(data.services)
+			if(data.version != null){
+				if(old != undefined){
+					var newIdexes = data.services.map(function(t){return t.id})
+					old.services = old.services.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+					data.services = old.services.concat(data.services)
+				}
+				db.upsert4Guest("servicesRequests",estate.guestId,data)
+				data.services.forEach(function(service){
+					addServiceRqstHistCard(service,estate)
+				})
 			}
-			db.upsert4Guest("servicesRequests",estate.guestId,data)
-			data.services.forEach(function(service){
-				addServiceRqstHistCard(service,estate)
-			})
 			
 		},function(err){
 			window.plugins.toast.showLongCenter($.t("ERROR_SYNC_SERVICES"))

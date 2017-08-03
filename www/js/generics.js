@@ -50,6 +50,7 @@ function showInfoD(title,text,okFx){
 	
 	
 	$('#modal1Btn').show();
+	$( document ).off('click','.okBtn')
 	$( document ).on('click','.okBtn',function(){
 		$('#modal1Btn').hide();
 		okFx();
@@ -62,10 +63,12 @@ function showAlert(title,text,yesFn,noFn){
 	$('#modal2Btn p').html(text);
 	
 	$('#modal2Btn').show();
+	$( document ).off('click','.yesBtn')
 	$( document ).on('click','.yesBtn',function(){
 		$('#modal2Btn').hide();
 		yesFn();
 	});
+	$( document ).off('click','.noBtn')
 	$( document ).on('click','.noBtn',function(){
 		$('#modal2Btn').hide();
 		noFn();
@@ -258,6 +261,52 @@ function normalDateLocal(date){
 
 function Int2Time(integer){
 	return {h : parseInt(integer/100),m: integer%100}
+}
+
+function createPDF417(target,text){
+		PDF417.init(text);
+		var barcode = PDF417.getBarcodeArray();
+
+           
+
+            var bw = 2;
+            var bh = 2;
+
+            var canvas = document.getElementById(target);
+            canvas.width = bw * barcode['num_cols'];
+            canvas.height = bh * barcode['num_rows'];
+			
+			
+            var ctx = canvas.getContext('2d');
+			ctx.beginPath();
+			ctx.rect(0, 0, canvas.width,  canvas.height);
+			ctx.fillStyle = "white";
+			ctx.fill();
+			ctx.fillStyle = "black";
+
+
+            // print barcode elements
+            var y = 0;
+            // for each row
+            for (var r = 0; r < barcode['num_rows']; ++r) {
+                var x = 0;
+                // for each column
+                for (var c = 0; c < barcode['num_cols']; ++c) {
+                    if (barcode['bcode'][r][c] == 1) {
+                        ctx.fillRect(x, y, bw, bh);
+                    }
+                    x += bw;
+                }
+                y += bh;
+            }
+        }
+
+function binaryAgent(str) {
+  var result = [];
+  for (var i = 0; i < str.length; i++) {
+    result.push([str.charCodeAt(i)]);
+  }
+  return result.join('');
 }
 
 
