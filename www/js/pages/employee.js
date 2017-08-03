@@ -91,13 +91,18 @@ function getMaskWeek(){
 
 
 function printLogs(logs){
+	console.log("los logs: ", logs)
+	$("#entryLog_table tbody").empty()
 	for(month in logs.logs){
+		console.log("sdssdsssnnn")
 		 logs.logs[month].forEach(function(log){
+		 	console.log("SSSSSSSSSSSSSSsss")
 			 var monthStr = month.split("-")
 			 monthStr[1] = zeroPad(monthStr[1],2)
 			 monthStr = monthStr.join("-")
 			 
 			 var dom =$('<tr month="'+monthStr+'"><td>'+normalDateLocal(log.entryDate)+'</td><td>'+(log.departureDate ==null ? "" : normalDateLocal(log.departureDate))+'</td></tr>')
+			 console.log(dom)
 			$("#entryLog_table tbody").append(dom)
 		})
 		
@@ -109,16 +114,37 @@ function printLogs(logs){
 	
 }
 
+function getNewLogs(old, newLogs) {
+	var oldO = {}
+	for (var i = 0; i < old.length; i++) {
+		var val = old[i]
+		oldO[val.entryLogId] = val
+	}
+
+	for (var i = 0; i < newLogs.length; i++) {
+		var val = newLogs[i]
+		oldO[val.entryLogId] = val
+	}
+
+	var mergeLogs = []
+	for (key in oldO) {
+		mergeLogs.push(oldO[key])
+	}
+	return mergeLogs
+}
+
 function insertLogs(logs,old){
 	if(old != undefined && old != null && typeof old == "object" && "logs" in old){
 		for(month in logs.logs){
 			if(month in old.logs){
-				Object.assign(old.logs[month],logs.logs[month])
+				// Object.assign(old.logs[month],logs.logs[month])
+				old.logs[month] = getNewLogs(old.logs[month],logs.logs[month])
 			}else{
 				old.logs[month] = logs.logs[month]
 			}
 			
 		}
+		old.version = (logs.version || old.version)
 	}else{old = logs}
 	
 	db.upsert("log_"+currentPersonId,old)
@@ -127,6 +153,7 @@ function insertLogs(logs,old){
 
 
 function getInOutEmployeeLog(){
+	console.log("sddddddddddd")
 	loginInfo(function(doc){
 		var tempObj =  {
 			"viewer" : doc.estates[estateSelected].guestId,
