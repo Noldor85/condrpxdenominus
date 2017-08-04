@@ -91,18 +91,14 @@ function getMaskWeek(){
 
 
 function printLogs(logs){
-	console.log("los logs: ", logs)
 	$("#entryLog_table tbody").empty()
 	for(month in logs.logs){
-		console.log("sdssdsssnnn")
 		 logs.logs[month].forEach(function(log){
-		 	console.log("SSSSSSSSSSSSSSsss")
 			 var monthStr = month.split("-")
 			 monthStr[1] = zeroPad(monthStr[1],2)
 			 monthStr = monthStr.join("-")
 			 
-			 var dom =$('<tr month="'+monthStr+'"><td>'+normalDateLocal(log.entryDate)+'</td><td>'+(log.departureDate ==null ? "" : normalDateLocal(log.departureDate))+'</td></tr>')
-			 console.log(dom)
+			var dom =$('<tr month="'+monthStr+'"><td>'+normalDateLocal(log.entryDate)+'</td><td>'+(log.departureDate ==null ? "" : normalDateLocal(log.departureDate))+'</td></tr>')
 			$("#entryLog_table tbody").append(dom)
 		})
 		
@@ -153,17 +149,14 @@ function insertLogs(logs,old){
 
 
 function getInOutEmployeeLog(){
-	console.log("sddddddddddd")
 	loginInfo(function(doc){
 		var tempObj =  {
 			"viewer" : doc.estates[estateSelected].guestId,
 			"guestId" : currentPersonId,
 			
 		}
-		console.log()
 		
 		db.get("log_"+currentPersonId).then(function(old){
-			console.log(old)
 			tempObj.version = old.version
 			_post("/condominus/guest/read/entryLog",tempObj,function(data){insertLogs(data,old)})
 		}).catch(function(e){
